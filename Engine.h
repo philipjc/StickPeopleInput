@@ -42,7 +42,7 @@ private:
     Texture m_background_texture_;
 
     // Is the game currently playing?
-    bool m_playing_ = false;
+    bool m_playing_ = true;
 
     // Is character 1 or 2 the current focus?
     bool m_character1_ = true;
@@ -55,7 +55,7 @@ private:
     Time m_game_time_total_;
 
     // Is it time for a new/first level?
-    bool m_new_level_required_ = true;
+    bool m_new_level_required_ = false;
 
     // Private functions for internal use only
     void Input();

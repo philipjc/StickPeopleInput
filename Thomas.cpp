@@ -13,6 +13,7 @@ Thomas::Thomas()
 bool Thomas::HandleInput()
 {
     m_just_jumped_ = false;
+
     if (Keyboard::isKeyPressed(Keyboard::W))
     {
         // Start a jump if not already jumping
@@ -29,6 +30,7 @@ bool Thomas::HandleInput()
         m_is_jumping_ = false;
         m_is_falling_ = true;
     }
+
     if (Keyboard::isKeyPressed(Keyboard::A))
     {
         m_left_pressed_ = true;
@@ -37,6 +39,7 @@ bool Thomas::HandleInput()
     {
         m_left_pressed_ = false;
     }
+
     if (Keyboard::isKeyPressed(Keyboard::D))
     {
         m_right_pressed_ = true;
@@ -45,5 +48,6 @@ bool Thomas::HandleInput()
     {
         m_right_pressed_ = false;
     }
+
     return m_just_jumped_;
 }

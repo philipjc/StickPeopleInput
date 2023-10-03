@@ -12,6 +12,7 @@ Bob::Bob()
 bool Bob::HandleInput()
 {
     m_just_jumped_ = false;
+
     if (Keyboard::isKeyPressed(Keyboard::Up))
     {
         // Start a jump if not already jumping
@@ -28,6 +29,7 @@ bool Bob::HandleInput()
         m_is_jumping_ = false;
         m_is_falling_ = true;
     }
+
     if (Keyboard::isKeyPressed(Keyboard::Left))
     {
         m_left_pressed_ = true;
@@ -36,13 +38,15 @@ bool Bob::HandleInput()
     {
         m_left_pressed_ = false;
     }
+
     if (Keyboard::isKeyPressed(Keyboard::Right))
     {
-        m_right_pressed_ = true;;
+        m_right_pressed_ = true;
     }
     else
     {
         m_right_pressed_ = false;
     }
+
     return m_just_jumped_;
 }
