@@ -1,73 +1,75 @@
 #include "Engine.h"
 
-void Engine::Draw()
+void Engine::draw()
 {
-    // Rub out the last frame
-    m_window_.clear(Color::White);
+	// Rub out the last frame
+	m_Window.clear(Color::White);
 
-    if (!m_split_screen_)
-    {
-        // Switch to background view
-        m_window_.setView(m_bg_main_view_);
+	if (!m_SplitScreen)
+	{
+		// Switch to background view
+		m_Window.setView(m_BGMainView);
+		// Draw the background
+		m_Window.draw(m_BackgroundSprite);
+		// Switch to m_MainView
+		m_Window.setView(m_MainView);
 
-        // Draw the background
-        m_window_.draw(m_background_sprite_);
+		// Draw the Level
+		m_Window.draw(m_VALevel, &m_TextureTiles);
 
-        // Switch to m_MainView
-        m_window_.setView(m_main_view_);
+		// Draw thomas
+		m_Window.draw(m_Thomas.getSprite());
 
-        // Draw thomas
-        m_window_.draw(m_thomas_.GetSprite());
+		// Draw thomas
+		m_Window.draw(m_Bob.getSprite());
+	}
+	else
+	{
+		// Split-screen view is active
 
-        // Draw bob
-        m_window_.draw(m_bob_.GetSprite());
-    }
-    else
-    {
-        // Split-screen view is active
-        // First draw Thomas' side of the screen
+		// First draw Thomas' side of the screen
 
-        // Switch to background view
-        m_window_.setView(m_bg_left_view_);
+		// Switch to background view
+		m_Window.setView(m_BGLeftView);
+		// Draw the background
+		m_Window.draw(m_BackgroundSprite);
+		// Switch to m_LeftView
+		m_Window.setView(m_LeftView);
 
-        // Draw the background
-        m_window_.draw(m_background_sprite_);
+		// Draw the Level
+		m_Window.draw(m_VALevel, &m_TextureTiles);
 
-        // Switch to m_LeftView
-        m_window_.setView(m_left_view_);
+		// Draw thomas
+		m_Window.draw(m_Bob.getSprite());
 
-        // Draw bob
-        m_window_.draw(m_bob_.GetSprite());
+		// Draw thomas
+		m_Window.draw(m_Thomas.getSprite());
 
-        // Draw thomas
-        m_window_.draw(m_thomas_.GetSprite());
+		// Now draw Bob's side of the screen
 
-        // Now draw Bob's side of the screen
+		// Switch to background view
+		m_Window.setView(m_BGRightView);
+		// Draw the background
+		m_Window.draw(m_BackgroundSprite);
+		// Switch to m_RightView
+		m_Window.setView(m_RightView);
 
-        // Switch to background view
-        m_window_.setView(m_bg_right_view_);
+		// Draw the Level
+		m_Window.draw(m_VALevel, &m_TextureTiles);
 
-        // Draw the background
-        m_window_.draw(m_background_sprite_);
+		// Draw thomas
+		m_Window.draw(m_Thomas.getSprite());
 
-        // Switch to m_RightView
-        m_window_.setView(m_right_view_);
+		// Draw bob
+		m_Window.draw(m_Bob.getSprite());
 
-        // Draw Level
-        m_window_.draw(m_va_level_, &m_texture_tiles_);
+	}
 
-        // Draw thomas
-        m_window_.draw(m_thomas_.GetSprite());
-
-        // Draw bob
-        m_window_.draw(m_bob_.GetSprite());
-
-    }
-    // Draw the HUD
-    // Switch to m_HudView
-    m_window_.setView(m_hud_view_);
+	// Draw the HUD
+	// Switch to m_HudView
+	m_Window.setView(m_HudView);
 
 
-    // Show everything we have just drawn
-    m_window_.display();
+	// Show everything we have just drawn
+	m_Window.display();
 }

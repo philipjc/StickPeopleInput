@@ -4,61 +4,87 @@
 
 using namespace sf;
 
-void Engine::Update(const float dt_as_seconds)
+void Engine::update(float dtAsSeconds)
 {
-    if (m_new_level_required_)
-    {
-        // These calls to spawn will be moved to a new
-        // LoadLevel function soon
-        // Spawn Thomas and Bob
-        //m_Thomas.spawn(Vector2f(0,0), GRAVITY);
-        //m_Bob.spawn(Vector2f(100, 0), GRAVITY);
+	if (m_NewLevelRequired)
+	{
+		// These calls to spawn will be moved to a new
+		// LoadLevel function soon
+		// Spawn Thomas and Bob
+		//m_Thomas.spawn(Vector2f(0,0), GRAVITY);
+		//m_Bob.spawn(Vector2f(100, 0), GRAVITY);
 
-        // Make sure spawn is called only once
-        //m_TimeRemaining = 10;
-        //m_NewLevelRequired = false;
+		// Make sure spawn is called only once
+		//m_TimeRemaining = 10;
+		//m_NewLevelRequired = false;
 
-        // Load a level
-        LoadLevel();
+		// Load a level
+		loadLevel();
 
-    }
+	}
 
-    if (m_playing_)
-    {
-        // Update Thomas
-        m_thomas_.Update(dt_as_seconds);
+	if (m_Playing)
+	{
+		// Update Thomas
+		m_Thomas.update(dtAsSeconds);
 
-        // Update Bob
-        m_bob_.Update(dt_as_seconds);
+		// Update Bob
+		m_Bob.update(dtAsSeconds);
 
-        // Count down the time the player has left
-        m_time_remaining_ -= dt_as_seconds;
+		// Detect collisions and see if characters have reached the goal tile
+		// The second part of the if condition is only executed
+		// when thomas is touching the home tile
+		if (detectCollisions(m_Thomas) && detectCollisions(m_Bob))
+		{
+			// New level required
+			m_NewLevelRequired = true;
 
-        // Have Thomas and Bob run out of time?
-        if (m_time_remaining_ <= 0)
-        {
-            m_new_level_required_ = true;
-        }
+			// Play the reach goal sound
 
-    }
-	// End if playing
+		}
+		else
+		{
+			// Run bobs collision detection
+			detectCollisions(m_Bob);
+		}
 
-        // Set the appropriate view around the appropriate character
-    if (m_split_screen_)
-    {
-        m_left_view_.setCenter(m_thomas_.GetCenter());
-        m_right_view_.setCenter(m_bob_.GetCenter());
-    }
-    else
-    {
-        // Centre full screen around appropriate character
-        if (m_character1_)
-        {
-            m_main_view_.setCenter(m_thomas_.GetCenter());
-        }
-        else
-        {
-            m_main_view_.setCenter(m_bob_.GetCenter());
-        }
-    }
+		// Let bob and thomas jump on each others heads
+		if (m_Bob.getFeet().intersects(m_Thomas.getHead()))
+		{
+			m_Bob.stopFalling(m_Thomas.getHead().top);
+		}
+		else if (m_Thomas.getFeet().intersects(m_Bob.getHead()))
+		{
+			m_Thomas.stopFalling(m_Bob.getHead().top);
+		}
+
+		// Count down the time the player has left
+		m_TimeRemaining -= dtAsSeconds;
+
+		// Have Thomas and Bob run out of time?
+		if (m_TimeRemaining <= 0)
+		{
+			m_NewLevelRequired = true;
+		}
+
+	}// End if playing
+
+	// Set the appropriate view around the appropriate character
+	if (m_SplitScreen)
+	{
+		m_LeftView.setCenter(m_Thomas.getCenter());
+		m_RightView.setCenter(m_Bob.getCenter());
+	}
+	else
+	{
+		// Centre full screen around appropriate character
+		if (m_Character1)
+		{
+			m_MainView.setCenter(m_Thomas.getCenter());
+		}
+		else
+		{
+			m_MainView.setCenter(m_Bob.getCenter());
+		}
+	}
 }

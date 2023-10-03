@@ -1,32 +1,33 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
 using namespace sf;
 using namespace std;
+
 
 class LevelManager
 {
 private:
-    Vector2i m_level_size_;
-    Vector2f m_start_position_;
+	Vector2i m_LevelSize;
+	Vector2f m_StartPosition;
+	float m_TimeModifier = 1;
+	float m_BaseTimeLimit = 0;
+	int m_CurrentLevel = 0;
+	const int NUM_LEVELS = 4;
 
-    float m_time_modifier_ = 1;
-    float m_base_time_limit_ = 0;
-
-    int m_current_level_ = 0;
-    const int num_levels_ = 4;
-
-    // public declarations go here
 public:
-    const int tile_size = 50;
-    const int verts_in_quad = 4;
 
-    float GetTimeLimit() const;
-    int GetCurrentLevel() const;
-    int** NextLevel(VertexArray& r_va_level);
+	const int TILE_SIZE = 50;
+	const int VERTS_IN_QUAD = 4;
 
-    Vector2i GetLevelSize() const;
-    Vector2f GetStartPosition() const;
+	float getTimeLimit();
+
+	Vector2f getStartPosition();
+
+	int** nextLevel(VertexArray& rVaLevel);
+
+	Vector2i getLevelSize();
+
+	int getCurrentLevel();
 
 };

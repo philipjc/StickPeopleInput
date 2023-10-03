@@ -1,145 +1,157 @@
 #include "PlayableCharacter.h"
 
-void PlayableCharacter::Spawn(
-	const Vector2f start_position, const float gravity)
+void PlayableCharacter::spawn(Vector2f startPosition, float gravity)
 {
-    // Place the player at the starting point
-    m_position_.x = start_position.x;
-    m_position_.y = start_position.y;
+	// Place the player at the starting point
+	m_Position.x = startPosition.x;
+	m_Position.y = startPosition.y;
 
-    // Initialize the gravity
-    m_gravity_ = gravity;
+	// Initialize the gravity
+	m_Gravity = gravity;
 
-    // Move the sprite in to position
-    m_sprite_.setPosition(m_position_);
+	// Move the sprite in to position
+	m_Sprite.setPosition(m_Position);
+
+}
+
+void PlayableCharacter::update(float elapsedTime)
+{
+
+	if (m_RightPressed)
+	{
+		m_Position.x += m_Speed * elapsedTime;
+	}
+
+	if (m_LeftPressed)
+	{
+		m_Position.x -= m_Speed * elapsedTime;
+	}
+
+
+	// Handle Jumping
+	if (m_IsJumping)
+	{
+		// Update how long the jump has been going
+		m_TimeThisJump += elapsedTime;
+
+		// Is the jump going upwards
+		if (m_TimeThisJump < m_JumpDuration)
+		{
+			// Move up at twice gravity
+			m_Position.y -= m_Gravity * 2 * elapsedTime;
+		}
+		else
+		{
+			m_IsJumping = false;
+			m_IsFalling = true;
+		}
+
+	}
+
+	// Apply gravity
+	if (m_IsFalling)
+	{
+		m_Position.y += m_Gravity * elapsedTime;
+	}
+
+	// Update the rect for all body parts
+	FloatRect r = getPosition();
+
+
+	// Feet
+	m_Feet.left = r.left + 3;
+	m_Feet.top = r.top + r.height - 1;
+	m_Feet.width = r.width - 6;
+	m_Feet.height = 1;
+
+	// Head
+	m_Head.left = r.left;
+	m_Head.top = r.top + (r.height * .3);
+	m_Head.width = r.width;
+	m_Head.height = 1;
+
+	// Right
+	m_Right.left = r.left + r.width - 2;
+	m_Right.top = r.top + r.height * .35;
+	m_Right.width = 1;
+	m_Right.height = r.height * .3;
+
+	// Left
+	m_Left.left = r.left;
+	m_Left.top = r.top + r.height * .5;
+	m_Left.width = 1;
+	m_Left.height = r.height * .3;
+
+	// Move the sprite into position
+	m_Sprite.setPosition(m_Position);
+
+}
+
+FloatRect PlayableCharacter::getPosition()
+{
+	return m_Sprite.getGlobalBounds();
+}
+
+Vector2f PlayableCharacter::getCenter()
+{
+	return Vector2f(
+		m_Position.x + m_Sprite.getGlobalBounds().width / 2,
+		m_Position.y + m_Sprite.getGlobalBounds().height / 2
+	);
+}
+
+FloatRect PlayableCharacter::getFeet()
+{
+	return m_Feet;
+}
+
+FloatRect PlayableCharacter::getHead()
+{
+	return m_Head;
+}
+
+FloatRect PlayableCharacter::getLeft()
+{
+	return m_Left;
+}
+
+FloatRect PlayableCharacter::getRight()
+{
+	return m_Right;
+}
+
+Sprite PlayableCharacter::getSprite()
+{
+	return m_Sprite;
 }
 
 
-void PlayableCharacter::Update(const float elapsed_time)
+
+void PlayableCharacter::stopFalling(float position)
 {
-    if (m_right_pressed_)
-    {
-        m_position_.x += m_speed_ * elapsed_time;
-    }
-    if (m_left_pressed_)
-    {
-        m_position_.x -= m_speed_ * elapsed_time;
-    }
-    // Handle Jumping
-    if (m_is_jumping_)
-    {
-        // Update how long the jump has been going
-        m_time_this_jump_ += elapsed_time;
-        // Is the jump going upwards
-        if (m_time_this_jump_ < m_jump_duration_)
-        {
-            // Move up at twice gravity
-            m_position_.y -= m_gravity_ * 2 * elapsed_time;
-        }
-        else
-        {
-            m_is_jumping_ = false;
-            m_is_falling_ = true;
-        }
-    }
-    // Apply gravity
-    if (m_is_falling_)
-    {
-        m_position_.y += m_gravity_ * elapsed_time;
-    }
-    // Update the rect for all body parts
-    const FloatRect r = GetPosition();
+	m_Position.y = position - getPosition().height;
+	m_Sprite.setPosition(m_Position);
+	m_IsFalling = false;
+}
 
-    // Feet
-    m_feet_.left = r.left + 3;
-    m_feet_.top = r.top + r.height - 1;
-    m_feet_.width = r.width - 6;
-    m_feet_.height = 1;
+void PlayableCharacter::stopRight(float position)
+{
 
-    // Head
-    m_head_.left = r.left;
-    m_head_.top = r.top + (r.height * .3);
-    m_head_.width = r.width;
-    m_head_.height = 1;
+	m_Position.x = position - m_Sprite.getGlobalBounds().width;
+	m_Sprite.setPosition(m_Position);
+}
 
-    // Right
-    m_right_.left = r.left + r.width - 2;
-    m_right_.top = r.top + r.height * .35;
-    m_right_.width = 1;
-    m_right_.height = r.height * .3;
+void PlayableCharacter::stopLeft(float position)
+{
+	m_Position.x = position + m_Sprite.getGlobalBounds().width;
+	m_Sprite.setPosition(m_Position);
+}
 
-    // Left
-    m_left_.left = r.left;
-    m_left_.top = r.top + r.height * .5;
-    m_left_.width = 1;
-    m_left_.height = r.height * .3;
-
-    // Move the sprite into position
-    m_sprite_.setPosition(m_position_);
+void PlayableCharacter::stopJump()
+{
+	// Stop a jump early 
+	m_IsJumping = false;
+	m_IsFalling = true;
 }
 
 
-FloatRect PlayableCharacter::GetPosition() const
-{
-    return m_sprite_.getGlobalBounds();
-}
-
-FloatRect PlayableCharacter::GetFeet() const
-{
-    return m_feet_;
-}
-
-FloatRect PlayableCharacter::GetHead() const
-{
-    return m_head_;
-}
-
-FloatRect PlayableCharacter::GetRight() const
-{
-    return m_right_;
-}
-
-FloatRect PlayableCharacter::GetLeft() const
-{
-    return m_left_;
-}
-
-Sprite PlayableCharacter::GetSprite()
-{
-    return m_sprite_;
-}
-
-Vector2f PlayableCharacter::GetCenter() const
-{
-    return Vector2f(
-        m_position_.x + m_sprite_.getGlobalBounds().width / 2,
-        m_position_.y + m_sprite_.getGlobalBounds().height / 2
-    );
-}
-
-void PlayableCharacter::StopFalling(const float position)
-{
-    m_position_.y = position - GetPosition().height;
-    m_sprite_.setPosition(m_position_);
-    m_is_falling_ = false;
-}
-
-void PlayableCharacter::StopRight(const float position)
-{
-
-    m_position_.x = position - m_sprite_.getGlobalBounds().width;
-    m_sprite_.setPosition(m_position_);
-}
-
-void PlayableCharacter::StopLeft(const float position)
-{
-    m_position_.x = position + m_sprite_.getGlobalBounds().width;
-    m_sprite_.setPosition(m_position_);
-}
-
-void PlayableCharacter::StopJump()
-{
-    // Stop a jump early 
-    m_is_jumping_ = false;
-    m_is_falling_ = true;
-}

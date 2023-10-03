@@ -2,12 +2,12 @@
 
 int main()
 {
-    // Declare an instance of Engine
-    Engine engine;
+	// Declare an instance of Engine
+	Engine engine;
 
-    // Start the engine
-    engine.Run();
+	// Start the engine
+	engine.run();
 
-    // Quit when the engine is stopped
-    return 0;
+	// Quit in the usual way when the engine is stopped
+	return 0;
 }

@@ -3,51 +3,54 @@
 
 Thomas::Thomas()
 {
-    // Associate a texture with the sprite
-    m_sprite_ = Sprite(TextureCache::GetTexture(
-        "graphics/thomas.png"));
+	// Associate a texture with the sprite
+	m_Sprite = Sprite(TextureCache::GetTexture(
+		"graphics/thomas.png"));
 
-    m_jump_duration_ = .45;
+	m_JumpDuration = .45;
 }
 
-bool Thomas::HandleInput()
+// A virtual function
+bool Thomas::handleInput()
 {
-    m_just_jumped_ = false;
+	m_JustJumped = false;
 
-    if (Keyboard::isKeyPressed(Keyboard::W))
-    {
-        // Start a jump if not already jumping
-        // but only if standing on a block (not falling)
-        if (!m_is_jumping_ && !m_is_falling_)
-        {
-            m_is_jumping_ = true;
-            m_time_this_jump_ = 0;
-            m_just_jumped_ = true;
-        }
-    }
-    else
-    {
-        m_is_jumping_ = false;
-        m_is_falling_ = true;
-    }
+	if (Keyboard::isKeyPressed(Keyboard::W))
+	{
 
-    if (Keyboard::isKeyPressed(Keyboard::A))
-    {
-        m_left_pressed_ = true;
-    }
-    else
-    {
-        m_left_pressed_ = false;
-    }
+		// Start a jump if not already jumping
+		// but only if standing on a block (not falling)
+		if (!m_IsJumping && !m_IsFalling)
+		{
+			m_IsJumping = true;
+			m_TimeThisJump = 0;
+			m_JustJumped = true;
+		}
+	}
+	else
+	{
+		m_IsJumping = false;
+		m_IsFalling = true;
 
-    if (Keyboard::isKeyPressed(Keyboard::D))
-    {
-        m_right_pressed_ = true;
-    }
-    else
-    {
-        m_right_pressed_ = false;
-    }
+	}
+	if (Keyboard::isKeyPressed(Keyboard::A))
+	{
+		m_LeftPressed = true;
+	}
+	else
+	{
+		m_LeftPressed = false;
+	}
 
-    return m_just_jumped_;
+
+	if (Keyboard::isKeyPressed(Keyboard::D))
+	{
+		m_RightPressed = true;
+	}
+	else
+	{
+		m_RightPressed = false;
+	}
+
+	return m_JustJumped;
 }

@@ -1,84 +1,82 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
 
 class PlayableCharacter
 {
-
 protected:
 	// Of course we will need a sprite
-	Sprite m_sprite_;
+	Sprite m_Sprite;
 
 	// How long does a jump last
-	float m_jump_duration_ = 0;
+	float m_JumpDuration;
 
 	// Is character currently jumping or falling
-	bool m_is_jumping_ = false;
-	bool m_is_falling_ = false;
+	bool m_IsJumping;
+	bool m_IsFalling;
 
 	// Which directions is the character currently moving in
-	bool m_left_pressed_ = false;
-	bool m_right_pressed_ = false;
+	bool m_LeftPressed;
+	bool m_RightPressed;
 
 	// How long has this jump lasted so far
-	float m_time_this_jump_ = 0;
+	float m_TimeThisJump;
 
-	// Has the player just initiated a jump
-	bool m_just_jumped_ = false;
+	// Has the player just initialted a jump
+	bool m_JustJumped = false;
 
 	// Private variables and functions come next
 private:
 	// What is the gravity
-	float m_gravity_ = 0;
+	float m_Gravity;
 
 	// How fast is the character
-	float m_speed_ = 400;
+	float m_Speed = 400;
 
 	// Where is the player
-	Vector2f m_position_;
+	Vector2f m_Position;
 
 	// Where are the characters various body parts?
-	FloatRect m_feet_;
-	FloatRect m_head_;
-	FloatRect m_right_;
-	FloatRect m_left_;
+	FloatRect m_Feet;
+	FloatRect m_Head;
+	FloatRect m_Right;
+	FloatRect m_Left;
 
 	// And a texture
-	Texture m_texture_;
+	Texture m_Texture;
 
 	// All our public functions will come next
 public:
 	virtual ~PlayableCharacter() = default;
-	void Spawn(Vector2f start_position, float gravity);
+
+	void spawn(Vector2f startPosition, float gravity);
+
 	// This is a pure virtual function
+	bool virtual handleInput() = 0;
+	// This class is now abstract and cannot be instanciated
 
-	bool virtual HandleInput() = 0;
-
-	// This class is now abstract and cannot be instantiated
 	// Where is the player
-	FloatRect GetPosition() const;
+	FloatRect getPosition();
 
-	// A rectangle representing the position 
-	// of different parts of the sprite
-	FloatRect GetFeet() const;
-	FloatRect GetHead() const;
-	FloatRect GetRight() const;
-	FloatRect GetLeft() const;
+	// A rectangle representing the position of different parts of the sprite
+	FloatRect getFeet();
+	FloatRect getHead();
+	FloatRect getRight();
+	FloatRect getLeft();
 
 	// Send a copy of the sprite to main
-	Sprite GetSprite();
+	Sprite getSprite();
 
 	// Make the character stand firm
-	void StopFalling(float position);
-	void StopRight(float position);
-	void StopLeft(float position);
-	void StopJump();
+	void stopFalling(float position);
+	void stopRight(float position);
+	void stopLeft(float position);
+	void stopJump();
 
 	// Where is the center of the character
-	Vector2f GetCenter() const;
+	Vector2f getCenter();
 
 	// We will call this function once every frame
-	void Update(float elapsed_time);
+	void update(float elapsedTime);
 };
