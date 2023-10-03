@@ -22,11 +22,11 @@ public:
     const int tile_size = 50;
     const int verts_in_quad = 4;
 
-    float GetTimeLimit();
-    int GetCurrentLevel();
+    float GetTimeLimit() const;
+    int GetCurrentLevel() const;
     int** NextLevel(VertexArray& r_va_level);
 
-    Vector2i GetLevelSize();
-    Vector2f GetStartPosition();
+    Vector2i GetLevelSize() const;
+    Vector2f GetStartPosition() const;
 
 };

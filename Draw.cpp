@@ -26,6 +26,7 @@ void Engine::Draw()
     {
         // Split-screen view is active
         // First draw Thomas' side of the screen
+
         // Switch to background view
         m_window_.setView(m_bg_left_view_);
 
@@ -42,6 +43,7 @@ void Engine::Draw()
         m_window_.draw(m_thomas_.GetSprite());
 
         // Now draw Bob's side of the screen
+
         // Switch to background view
         m_window_.setView(m_bg_right_view_);
 
@@ -50,6 +52,9 @@ void Engine::Draw()
 
         // Switch to m_RightView
         m_window_.setView(m_right_view_);
+
+        // Draw Level
+        m_window_.draw(m_va_level_, &m_texture_tiles_);
 
         // Draw thomas
         m_window_.draw(m_thomas_.GetSprite());

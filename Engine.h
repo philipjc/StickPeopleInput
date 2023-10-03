@@ -4,6 +4,7 @@
 #include "TextureCache.h"
 #include "Thomas.h"
 #include "Bob.h"
+#include "LevelManager.h"
 
 using namespace sf;
 
@@ -15,6 +16,9 @@ private:
 
     Thomas m_thomas_;
     Bob m_bob_;
+
+    // Levels
+    LevelManager m_lm_manager_;
 
     const int tile_size_ = 50;
     const int quad_verts_qty_ = 4;
@@ -55,12 +59,25 @@ private:
     Time m_game_time_total_;
 
     // Is it time for a new/first level?
-    bool m_new_level_required_ = false;
+    bool m_new_level_required_ = true;
+
+    // The vertex array for the level tiles
+    VertexArray m_va_level_;
+
+    // The 2d array with the map for the level
+    // A pointer to a pointer
+    int** m_array_level_ = nullptr;
+
+    // Texture for the level tiles
+    Texture m_texture_tiles_;
 
     // Private functions for internal use only
     void Input();
     void Update(float dt_as_seconds);
     void Draw();
+
+    // Load level
+    void LoadLevel();
 
 public:
     // The Engine constructor

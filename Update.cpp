@@ -8,13 +8,19 @@ void Engine::Update(const float dt_as_seconds)
 {
     if (m_new_level_required_)
     {
+        // These calls to spawn will be moved to a new
+        // LoadLevel function soon
         // Spawn Thomas and Bob
-        m_thomas_.Spawn(Vector2f(0, 0), gravity_);
-        m_bob_.Spawn(Vector2f(100, 0), gravity_);
+        //m_Thomas.spawn(Vector2f(0,0), GRAVITY);
+        //m_Bob.spawn(Vector2f(100, 0), GRAVITY);
 
         // Make sure spawn is called only once
-        m_time_remaining_ = 10;
-        m_new_level_required_ = false;
+        //m_TimeRemaining = 10;
+        //m_NewLevelRequired = false;
+
+        // Load a level
+        LoadLevel();
+
     }
 
     if (m_playing_)
