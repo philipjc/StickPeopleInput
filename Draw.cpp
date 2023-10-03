@@ -15,6 +15,12 @@ void Engine::Draw()
 
         // Switch to m_MainView
         m_window_.setView(m_main_view_);
+
+        // Draw thomas
+        m_window_.draw(m_thomas_.GetSprite());
+
+        // Draw bob
+        m_window_.draw(m_bob_.GetSprite());
     }
     else
     {
@@ -29,6 +35,12 @@ void Engine::Draw()
         // Switch to m_LeftView
         m_window_.setView(m_left_view_);
 
+        // Draw bob
+        m_window_.draw(m_bob_.GetSprite());
+
+        // Draw thomas
+        m_window_.draw(m_thomas_.GetSprite());
+
         // Now draw Bob's side of the screen
         // Switch to background view
         m_window_.setView(m_bg_right_view_);
@@ -38,6 +50,12 @@ void Engine::Draw()
 
         // Switch to m_RightView
         m_window_.setView(m_right_view_);
+
+        // Draw thomas
+        m_window_.draw(m_thomas_.GetSprite());
+
+        // Draw bob
+        m_window_.draw(m_bob_.GetSprite());
 
     }
     // Draw the HUD
