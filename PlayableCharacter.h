@@ -6,19 +6,37 @@ using namespace sf;
 class PlayableCharacter
 {
 protected:
+	bool m_IsIdle = true;
+
+	const int left = 0;
+	const int bottom = -20;
+	const int right = 75;
+	const int top = 86;
+
+	const int idle_frames = 4;
+	const int walking_frames = 6;
+
+	sf::Clock m_IdleClock;
+
+	int m_IdleFrame;
+
+	// int m_WalkingFrame;
+
 	// Of course we will need a sprite
 	Sprite m_Sprite;
 
+	Sprite m_WalkingSprite;
+
 	// How long does a jump last
-	float m_JumpDuration;
+	float m_JumpDuration = 0;
 
 	// Is character currently jumping or falling
-	bool m_IsJumping;
-	bool m_IsFalling;
+	bool m_IsJumping = false;
+	bool m_IsFalling = false;
 
 	// Which directions is the character currently moving in
-	bool m_LeftPressed;
-	bool m_RightPressed;
+	bool m_LeftPressed = false;
+	bool m_RightPressed = false;
 
 	// How long has this jump lasted so far
 	float m_TimeThisJump;
@@ -29,10 +47,10 @@ protected:
 	// Private variables and functions come next
 private:
 	// What is the gravity
-	float m_Gravity;
+	float m_Gravity = 0;
 
 	// How fast is the character
-	float m_Speed = 400;
+	float m_Speed = 240;
 
 	// Where is the player
 	Vector2f m_Position;

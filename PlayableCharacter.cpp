@@ -1,5 +1,8 @@
 #include "PlayableCharacter.h"
 
+#include "TextureCache.h"
+
+
 void PlayableCharacter::spawn(Vector2f startPosition, float gravity)
 {
 	// Place the player at the starting point
@@ -48,6 +51,7 @@ void PlayableCharacter::update(float elapsedTime)
 
 	}
 
+
 	// Apply gravity
 	if (m_IsFalling)
 	{
@@ -55,32 +59,32 @@ void PlayableCharacter::update(float elapsedTime)
 	}
 
 	// Update the rect for all body parts
-	FloatRect r = getPosition();
+	const FloatRect rect = getPosition();
 
 
 	// Feet
-	m_Feet.left = r.left + 3;
-	m_Feet.top = r.top + r.height - 1;
-	m_Feet.width = r.width - 6;
+	m_Feet.left = rect.left + 3;
+	m_Feet.top = rect.top + rect.height - 1;
+	m_Feet.width = rect.width - 6;
 	m_Feet.height = 1;
 
 	// Head
-	m_Head.left = r.left;
-	m_Head.top = r.top + (r.height * .3);
-	m_Head.width = r.width;
+	m_Head.left = rect.left;
+	m_Head.top = rect.top + (rect.height * .3);
+	m_Head.width = rect.width;
 	m_Head.height = 1;
 
 	// Right
-	m_Right.left = r.left + r.width - 2;
-	m_Right.top = r.top + r.height * .35;
+	m_Right.left = rect.left + rect.width - 2;
+	m_Right.top = rect.top + rect.height * .35;
 	m_Right.width = 1;
-	m_Right.height = r.height * .3;
+	m_Right.height = rect.height * .3;
 
 	// Left
-	m_Left.left = r.left;
-	m_Left.top = r.top + r.height * .5;
+	m_Left.left = rect.left;
+	m_Left.top = rect.top + rect.height * .5;
 	m_Left.width = 1;
-	m_Left.height = r.height * .3;
+	m_Left.height = rect.height * .3;
 
 	// Move the sprite into position
 	m_Sprite.setPosition(m_Position);

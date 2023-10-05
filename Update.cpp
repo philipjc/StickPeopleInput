@@ -31,6 +31,7 @@ void Engine::update(float dtAsSeconds)
 		// Update Bob
 		m_Bob.update(dtAsSeconds);
 
+
 		// Detect collisions and see if characters have reached the goal tile
 		// The second part of the if condition is only executed
 		// when thomas is touching the home tile

@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Engine.h"
 
 void Engine::input()
@@ -18,6 +20,8 @@ void Engine::input()
 			// Handle the player starting the game
 			if (Keyboard::isKeyPressed(Keyboard::Return))
 			{
+				std::cout << "Return pushed" << std::endl;
+
 				m_Playing = true;
 			}
 
