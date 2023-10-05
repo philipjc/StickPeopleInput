@@ -1,18 +1,19 @@
 #include "Bob.h"
+
+#include <iostream>
+
 #include "TextureCache.h"
 
 
 Bob::Bob()
 {
+	m_IdleTexture = TextureCache::GetTexture("graphics/knight/idle.png");
+	m_WalkingTexture = TextureCache::GetTexture("graphics/knight/walk.png");
+	m_AttackingTexture = TextureCache::GetTexture("graphics/knight/attack_1.png");
+
 	// Associate a texture with the sprite
-	m_Sprite = Sprite(TextureCache::GetTexture(
-		"graphics/knight/walk2.png"));
-
-	m_WalkingSprite = Sprite(TextureCache::GetTexture(
-		"graphics/knight/walk2.png"));
-
-	
-	//m_Sprite.setTextureRect(sf::IntRect(left, bottom, right, top));
+	m_Sprite = Sprite();
+	m_Sprite.setTexture(m_IdleTexture);
 
 	m_JumpDuration = .25;
 
@@ -51,12 +52,13 @@ bool Bob::HandleInput()
 	{
 		m_IsIdle = false;
 		m_LeftPressed = true;
-
+		m_Sprite.setTexture(m_WalkingTexture);
 	}
 	else
 	{
 		m_IsIdle = true;
 		m_LeftPressed = false;
+		m_Sprite.setTexture(m_IdleTexture);
 	}
 
 
@@ -64,11 +66,13 @@ bool Bob::HandleInput()
 	{
 		m_IsIdle = false;
 		m_RightPressed = true;
+		m_Sprite.setTexture(m_WalkingTexture);
 	}
 	else
 	{
 		m_IsIdle = true;
 		m_RightPressed = false;
+		m_Sprite.setTexture(m_IdleTexture);
 	}
 
 	if (m_RightPressed)
@@ -84,9 +88,10 @@ bool Bob::HandleInput()
 	
 	if (m_IsIdle)
 	{
+		std::cout << "Idling" << std::endl;
 
 		// Animate idle
-		m_Sprite.setTextureRect(sf::IntRect(70, bottom, 70, top));
+		m_Sprite.setTextureRect(sf::IntRect(70, bottom+20, 70, top));
 	}
 
 	else
