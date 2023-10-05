@@ -63,6 +63,8 @@ private:
 	// How fast is the character
 	float m_Speed = 240;
 
+	float m_KnightSpeed = 230;
+
 	// Where is the player
 	Vector2f m_Position;
 
@@ -85,14 +87,14 @@ public:
 	bool virtual HandleInput() = 0;
 	// This class is now abstract and cannot be instantiated
 	// Where is the player
-	FloatRect GetPosition();
+	FloatRect GetPosition() const;
 
 	// A rectangle representing the position of different parts of the sprite
-	FloatRect GetFeet();
-	FloatRect GetHead();
-	FloatRect GetRight();
-	FloatRect GetLeft();
-
+	FloatRect GetFeet() const;
+	FloatRect GetHead() const;
+	FloatRect GetLeft() const;
+	FloatRect GetRight() const;
+	
 	// Send a copy of the sprite to main
 	Sprite GetSprite();
 
@@ -103,8 +105,10 @@ public:
 	void StopJump();
 
 	// Where is the center of the character
-	Vector2f GetCenter();
+	Vector2f GetCenter() const;
+
 
 	// We will call this function once every frame
 	void Update(float elapsed_time);
+
 };

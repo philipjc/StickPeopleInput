@@ -18,7 +18,7 @@ private:
 	Bob m_Bob;
 
 	// A class to manage all the levels
-	LevelManager m_LM;
+	LevelManager m_Lm;
 
 	const int tile_Size = 50;
 	const int verts_In_Quad = 4;
