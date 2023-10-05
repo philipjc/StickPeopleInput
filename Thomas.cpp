@@ -7,7 +7,7 @@ Thomas::Thomas()
 	m_Sprite = Sprite(TextureCache::GetTexture(
 		"graphics/thomas.png"));
 
-	m_JumpDuration = .45;
+	m_JumpDuration = static_cast<float>(.45);
 }
 
 // A virtual function

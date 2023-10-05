@@ -3,7 +3,7 @@
 
 using namespace sf;
 
-class PlayableCharacter
+class PlayableCharacter  // NOLINT(cppcoreguidelines-special-member-functions)
 {
 protected:
 	bool m_IsIdle = true;

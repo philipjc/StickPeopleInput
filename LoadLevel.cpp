@@ -20,8 +20,8 @@ void Engine::LoadLevel()
 	m_TimeRemaining = m_LM.GetTimeLimit();
 
 	// Spawn Thomas and Bob
-	m_Thomas.Spawn(m_LM.GetStartPosition(), gravity);
-	m_Bob.Spawn(m_LM.GetStartPosition(), gravity);
+	m_Thomas.Spawn(m_LM.GetStartPosition(), static_cast<int>(gravity));
+	m_Bob.Spawn(m_LM.GetStartPosition(), static_cast<int>(gravity));
 
 	// Make sure this code isn't run again
 	m_NewLevelRequired = false;
