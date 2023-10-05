@@ -74,13 +74,22 @@ bool Bob::handleInput()
 		m_RightPressed = false;
 	}
 
-	
+	if (m_RightPressed)
+	{
+		m_Sprite.setScale(1, 1);
+	}
+
+	if (m_LeftPressed)
+	{
+		m_Sprite.setScale(-1, 1);
+		m_Sprite.setOrigin(m_Sprite.getGlobalBounds().width, 0);
+	}
 	
 	if (m_IsIdle)
 	{
 
 		// Animate idle
-		m_Sprite.setTextureRect(sf::IntRect(0, bottom, 70, top));
+		m_Sprite.setTextureRect(sf::IntRect(70, bottom, 70, top));
 	}
 
 	else
