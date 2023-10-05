@@ -3,7 +3,7 @@
 #include "TextureCache.h"
 
 
-void PlayableCharacter::Spawn(Vector2f start_position, float gravity)
+void PlayableCharacter::Spawn(const Vector2f start_position, const float gravity)
 {
 	// Place the player at the starting point
 	m_Position.x = start_position.x;
@@ -17,17 +17,17 @@ void PlayableCharacter::Spawn(Vector2f start_position, float gravity)
 
 }
 
-void PlayableCharacter::Update(float elapsed_time)
+void PlayableCharacter::Update(const float elapsed_time)
 {
 
 	if (m_RightPressed)
 	{
-		m_Position.x += m_Speed * elapsed_time;
+		m_Position.x += m_KnightSpeed * elapsed_time;
 	}
 
 	if (m_LeftPressed)
 	{
-		m_Position.x -= m_Speed * elapsed_time;
+		m_Position.x -= m_KnightSpeed * elapsed_time;
 	}
 
 
@@ -91,12 +91,12 @@ void PlayableCharacter::Update(float elapsed_time)
 
 }
 
-FloatRect PlayableCharacter::GetPosition()
+FloatRect PlayableCharacter::GetPosition() const
 {
 	return m_Sprite.getGlobalBounds();
 }
 
-Vector2f PlayableCharacter::GetCenter()
+Vector2f PlayableCharacter::GetCenter() const
 {
 	return Vector2f(
 		m_Position.x + m_Sprite.getGlobalBounds().width / 2,
@@ -104,22 +104,22 @@ Vector2f PlayableCharacter::GetCenter()
 	);
 }
 
-FloatRect PlayableCharacter::GetFeet()
+FloatRect PlayableCharacter::GetFeet() const
 {
 	return m_Feet;
 }
 
-FloatRect PlayableCharacter::GetHead()
+FloatRect PlayableCharacter::GetHead() const
 {
 	return m_Head;
 }
 
-FloatRect PlayableCharacter::GetLeft()
+FloatRect PlayableCharacter::GetLeft() const
 {
 	return m_Left;
 }
 
-FloatRect PlayableCharacter::GetRight()
+FloatRect PlayableCharacter::GetRight() const
 {
 	return m_Right;
 }
@@ -131,21 +131,21 @@ Sprite PlayableCharacter::GetSprite()
 
 
 
-void PlayableCharacter::StopFalling(float position)
+void PlayableCharacter::StopFalling(const float position)
 {
 	m_Position.y = position - GetPosition().height;
 	m_Sprite.setPosition(m_Position);
 	m_IsFalling = false;
 }
 
-void PlayableCharacter::StopRight(float position)
+void PlayableCharacter::StopRight(const float position)
 {
 
 	m_Position.x = position - m_Sprite.getGlobalBounds().width;
 	m_Sprite.setPosition(m_Position);
 }
 
-void PlayableCharacter::StopLeft(float position)
+void PlayableCharacter::StopLeft(const float position)
 {
 	m_Position.x = position + m_Sprite.getGlobalBounds().width;
 	m_Sprite.setPosition(m_Position);
