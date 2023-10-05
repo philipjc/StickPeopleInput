@@ -13,12 +13,12 @@ protected:
 	const int right = 75;
 	const int top = 86;
 
-	const int idle_frames = 4;
-	const int walking_frames = 6;
+	const int idle_Frames = 4;
+	const int walking_Frames = 6;
 
 	sf::Clock m_IdleClock;
 
-	int m_IdleFrame;
+	int m_IdleFrame = 0;
 
 	// int m_WalkingFrame;
 
@@ -39,9 +39,9 @@ protected:
 	bool m_RightPressed = false;
 
 	// How long has this jump lasted so far
-	float m_TimeThisJump;
+	float m_TimeThisJump = 0;
 
-	// Has the player just initialted a jump
+	// Has the player just initialized a jump
 	bool m_JustJumped = false;
 
 	// Private variables and functions come next
@@ -68,33 +68,32 @@ private:
 public:
 	virtual ~PlayableCharacter() = default;
 
-	void spawn(Vector2f startPosition, float gravity);
+	void Spawn(Vector2f start_position, float gravity);
 
 	// This is a pure virtual function
-	bool virtual handleInput() = 0;
-	// This class is now abstract and cannot be instanciated
-
+	bool virtual HandleInput() = 0;
+	// This class is now abstract and cannot be instantiated
 	// Where is the player
-	FloatRect getPosition();
+	FloatRect GetPosition();
 
 	// A rectangle representing the position of different parts of the sprite
-	FloatRect getFeet();
-	FloatRect getHead();
-	FloatRect getRight();
-	FloatRect getLeft();
+	FloatRect GetFeet();
+	FloatRect GetHead();
+	FloatRect GetRight();
+	FloatRect GetLeft();
 
 	// Send a copy of the sprite to main
-	Sprite getSprite();
+	Sprite GetSprite();
 
 	// Make the character stand firm
-	void stopFalling(float position);
-	void stopRight(float position);
-	void stopLeft(float position);
-	void stopJump();
+	void StopFalling(float position);
+	void StopRight(float position);
+	void StopLeft(float position);
+	void StopJump();
 
 	// Where is the center of the character
-	Vector2f getCenter();
+	Vector2f GetCenter();
 
 	// We will call this function once every frame
-	void update(float elapsedTime);
+	void Update(float elapsed_time);
 };

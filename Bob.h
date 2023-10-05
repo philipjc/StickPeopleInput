@@ -17,6 +17,6 @@ public:
 	const int walking_frames = 4;
 
 	// The overriden input handler for Bob
-	bool handleInput() override;
+	bool HandleInput() override;
 
 };

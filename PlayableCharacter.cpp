@@ -3,11 +3,11 @@
 #include "TextureCache.h"
 
 
-void PlayableCharacter::spawn(Vector2f startPosition, float gravity)
+void PlayableCharacter::Spawn(Vector2f start_position, float gravity)
 {
 	// Place the player at the starting point
-	m_Position.x = startPosition.x;
-	m_Position.y = startPosition.y;
+	m_Position.x = start_position.x;
+	m_Position.y = start_position.y;
 
 	// Initialize the gravity
 	m_Gravity = gravity;
@@ -17,17 +17,17 @@ void PlayableCharacter::spawn(Vector2f startPosition, float gravity)
 
 }
 
-void PlayableCharacter::update(float elapsedTime)
+void PlayableCharacter::Update(float elapsed_time)
 {
 
 	if (m_RightPressed)
 	{
-		m_Position.x += m_Speed * elapsedTime;
+		m_Position.x += m_Speed * elapsed_time;
 	}
 
 	if (m_LeftPressed)
 	{
-		m_Position.x -= m_Speed * elapsedTime;
+		m_Position.x -= m_Speed * elapsed_time;
 	}
 
 
@@ -35,13 +35,13 @@ void PlayableCharacter::update(float elapsedTime)
 	if (m_IsJumping)
 	{
 		// Update how long the jump has been going
-		m_TimeThisJump += elapsedTime;
+		m_TimeThisJump += elapsed_time;
 
 		// Is the jump going upwards
 		if (m_TimeThisJump < m_JumpDuration)
 		{
 			// Move up at twice gravity
-			m_Position.y -= m_Gravity * 2 * elapsedTime;
+			m_Position.y -= m_Gravity * 2 * elapsed_time;
 		}
 		else
 		{
@@ -55,11 +55,11 @@ void PlayableCharacter::update(float elapsedTime)
 	// Apply gravity
 	if (m_IsFalling)
 	{
-		m_Position.y += m_Gravity * elapsedTime;
+		m_Position.y += m_Gravity * elapsed_time;
 	}
 
 	// Update the rect for all body parts
-	const FloatRect rect = getPosition();
+	const FloatRect rect = GetPosition();
 
 
 	// Feet
@@ -91,12 +91,12 @@ void PlayableCharacter::update(float elapsedTime)
 
 }
 
-FloatRect PlayableCharacter::getPosition()
+FloatRect PlayableCharacter::GetPosition()
 {
 	return m_Sprite.getGlobalBounds();
 }
 
-Vector2f PlayableCharacter::getCenter()
+Vector2f PlayableCharacter::GetCenter()
 {
 	return Vector2f(
 		m_Position.x + m_Sprite.getGlobalBounds().width / 2,
@@ -104,54 +104,54 @@ Vector2f PlayableCharacter::getCenter()
 	);
 }
 
-FloatRect PlayableCharacter::getFeet()
+FloatRect PlayableCharacter::GetFeet()
 {
 	return m_Feet;
 }
 
-FloatRect PlayableCharacter::getHead()
+FloatRect PlayableCharacter::GetHead()
 {
 	return m_Head;
 }
 
-FloatRect PlayableCharacter::getLeft()
+FloatRect PlayableCharacter::GetLeft()
 {
 	return m_Left;
 }
 
-FloatRect PlayableCharacter::getRight()
+FloatRect PlayableCharacter::GetRight()
 {
 	return m_Right;
 }
 
-Sprite PlayableCharacter::getSprite()
+Sprite PlayableCharacter::GetSprite()
 {
 	return m_Sprite;
 }
 
 
 
-void PlayableCharacter::stopFalling(float position)
+void PlayableCharacter::StopFalling(float position)
 {
-	m_Position.y = position - getPosition().height;
+	m_Position.y = position - GetPosition().height;
 	m_Sprite.setPosition(m_Position);
 	m_IsFalling = false;
 }
 
-void PlayableCharacter::stopRight(float position)
+void PlayableCharacter::StopRight(float position)
 {
 
 	m_Position.x = position - m_Sprite.getGlobalBounds().width;
 	m_Sprite.setPosition(m_Position);
 }
 
-void PlayableCharacter::stopLeft(float position)
+void PlayableCharacter::StopLeft(float position)
 {
 	m_Position.x = position + m_Sprite.getGlobalBounds().width;
 	m_Sprite.setPosition(m_Position);
 }
 
-void PlayableCharacter::stopJump()
+void PlayableCharacter::StopJump()
 {
 	// Stop a jump early 
 	m_IsJumping = false;

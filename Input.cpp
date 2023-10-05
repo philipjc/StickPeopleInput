@@ -40,13 +40,13 @@ void Engine::Input()
 	}
 
 	// Handle input specific to Thomas
-	if (m_Thomas.handleInput())
+	if (m_Thomas.HandleInput())
 	{
 		// Play a jump sound
 	}
 
 	// Handle input specific to Bob
-	if (m_Bob.handleInput())
+	if (m_Bob.HandleInput())
 	{
 		// Play a jump sound
 	}

@@ -8,6 +8,6 @@ public:
 	Thomas();
 
 	// The overriden input handler for Thomas
-	bool virtual handleInput();
+	bool virtual HandleInput();
 
 };

@@ -13,21 +13,21 @@ private:
 	float m_TimeModifier = 1;
 	float m_BaseTimeLimit = 0;
 	int m_CurrentLevel = 0;
-	const int NUM_LEVELS = 4;
+	const int num_Level = 4;
 
 public:
 
-	const int TILE_SIZE = 50;
-	const int VERTS_IN_QUAD = 4;
+	const int tile_size = 50;
+	const int verts_in_quad = 4;
 
-	float getTimeLimit();
+	float GetTimeLimit();
 
-	Vector2f getStartPosition();
+	Vector2f GetStartPosition();
 
-	int** nextLevel(VertexArray& rVaLevel);
+	int** NextLevel(VertexArray& r_va_level);
 
-	Vector2i getLevelSize();
+	Vector2i GetLevelSize();
 
-	int getCurrentLevel();
+	int GetCurrentLevel();
 
 };

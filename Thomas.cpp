@@ -11,7 +11,7 @@ Thomas::Thomas()
 }
 
 // A virtual function
-bool Thomas::handleInput()
+bool Thomas::HandleInput()
 {
 	m_JustJumped = false;
 

@@ -4,7 +4,7 @@
 
 using namespace sf;
 
-void Engine::Update(float dt_as_seconds)
+void Engine::Update(const float dt_as_seconds)
 {
 	if (m_NewLevelRequired)
 	{
@@ -26,10 +26,10 @@ void Engine::Update(float dt_as_seconds)
 	if (m_Playing)
 	{
 		// Update Thomas
-		m_Thomas.update(dt_as_seconds);
+		m_Thomas.Update(dt_as_seconds);
 
 		// Update Bob
-		m_Bob.update(dt_as_seconds);
+		m_Bob.Update(dt_as_seconds);
 
 
 		// Detect collisions and see if characters have reached the goal tile
@@ -50,13 +50,13 @@ void Engine::Update(float dt_as_seconds)
 		}
 
 		// Let bob and thomas jump on each others heads
-		if (m_Bob.getFeet().intersects(m_Thomas.getHead()))
+		if (m_Bob.GetFeet().intersects(m_Thomas.GetHead()))
 		{
-			m_Bob.stopFalling(m_Thomas.getHead().top);
+			m_Bob.StopFalling(m_Thomas.GetHead().top);
 		}
-		else if (m_Thomas.getFeet().intersects(m_Bob.getHead()))
+		else if (m_Thomas.GetFeet().intersects(m_Bob.GetHead()))
 		{
-			m_Thomas.stopFalling(m_Bob.getHead().top);
+			m_Thomas.StopFalling(m_Bob.GetHead().top);
 		}
 
 		// Count down the time the player has left
@@ -73,19 +73,19 @@ void Engine::Update(float dt_as_seconds)
 	// Set the appropriate view around the appropriate character
 	if (m_SplitScreen)
 	{
-		m_LeftView.setCenter(m_Thomas.getCenter());
-		m_RightView.setCenter(m_Bob.getCenter());
+		m_LeftView.setCenter(m_Thomas.GetCenter());
+		m_RightView.setCenter(m_Bob.GetCenter());
 	}
 	else
 	{
 		// Centre full screen around appropriate character
 		if (m_Character1)
 		{
-			m_MainView.setCenter(m_Thomas.getCenter());
+			m_MainView.setCenter(m_Thomas.GetCenter());
 		}
 		else
 		{
-			m_MainView.setCenter(m_Bob.getCenter());
+			m_MainView.setCenter(m_Bob.GetCenter());
 		}
 	}
 }

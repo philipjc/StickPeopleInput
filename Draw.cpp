@@ -23,7 +23,7 @@ void Engine::Draw()
 		// m_Window.draw(m_Thomas.getSprite());
 
 		// Draw bob
-		m_Window.draw(m_Bob.getSprite());
+		m_Window.draw(m_Bob.GetSprite());
 	}
 	else
 	{
@@ -44,7 +44,7 @@ void Engine::Draw()
 		m_Window.draw(m_VaLevel, &m_TextureTiles);
 
 		// Draw bob
-		m_Window.draw(m_Bob.getSprite());
+		m_Window.draw(m_Bob.GetSprite());
 
 		// Draw thomas
 		// m_Window.draw(m_Thomas.getSprite());
@@ -64,10 +64,10 @@ void Engine::Draw()
 		m_Window.draw(m_VaLevel, &m_TextureTiles);
 
 		// Draw thomas
-		m_Window.draw(m_Thomas.getSprite());
+		m_Window.draw(m_Thomas.GetSprite());
 
 		// Draw bob
-		m_Window.draw(m_Bob.getSprite());
+		m_Window.draw(m_Bob.GetSprite());
 
 	}
 

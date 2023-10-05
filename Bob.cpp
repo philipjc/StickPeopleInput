@@ -25,7 +25,7 @@ Bob::Bob()
 
 }
 
-bool Bob::handleInput()
+bool Bob::HandleInput()
 {
 
 	m_JustJumped = false;
