@@ -14,7 +14,7 @@ private:
 
 	// A pointer of the same type as the class itself
 	// the one and only instance
-	static TextureCache* m_s_Instance;
+	static TextureCache* m_S_Instance;
 
 public:
 	TextureCache();

@@ -1,7 +1,4 @@
 #include "Bob.h"
-
-#include <iostream>
-
 #include "TextureCache.h"
 
 

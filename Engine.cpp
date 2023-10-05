@@ -11,11 +11,11 @@ Engine::Engine()
 	sf::Vector2f resolution;
 	try
 	{
-		const sf::VideoMode desktop_mode = sf::VideoMode::getDesktopMode();
-		if (desktop_mode.isValid())
+		const sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
+		if (desktopMode.isValid())
 		{
-			resolution.x = static_cast<float>(desktop_mode.width);
-			resolution.y = static_cast<float>(desktop_mode.height);
+			resolution.x = static_cast<float>(desktopMode.width);
+			resolution.y = static_cast<float>(desktopMode.height);
 		}
 		else
 		{
@@ -89,10 +89,10 @@ void Engine::Run()
 		m_GameTimeTotal += dt;
 
 		// Make a decimal fraction from the delta time
-		const float dt_as_seconds = dt.asSeconds();
+		const float dtAsSeconds = dt.asSeconds();
 
 		Input();
-		Update(dt_as_seconds);
+		Update(dtAsSeconds);
 		Draw();
 	}
 }

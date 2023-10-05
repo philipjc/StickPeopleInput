@@ -1,27 +1,27 @@
 #include "TextureCache.h"
-#include <assert.h>
+#include <cassert>
 
 using namespace sf;
 using namespace std;
 
-TextureCache* TextureCache::m_s_Instance = nullptr;
+TextureCache* TextureCache::m_S_Instance = nullptr;
 
 TextureCache::TextureCache()
 {
-	assert(m_s_Instance == nullptr);
-	m_s_Instance = this;
+	assert(m_S_Instance == nullptr);
+	m_S_Instance = this;
 }
 
 sf::Texture& TextureCache::GetTexture(std::string const& filename)
 {
 	// Get a reference to m_Textures using m_S_Instance
-	auto& m = m_s_Instance->m_Textures;
+	auto& m = m_S_Instance->m_Textures;
 	// auto is the equivalent of map<string, Texture>
 
 	// Create an iterator to hold a key-value-pair (kvp)
 	// and search for the required kvp
 	// using the passed in file name
-	auto keyValuePair = m.find(filename);
+	const auto keyValuePair = m.find(filename);
 	// auto is equivalent of map<string, Texture>::iterator
 
 

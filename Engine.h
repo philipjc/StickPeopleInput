@@ -80,7 +80,7 @@ private:
 	void LoadLevel();
 
 	// Run will call all the private functions
-	bool DetectCollisions(PlayableCharacter& character);
+	bool DetectCollisions(PlayableCharacter& character) const;
 
 public:
 	// The Engine constructor

@@ -21,33 +21,33 @@ int** LevelManager::NextLevel(VertexArray& r_va_level)
 	}
 
 	// Load the appropriate level from a text file
-	string level_to_load;
+	string levelToLoad;
 	switch (m_CurrentLevel)
 	{
 
 	case 1:
-		level_to_load = "levels/level1.txt";
+		levelToLoad = "levels/level1.txt";
 		m_StartPosition.x = 100;
 		m_StartPosition.y = 100;
 		m_BaseTimeLimit = 30.0f;
 		break;
 
 	case 2:
-		level_to_load = "levels/level2.txt";
+		levelToLoad = "levels/level2.txt";
 		m_StartPosition.x = 100;
 		m_StartPosition.y = 3600;
 		m_BaseTimeLimit = 100.0f;
 		break;
 
 	case 3:
-		level_to_load = "levels/level3.txt";
+		levelToLoad = "levels/level3.txt";
 		m_StartPosition.x = 1250;
 		m_StartPosition.y = 0;
 		m_BaseTimeLimit = 30.0f;
 		break;
 
 	case 4:
-		level_to_load = "levels/level4.txt";
+		levelToLoad = "levels/level4.txt";
 		m_StartPosition.x = 50;
 		m_StartPosition.y = 200;
 		m_BaseTimeLimit = 50.0f;
@@ -55,7 +55,7 @@ int** LevelManager::NextLevel(VertexArray& r_va_level)
 	default: ;
 	}
 
-	ifstream input_file(level_to_load);
+	ifstream input_file(levelToLoad);
 	string s;
 
 	// Count the number of rows in the file
@@ -72,11 +72,11 @@ int** LevelManager::NextLevel(VertexArray& r_va_level)
 	input_file.seekg(0, ios::beg);
 
 	// Prepare the 2d array to hold the int values from the file
-	const auto array_level = new int* [m_LevelSize.y];
+	const auto arrayLevel = new int* [m_LevelSize.y];
 	for (int i = 0; i < m_LevelSize.y; ++i)
 	{
 		// Add a new array into each array element
-		array_level[i] = new int[m_LevelSize.x];
+		arrayLevel[i] = new int[m_LevelSize.x];
 	}
 
 	// Loop through the file and store all the values in the 2d array
@@ -87,7 +87,7 @@ int** LevelManager::NextLevel(VertexArray& r_va_level)
 		for (int x = 0; x < row.length(); x++) {
 
 			const char val = row[x];
-			array_level[y][x] = atoi(&val);
+			arrayLevel[y][x] = atoi(&val);
 		}
 
 		y++;
@@ -103,46 +103,46 @@ int** LevelManager::NextLevel(VertexArray& r_va_level)
 	r_va_level.resize(m_LevelSize.x * m_LevelSize.y * verts_in_quad);
 
 	// Start at the beginning of the vertex array
-	int current_vertex = 0;
+	int currentVertex = 0;
 
 	for (int x = 0; x < m_LevelSize.x; x++)
 	{
 		for (int y = 0; y < m_LevelSize.y; y++)
 		{
 			// Position each vertex in the current quad
-			r_va_level[current_vertex + 0].position =
+			r_va_level[currentVertex + 0].position =
 				Vector2f(static_cast<float>(x * tile_size), static_cast<float>(y * tile_size));
 
-			r_va_level[current_vertex + 1].position =
+			r_va_level[currentVertex + 1].position =
 				Vector2f(static_cast<float>(x * tile_size + tile_size), static_cast<float>(y * tile_size));
 
-			r_va_level[current_vertex + 2].position =
+			r_va_level[currentVertex + 2].position =
 				Vector2f(static_cast<float>(x * tile_size + tile_size), static_cast<float>(y * tile_size + tile_size));
 
-			r_va_level[current_vertex + 3].position =
+			r_va_level[currentVertex + 3].position =
 				Vector2f(static_cast<float>(x * tile_size), static_cast<float>(y * tile_size + tile_size));
 
 			// Which tile from the sprite sheet should we use
-			const int vertical_offset = array_level[y][x] * tile_size;
+			const int verticalOffset = arrayLevel[y][x] * tile_size;
 
-			r_va_level[current_vertex + 0].texCoords =
-				Vector2f(0, static_cast<float>(0 + vertical_offset));
+			r_va_level[currentVertex + 0].texCoords =
+				Vector2f(0, static_cast<float>(0 + verticalOffset));
 
-			r_va_level[current_vertex + 1].texCoords =
-				Vector2f(static_cast<float>(tile_size), static_cast<float>(0 + vertical_offset));
+			r_va_level[currentVertex + 1].texCoords =
+				Vector2f(static_cast<float>(tile_size), static_cast<float>(0 + verticalOffset));
 
-			r_va_level[current_vertex + 2].texCoords =
-				Vector2f(static_cast<float>(tile_size), static_cast<float>(tile_size + vertical_offset));
+			r_va_level[currentVertex + 2].texCoords =
+				Vector2f(static_cast<float>(tile_size), static_cast<float>(tile_size + verticalOffset));
 
-			r_va_level[current_vertex + 3].texCoords =
-				Vector2f(0, static_cast<float>(tile_size + vertical_offset));
+			r_va_level[currentVertex + 3].texCoords =
+				Vector2f(0, static_cast<float>(tile_size + verticalOffset));
 
 			// Position ready for the next four vertices
-			current_vertex = current_vertex + verts_in_quad;
+			currentVertex = currentVertex + verts_in_quad;
 		}
 	}
 
-	return array_level;
+	return arrayLevel;
 }
 
 Vector2i LevelManager::GetLevelSize() const

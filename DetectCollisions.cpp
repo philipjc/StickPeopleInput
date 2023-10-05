@@ -1,24 +1,24 @@
 #include "Engine.h"
 
-bool Engine::DetectCollisions(PlayableCharacter& character)
+bool Engine::DetectCollisions(PlayableCharacter& character) const
 {
 	bool reachedGoal = false;
 	// Make a rect for all his parts
-	FloatRect detectionZone = character.GetPosition();
+	const FloatRect detectionZone = character.GetPosition();
 
 	// Make a FloatRect to test each block
 	FloatRect block;
 
-	block.width = tile_Size;
-	block.height = tile_Size;
+	block.width = static_cast<float>(tile_Size);
+	block.height = static_cast<float>(tile_Size);
 
 	// Build a zone around thomas to detect collisions
-	int startX = (int)(detectionZone.left / tile_Size) - 1;
-	int startY = (int)(detectionZone.top / tile_Size) - 1;
-	int endX = (int)(detectionZone.left / tile_Size) + 2;
+	int startX = static_cast<int>(detectionZone.left) / tile_Size - 1;
+	int startY = static_cast<int>(detectionZone.top) / tile_Size - 1;
+	int endX = static_cast<int>(detectionZone.left) / tile_Size + 2;
 
 	// Thomas is quite tall so check a few tiles vertically
-	int endY = (int)(detectionZone.top / tile_Size) + 3;
+	int endY = static_cast<int>(detectionZone.top) / tile_Size + 3;
 
 	// Make sure we don't test positions lower than zero
 	// Or higher than the end of the array
@@ -31,11 +31,11 @@ bool Engine::DetectCollisions(PlayableCharacter& character)
 
 	// Has the character fallen out of the map?
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!This can be part of level manager!!!!!!!!!!!!!!!!!!!!!!!!
-	FloatRect level(0, 0, m_LM.GetLevelSize().x * tile_Size, m_LM.GetLevelSize().y * tile_Size);
+	const FloatRect level(0, 0, static_cast<float>(m_LM.GetLevelSize().x * tile_Size), static_cast<float>(m_LM.GetLevelSize().y * tile_Size));
 	if (!character.GetPosition().intersects(level))
 	{
-		// respawn the character
-		character.Spawn(m_LM.GetStartPosition(), gravity);
+		// re-spawn the character
+		character.Spawn(m_LM.GetStartPosition(), static_cast<int>(gravity));
 	}
 
 	for (int x = startX; x < endX; x++)
@@ -43,8 +43,8 @@ bool Engine::DetectCollisions(PlayableCharacter& character)
 		for (int y = startY; y < endY; y++)
 		{
 			// Initialize the starting position of the current block
-			block.left = x * tile_Size;
-			block.top = y * tile_Size;
+			block.left = static_cast<float>(x * tile_Size);
+			block.top = static_cast<float>(y * tile_Size);
 
 			// Has character been burnt or drowned?
 			// Use head as this allows him to sink a bit
@@ -52,7 +52,8 @@ bool Engine::DetectCollisions(PlayableCharacter& character)
 			{
 				if (character.GetHead().intersects(block))
 				{
-					character.Spawn(m_LM.GetStartPosition(), gravity);
+					character.Spawn(m_LM.GetStartPosition(), static_cast<int>(gravity));
+
 					// Which sound should be played?
 					if (m_ArrayLevel[y][x] == 2)// Fire, ouch!
 					{
@@ -104,6 +105,6 @@ bool Engine::DetectCollisions(PlayableCharacter& character)
 
 	}
 
-	// All done, return, wheteher or not a new level might be required
+	// All done, return, whether or not a new level might be required
 	return reachedGoal;
 }
