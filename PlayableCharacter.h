@@ -61,8 +61,6 @@ private:
 	float m_Gravity = 0;
 
 	// How fast is the character
-	float m_Speed = 240;
-
 	float m_KnightSpeed = 230;
 
 	// Where is the player
