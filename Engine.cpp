@@ -30,10 +30,10 @@ Engine::Engine()
 	m_RightView.setViewport(
 		FloatRect(0.5f, 0.001f, 0.499f, 0.998f));
 
-	m_BGLeftView.setViewport(
+	m_BgLeftView.setViewport(
 		FloatRect(0.001f, 0.001f, 0.498f, 0.998f));
 
-	m_BGRightView.setViewport(
+	m_BgRightView.setViewport(
 		FloatRect(0.5f, 0.001f, 0.499f, 0.998f));
 
 	// Can this graphics card use shaders?
@@ -55,7 +55,7 @@ Engine::Engine()
 
 }
 
-void Engine::run()
+void Engine::Run()
 {
 	// Timing 	
 	Clock clock;
@@ -70,8 +70,8 @@ void Engine::run()
 		// Make a decimal fraction from the delta time
 		float dtAsSeconds = dt.asSeconds();
 
-		input();
-		update(dtAsSeconds);
-		draw();
+		Input();
+		Update(dtAsSeconds);
+		Draw();
 	}
 }

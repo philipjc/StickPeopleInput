@@ -4,7 +4,7 @@
 
 using namespace sf;
 
-void Engine::update(float dtAsSeconds)
+void Engine::Update(float dt_as_seconds)
 {
 	if (m_NewLevelRequired)
 	{
@@ -19,23 +19,23 @@ void Engine::update(float dtAsSeconds)
 		//m_NewLevelRequired = false;
 
 		// Load a level
-		loadLevel();
+		LoadLevel();
 
 	}
 
 	if (m_Playing)
 	{
 		// Update Thomas
-		m_Thomas.update(dtAsSeconds);
+		m_Thomas.update(dt_as_seconds);
 
 		// Update Bob
-		m_Bob.update(dtAsSeconds);
+		m_Bob.update(dt_as_seconds);
 
 
 		// Detect collisions and see if characters have reached the goal tile
 		// The second part of the if condition is only executed
 		// when thomas is touching the home tile
-		if (detectCollisions(m_Thomas) && detectCollisions(m_Bob))
+		if (DetectCollisions(m_Thomas) && DetectCollisions(m_Bob))
 		{
 			// New level required
 			m_NewLevelRequired = true;
@@ -46,7 +46,7 @@ void Engine::update(float dtAsSeconds)
 		else
 		{
 			// Run bobs collision detection
-			detectCollisions(m_Bob);
+			DetectCollisions(m_Bob);
 		}
 
 		// Let bob and thomas jump on each others heads
@@ -60,7 +60,7 @@ void Engine::update(float dtAsSeconds)
 		}
 
 		// Count down the time the player has left
-		m_TimeRemaining -= dtAsSeconds;
+		m_TimeRemaining -= dt_as_seconds;
 
 		// Have Thomas and Bob run out of time?
 		if (m_TimeRemaining <= 0)

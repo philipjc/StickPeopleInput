@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-bool Engine::detectCollisions(PlayableCharacter& character)
+bool Engine::DetectCollisions(PlayableCharacter& character)
 {
 	bool reachedGoal = false;
 	// Make a rect for all his parts
@@ -9,16 +9,16 @@ bool Engine::detectCollisions(PlayableCharacter& character)
 	// Make a FloatRect to test each block
 	FloatRect block;
 
-	block.width = TILE_SIZE;
-	block.height = TILE_SIZE;
+	block.width = tile_Size;
+	block.height = tile_Size;
 
 	// Build a zone around thomas to detect collisions
-	int startX = (int)(detectionZone.left / TILE_SIZE) - 1;
-	int startY = (int)(detectionZone.top / TILE_SIZE) - 1;
-	int endX = (int)(detectionZone.left / TILE_SIZE) + 2;
+	int startX = (int)(detectionZone.left / tile_Size) - 1;
+	int startY = (int)(detectionZone.top / tile_Size) - 1;
+	int endX = (int)(detectionZone.left / tile_Size) + 2;
 
 	// Thomas is quite tall so check a few tiles vertically
-	int endY = (int)(detectionZone.top / TILE_SIZE) + 3;
+	int endY = (int)(detectionZone.top / tile_Size) + 3;
 
 	// Make sure we don't test positions lower than zero
 	// Or higher than the end of the array
@@ -31,11 +31,11 @@ bool Engine::detectCollisions(PlayableCharacter& character)
 
 	// Has the character fallen out of the map?
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!This can be part of level manager!!!!!!!!!!!!!!!!!!!!!!!!
-	FloatRect level(0, 0, m_LM.getLevelSize().x * TILE_SIZE, m_LM.getLevelSize().y * TILE_SIZE);
+	FloatRect level(0, 0, m_LM.getLevelSize().x * tile_Size, m_LM.getLevelSize().y * tile_Size);
 	if (!character.getPosition().intersects(level))
 	{
 		// respawn the character
-		character.spawn(m_LM.getStartPosition(), GRAVITY);
+		character.spawn(m_LM.getStartPosition(), gravity);
 	}
 
 	for (int x = startX; x < endX; x++)
@@ -43,8 +43,8 @@ bool Engine::detectCollisions(PlayableCharacter& character)
 		for (int y = startY; y < endY; y++)
 		{
 			// Initialize the starting position of the current block
-			block.left = x * TILE_SIZE;
-			block.top = y * TILE_SIZE;
+			block.left = x * tile_Size;
+			block.top = y * tile_Size;
 
 			// Has character been burnt or drowned?
 			// Use head as this allows him to sink a bit
@@ -52,7 +52,7 @@ bool Engine::detectCollisions(PlayableCharacter& character)
 			{
 				if (character.getHead().intersects(block))
 				{
-					character.spawn(m_LM.getStartPosition(), GRAVITY);
+					character.spawn(m_LM.getStartPosition(), gravity);
 					// Which sound should be played?
 					if (m_ArrayLevel[y][x] == 2)// Fire, ouch!
 					{

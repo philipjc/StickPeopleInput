@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-void Engine::loadLevel()
+void Engine::LoadLevel()
 {
 	m_Playing = false;
 
@@ -14,14 +14,14 @@ void Engine::loadLevel()
 
 	// Load the next 2d array with the map for the level
 	// And repopulate the vertex array as well
-	m_ArrayLevel = m_LM.nextLevel(m_VALevel);
+	m_ArrayLevel = m_LM.nextLevel(m_VaLevel);
 
 	// How long is this new time limit
 	m_TimeRemaining = m_LM.getTimeLimit();
 
 	// Spawn Thomas and Bob
-	m_Thomas.spawn(m_LM.getStartPosition(), GRAVITY);
-	m_Bob.spawn(m_LM.getStartPosition(), GRAVITY);
+	m_Thomas.spawn(m_LM.getStartPosition(), gravity);
+	m_Bob.spawn(m_LM.getStartPosition(), gravity);
 
 	// Make sure this code isn't run again
 	m_NewLevelRequired = false;

@@ -2,7 +2,7 @@
 
 #include "Engine.h"
 
-void Engine::input()
+void Engine::Input()
 {
 	Event event{};
 	while (m_Window.pollEvent(event))

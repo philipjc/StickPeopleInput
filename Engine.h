@@ -20,11 +20,11 @@ private:
 	// A class to manage all the levels
 	LevelManager m_LM;
 
-	const int TILE_SIZE = 50;
-	const int VERTS_IN_QUAD = 4;
+	const int tile_Size = 50;
+	const int verts_In_Quad = 4;
 
 	// The force pushing the characters down
-	const int GRAVITY = 300;
+	const int gravity = 300;
 
 	// A regular RenderWindow
 	RenderWindow m_Window;
@@ -35,9 +35,9 @@ private:
 	View m_RightView;
 
 	// Three views for the background
-	View m_BGMainView;
-	View m_BGLeftView;
-	View m_BGRightView;
+	View m_BgMainView;
+	View m_BgLeftView;
+	View m_BgRightView;
 
 	View m_HudView;
 
@@ -62,31 +62,31 @@ private:
 	bool m_NewLevelRequired = true;
 
 	// The vertex array for the level design
-	VertexArray m_VALevel;
+	VertexArray m_VaLevel;
 
 	// The 2d array with the map for the level
 	// A pointer to a pointer
-	int** m_ArrayLevel = NULL;
+	int** m_ArrayLevel = nullptr;
 
 	// Texture for the background and the level tiles
 	Texture m_TextureTiles;
 
 	// Private functions for internal use only
-	void input();
-	void update(float dtAsSeconds);
-	void draw();
+	void Input();
+	void Update(float dt_as_seconds);
+	void Draw();
 
 	// Load a new level
-	void loadLevel();
+	void LoadLevel();
 
 	// Run will call all the private functions
-	bool detectCollisions(PlayableCharacter& character);
+	bool DetectCollisions(PlayableCharacter& character);
 
 public:
 	// The Engine constructor
 	Engine();
 
 	// Run will call all the private functions
-	void run();
+	void Run();
 
 };

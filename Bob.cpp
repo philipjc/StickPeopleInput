@@ -77,6 +77,7 @@ bool Bob::handleInput()
 	if (m_RightPressed)
 	{
 		m_Sprite.setScale(1, 1);
+		m_Sprite.setOrigin(m_Sprite.getGlobalBounds().width, 0);
 	}
 
 	if (m_LeftPressed)

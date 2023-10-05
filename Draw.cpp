@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-void Engine::draw()
+void Engine::Draw()
 {
 	// Rub out the last frame
 	m_Window.clear(Color::White);
@@ -8,7 +8,7 @@ void Engine::draw()
 	if (!m_SplitScreen)
 	{
 		// Switch to background view
-		m_Window.setView(m_BGMainView);
+		m_Window.setView(m_BgMainView);
 
 		// Draw the background
 		m_Window.draw(m_BackgroundSprite);
@@ -17,7 +17,7 @@ void Engine::draw()
 		m_Window.setView(m_MainView);
 
 		// Draw the Level
-		m_Window.draw(m_VALevel, &m_TextureTiles);
+		m_Window.draw(m_VaLevel, &m_TextureTiles);
 
 		// Draw thomas
 		// m_Window.draw(m_Thomas.getSprite());
@@ -32,7 +32,7 @@ void Engine::draw()
 		// First draw Thomas' side of the screen
 
 		// Switch to background view
-		m_Window.setView(m_BGLeftView);
+		m_Window.setView(m_BgLeftView);
 
 		// Draw the background
 		m_Window.draw(m_BackgroundSprite);
@@ -41,7 +41,7 @@ void Engine::draw()
 		m_Window.setView(m_LeftView);
 
 		// Draw the Level
-		m_Window.draw(m_VALevel, &m_TextureTiles);
+		m_Window.draw(m_VaLevel, &m_TextureTiles);
 
 		// Draw bob
 		m_Window.draw(m_Bob.getSprite());
@@ -52,7 +52,7 @@ void Engine::draw()
 		// Now draw Bob's side of the screen
 
 		// Switch to background view
-		m_Window.setView(m_BGRightView);
+		m_Window.setView(m_BgRightView);
 
 		// Draw the background
 		m_Window.draw(m_BackgroundSprite);
@@ -61,7 +61,7 @@ void Engine::draw()
 		m_Window.setView(m_RightView);
 
 		// Draw the Level
-		m_Window.draw(m_VALevel, &m_TextureTiles);
+		m_Window.draw(m_VaLevel, &m_TextureTiles);
 
 		// Draw thomas
 		m_Window.draw(m_Thomas.getSprite());
