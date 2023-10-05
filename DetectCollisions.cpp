@@ -24,18 +24,18 @@ bool Engine::DetectCollisions(PlayableCharacter& character) const
 	// Or higher than the end of the array
 	if (startX < 0)startX = 0;
 	if (startY < 0)startY = 0;
-	if (endX >= m_LM.GetLevelSize().x)
-		endX = m_LM.GetLevelSize().x;
-	if (endY >= m_LM.GetLevelSize().y)
-		endY = m_LM.GetLevelSize().y;
+	if (endX >= m_Lm.GetLevelSize().x)
+		endX = m_Lm.GetLevelSize().x;
+	if (endY >= m_Lm.GetLevelSize().y)
+		endY = m_Lm.GetLevelSize().y;
 
 	// Has the character fallen out of the map?
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!This can be part of level manager!!!!!!!!!!!!!!!!!!!!!!!!
-	const FloatRect level(0, 0, static_cast<float>(m_LM.GetLevelSize().x * tile_Size), static_cast<float>(m_LM.GetLevelSize().y * tile_Size));
+	const FloatRect level(0, 0, static_cast<float>(m_Lm.GetLevelSize().x * tile_Size), static_cast<float>(m_Lm.GetLevelSize().y * tile_Size));
 	if (!character.GetPosition().intersects(level))
 	{
 		// re-spawn the character
-		character.Spawn(m_LM.GetStartPosition(), static_cast<int>(gravity));
+		character.Spawn(m_Lm.GetStartPosition(), static_cast<int>(gravity));
 	}
 
 	for (int x = startX; x < endX; x++)
@@ -52,7 +52,7 @@ bool Engine::DetectCollisions(PlayableCharacter& character) const
 			{
 				if (character.GetHead().intersects(block))
 				{
-					character.Spawn(m_LM.GetStartPosition(), static_cast<int>(gravity));
+					character.Spawn(m_Lm.GetStartPosition(), static_cast<int>(gravity));
 
 					// Which sound should be played?
 					if (m_ArrayLevel[y][x] == 2)// Fire, ouch!
