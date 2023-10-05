@@ -9,12 +9,13 @@ protected:
 	bool m_IsIdle = true;
 
 	const int left = 0;
-	const int bottom = -20;
+	const int bottom = 20;
 	const int right = 75;
 	const int top = 86;
 
 	const int idle_Frames = 4;
 	const int walking_Frames = 6;
+	const int attacking_Frames = 5;
 
 	sf::Clock m_IdleClock;
 
@@ -25,7 +26,17 @@ protected:
 	// Of course we will need a sprite
 	Sprite m_Sprite;
 
-	Sprite m_WalkingSprite;
+	Texture m_IdleTexture;
+
+	Texture m_WalkingTexture;
+
+	Texture m_JumpingTexture;
+
+	Texture m_FallingTexture;
+
+	Texture m_AttackingTexture;
+
+	Texture m_DeadTexture;
 
 	// How long does a jump last
 	float m_JumpDuration = 0;
