@@ -20,14 +20,14 @@ public:
 	const int tile_size = 50;
 	const int verts_in_quad = 4;
 
-	float GetTimeLimit();
+	float GetTimeLimit() const;
 
-	Vector2f GetStartPosition();
+	Vector2f GetStartPosition() const;
 
 	int** NextLevel(VertexArray& r_va_level);
 
-	Vector2i GetLevelSize();
+	Vector2i GetLevelSize() const;
 
-	int GetCurrentLevel();
+	int GetCurrentLevel() const;
 
 };
