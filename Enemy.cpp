@@ -12,7 +12,7 @@ bool Enemy::SpawnEnemy(Vector2f enemy_start_position, float gravity)
 	// Face left
 	m_EnemySprite.setScale(-1, 1);
 
-	m_EnemyPosition.x = 600.f;
+	m_EnemyPosition.x = 500.f;
 	m_EnemyPosition.y = 0.f;
 	m_EnemyIsFalling = true;
 	m_EnemyIsPatrolling = true;
