@@ -47,4 +47,8 @@ public:
 	FloatRect GetEnemyPosition() const;
 
 	void StopEnemyFalling(float top);
+
+	void EngageCombat();
+
+	void DisengageCombat();
 };

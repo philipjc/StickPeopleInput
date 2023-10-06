@@ -1,7 +1,7 @@
 #pragma
 #include "Engine.h"
 #include "Enemy.h"
-
+#include "Bob.h"
 
 bool Enemy::SpawnEnemy(Vector2f enemy_start_position, float gravity)
 {
@@ -32,11 +32,59 @@ FloatRect Enemy::GetEnemyPosition() const
 
 void Enemy::UpdateEnemy(const float elapsed_time)
 {
+	if (m_EnemyIsAttacking)
+	{
+		// Animate attacking
+		// 0 - 80
+		// 120 - 80
+		// 260 - 80
+		// 410 - 80
+		// 540 - 80
+
+		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (m_EnemyIdleFrame == 4)
+			{
+				m_EnemyIdleFrame = 0;
+				m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 80, 90));
+			}
+
+
+			if (m_EnemyIdleFrame == 1)
+			{
+				m_EnemySprite.setTextureRect(sf::IntRect(120, 30, 80, 90));
+			}
+
+			if (m_EnemyIdleFrame == 2)
+			{
+				m_EnemySprite.setTextureRect(sf::IntRect(260, 30, 80, 90));
+			}
+
+			if (m_EnemyIdleFrame == 3)
+			{
+				m_EnemySprite.setTextureRect(sf::IntRect(410, 30, 80, 90));
+			}
+
+			if (m_EnemyIdleFrame == 4)
+			{
+				m_EnemySprite.setTextureRect(sf::IntRect(540, 30, 80, 90));
+			}
+
+			m_EnemyIdleFrame++;
+
+			m_EnemyIdleClock.restart();
+		}
+
+		const FloatRect rect = GetEnemyPosition();
+		m_EnemyFeetPosition.left = rect.left + 1;
+		m_EnemySprite.setPosition(m_EnemyPosition);
+	}
+
 	if (m_EnemyIsPatrolling)
 	{
 		m_EnemyPosition.x -= m_EnemySpeed * elapsed_time;
 
-		// Animate attacking
+		// Animate patrol
 		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
 			if (m_EnemyIdleFrame == m_EnemyAttackFrames)
@@ -44,7 +92,7 @@ void Enemy::UpdateEnemy(const float elapsed_time)
 				m_EnemyIdleFrame = 0;
 			}
 
-			m_EnemySprite.setTextureRect(sf::IntRect(10, 30, 80, 90));
+			m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 80, 90));
 
 			m_EnemyIdleFrame++;
 
@@ -61,14 +109,17 @@ void Enemy::UpdateEnemy(const float elapsed_time)
 	// Update the rect for all body parts
 	const FloatRect rect = GetEnemyPosition();
 
-
 	// Feet
-	m_EnemyFeetPosition.left = rect.left + 3;
-	m_EnemyFeetPosition.top = rect.top + rect.height - 1;
-	m_EnemyFeetPosition.width = rect.width - 6;
-	m_EnemyFeetPosition.height = 1;
+	if (!m_EnemyIsAttacking)
+	{
+		m_EnemyFeetPosition.left = rect.left + 3;
+		m_EnemyFeetPosition.top = rect.top + rect.height - 1;
+		m_EnemyFeetPosition.width = rect.width - 6;
+		m_EnemyFeetPosition.height = 1;
+		m_EnemySprite.setPosition(m_EnemyPosition);
 
-	m_EnemySprite.setPosition(m_EnemyPosition);
+	}
+
 	
 }
 
@@ -82,4 +133,16 @@ void Enemy::StopEnemyFalling(const float top)
 	m_EnemyPosition.y = top - GetEnemyPosition().height;
 	m_EnemySprite.setPosition(m_EnemyPosition);
 	m_EnemyIsFalling = false;
+}
+
+void Enemy::EngageCombat()
+{
+	m_EnemyIsPatrolling = false;
+	m_EnemyIsAttacking = true;
+}
+
+void Enemy::DisengageCombat()
+{
+	m_EnemyIsPatrolling = true;
+	m_EnemyIsAttacking = false;
 }

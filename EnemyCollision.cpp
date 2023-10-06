@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Engine.h"
 
 bool Engine::EnemyCollision(Enemy& enemy) const
@@ -13,7 +15,7 @@ bool Engine::EnemyCollision(Enemy& enemy) const
 	block.width = static_cast<float>(tile_Size);
 	block.height = static_cast<float>(tile_Size);
 
-	// Build a zone around thomas to detect collisions
+	// Build a zone around enemy to detect collisions
 	int startX = static_cast<int>(detectionZone.left) / tile_Size - 1;
 	int startY = static_cast<int>(detectionZone.top) / tile_Size - 1;
 	int endX = static_cast<int>(detectionZone.left) / tile_Size + 2;
@@ -36,7 +38,7 @@ bool Engine::EnemyCollision(Enemy& enemy) const
 	if (!enemy.GetEnemyPosition().intersects(level))
 	{
 		// re-spawn the enemy
-		enemy.SpawnEnemy(m_Lm.GetStartPosition(), static_cast<int>(gravity));
+		enemy.SpawnEnemy(m_Lm.GetEnemyStartPosition(), static_cast<int>(gravity));
 	}
 
 	for (int x = startX; x < endX; x++)
@@ -82,6 +84,17 @@ bool Engine::EnemyCollision(Enemy& enemy) const
 					enemy.StopLeft(block.left);
 				}
 				*/
+
+				if (enemy.GetEnemySprite().getGlobalBounds().intersects(m_Bob.GetPosition()))
+				{
+					std::cout << "Enemy hitting me!" << std::endl;
+
+					enemy.EngageCombat();
+				}
+				else
+				{
+					enemy.DisengageCombat();
+				}
 
 				if (enemy.GetEnemyFeet().intersects(block))
 				{
