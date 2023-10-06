@@ -120,7 +120,7 @@ bool Bob::HandleInput()
 				m_IdleFrame = 0;
 			}
 
-			m_Sprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, bottom+10, 70, top));
+			m_Sprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, bottom+10, 80, top));
 
 			m_IdleFrame++;
 
