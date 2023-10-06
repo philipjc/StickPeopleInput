@@ -8,6 +8,12 @@ public:
 	// A constructor specific to Bob
 	Bob();
 
+	void SetIdle();
+	void SetFalling();
+	void SetJumping();
+	void SetAttacking();
+	void SetWalking(const std::string& direction);
+
 	const int left = 0;
 	const int bottom = -20;
 	const int right = 75;

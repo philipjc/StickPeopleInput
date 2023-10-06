@@ -23,74 +23,108 @@ Bob::Bob()
 
 }
 
+void Bob::SetIdle()
+{
+	m_IsIdle = true;
+	m_Sprite.setTexture(m_IdleTexture);
+}
+
+void Bob::SetFalling()
+{
+	m_IsIdle = false;
+	m_IsFalling = true;
+	m_Sprite.setTexture(m_FallingTexture);
+}
+
+void Bob::SetJumping()
+{
+	m_IsIdle = false;
+	m_TimeThisJump = 0;
+	m_IsJumping = true;
+	m_Sprite.setTexture(m_JumpingTexture);
+}
+
+void Bob::SetAttacking()
+{
+	m_IsIdle = false;
+	m_Attacking = true;
+	m_Sprite.setTexture(m_AttackingTexture);
+}
+
+void Bob::SetWalking(const std::string& direction)
+{
+	m_IsIdle = false;
+
+	if (direction == "right")
+	{
+		m_RightPressed = true;
+	}
+		
+	if (direction == "left")
+	{
+		m_LeftPressed = true;
+	}
+
+	m_Sprite.setTexture(m_WalkingTexture);
+}
+
 bool Bob::HandleInput()
 {
-
 	m_JustJumped = false;
 
 	if (Keyboard::isKeyPressed(Keyboard::F))
 	{
-		m_IsIdle = false;
-		m_Attacking = true;
-		m_Sprite.setTexture(m_AttackingTexture);
+		SetAttacking();
 	}
 	else
 	{
-		m_IsIdle = true;
 		m_Attacking = false;
-		m_Sprite.setTexture(m_IdleTexture);
+		SetIdle();
 	}
 	
 	if (Keyboard::isKeyPressed(Keyboard::Up))
 	{
-		// Start a jump if not falling
 		if (!m_IsJumping && !m_IsFalling)
 		{
-			m_IsJumping = true;
-			m_TimeThisJump = 0;
-			m_JustJumped = true;
+			SetJumping();
 		}
 	}
 	else
 	{
 		if (!m_Attacking)
 		{
-			m_IsJumping = false;
-			m_IsFalling = true;
+			SetIdle();
 		}
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::Left))
 	{
-		m_IsIdle = false;
-		m_LeftPressed = true;
-		m_Sprite.setTexture(m_WalkingTexture);
+		if (m_Attacking) return false;
+		SetWalking("left");
 	}
 	else
 	{
 		if (!m_Attacking)
 		{
-			m_IsIdle = true;
 			m_LeftPressed = false;
-			m_Sprite.setTexture(m_IdleTexture);
+			SetIdle();
 		}
 	}
 
 
 	if (Keyboard::isKeyPressed(Keyboard::Right))
 	{
-		m_IsIdle = false;
-		m_RightPressed = true;
-		m_Sprite.setTexture(m_WalkingTexture);
+		if (m_Attacking) return false;
+		SetWalking("right");
 	}
 	else
 	{
 		if (!m_Attacking)
 		{
-			m_IsIdle = true;
 			m_RightPressed = false;
-			m_Sprite.setTexture(m_IdleTexture);
-		}
+			SetIdle();
+		}	
+		
 	}
 
 	// Respond to state changes
