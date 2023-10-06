@@ -24,6 +24,8 @@ void Engine::Draw()
 
 		// Draw bob
 		m_Window.draw(m_Bob.GetSprite());
+
+		m_Window.draw(m_Enemy.GetEnemySprite());
 	}
 	else
 	{
@@ -45,6 +47,8 @@ void Engine::Draw()
 
 		// Draw bob
 		m_Window.draw(m_Bob.GetSprite());
+
+		m_Window.draw(m_Enemy.GetEnemySprite());
 
 		// Draw thomas
 		// m_Window.draw(m_Thomas.getSprite());
@@ -68,6 +72,8 @@ void Engine::Draw()
 
 		// Draw bob
 		m_Window.draw(m_Bob.GetSprite());
+
+		m_Window.draw(m_Enemy.GetEnemySprite());
 
 	}
 

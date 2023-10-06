@@ -15,6 +15,8 @@ private:
 	int m_CurrentLevel = 0;
 	const int num_Level = 4;
 
+	Vector2f m_EnemyStartPosition;
+
 public:
 
 	const int tile_size = 50;
@@ -23,6 +25,8 @@ public:
 	float GetTimeLimit() const;
 
 	Vector2f GetStartPosition() const;
+
+	Vector2f GetEnemyStartPosition() const;
 
 	int** NextLevel(VertexArray& r_va_level);
 

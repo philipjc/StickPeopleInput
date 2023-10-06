@@ -3,6 +3,7 @@
 #include "TextureCache.h"
 #include "Thomas.h"
 #include "Bob.h"
+#include "Enemy.h"
 #include "LevelManager.h"
 
 using namespace sf;
@@ -16,6 +17,9 @@ private:
 	// Thomas and his friend, Bob
 	Thomas m_Thomas;
 	Bob m_Bob;
+
+	Enemy m_Enemy;
+	// std::vector<Enemy> m_Enemies;
 
 	// A class to manage all the levels
 	LevelManager m_Lm;
@@ -81,6 +85,7 @@ private:
 
 	// Run will call all the private functions
 	bool DetectCollisions(PlayableCharacter& character) const;
+	bool EnemyCollision(Enemy& enemy) const;
 
 public:
 	// The Engine constructor

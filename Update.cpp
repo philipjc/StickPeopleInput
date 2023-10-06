@@ -25,8 +25,10 @@ void Engine::Update(const float dt_as_seconds)
 
 	if (m_Playing)
 	{
+		m_Enemy.UpdateEnemy(dt_as_seconds);
+
 		// Update Thomas
-		m_Thomas.Update(dt_as_seconds);
+		// m_Thomas.Update(dt_as_seconds);
 
 		// Update Bob
 		m_Bob.Update(dt_as_seconds);
@@ -47,6 +49,7 @@ void Engine::Update(const float dt_as_seconds)
 		{
 			// Run bobs collision detection
 			DetectCollisions(m_Bob);
+			EnemyCollision(m_Enemy);
 		}
 
 		// Let bob and thomas jump on each others heads

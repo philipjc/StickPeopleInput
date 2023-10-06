@@ -164,3 +164,8 @@ Vector2f LevelManager::GetStartPosition() const
 {
 	return m_StartPosition;
 }
+
+Vector2f LevelManager::GetEnemyStartPosition() const
+{
+	return m_EnemyStartPosition;
+}

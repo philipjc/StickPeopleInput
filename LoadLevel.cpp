@@ -23,6 +23,8 @@ void Engine::LoadLevel()
 	m_Thomas.Spawn(m_Lm.GetStartPosition(), static_cast<int>(gravity));
 	m_Bob.Spawn(m_Lm.GetStartPosition(), static_cast<int>(gravity));
 
+	m_Enemy.SpawnEnemy(m_Lm.GetEnemyStartPosition(), static_cast<int>(gravity));
+
 	// Make sure this code isn't run again
 	m_NewLevelRequired = false;
 }
