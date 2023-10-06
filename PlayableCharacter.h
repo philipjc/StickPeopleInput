@@ -55,6 +55,8 @@ protected:
 	// Has the player just initialized a jump
 	bool m_JustJumped = false;
 
+	bool m_Attacking = false;
+
 	// Private variables and functions come next
 private:
 	// What is the gravity

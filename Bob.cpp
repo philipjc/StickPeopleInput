@@ -28,26 +28,38 @@ bool Bob::HandleInput()
 
 	m_JustJumped = false;
 
+	if (Keyboard::isKeyPressed(Keyboard::F))
+	{
+		m_IsIdle = false;
+		m_Attacking = true;
+		m_Sprite.setTexture(m_AttackingTexture);
+	}
+	else
+	{
+		m_IsIdle = true;
+		m_Attacking = false;
+		m_Sprite.setTexture(m_IdleTexture);
+	}
 	
 	if (Keyboard::isKeyPressed(Keyboard::Up))
 	{
-
-		// Start a jump if not already jumping
-		// but only if standing on a block (not falling)
+		// Start a jump if not falling
 		if (!m_IsJumping && !m_IsFalling)
 		{
 			m_IsJumping = true;
 			m_TimeThisJump = 0;
 			m_JustJumped = true;
 		}
-
 	}
 	else
 	{
-		m_IsJumping = false;
-		m_IsFalling = true;
-
+		if (!m_Attacking)
+		{
+			m_IsJumping = false;
+			m_IsFalling = true;
+		}
 	}
+
 	if (Keyboard::isKeyPressed(Keyboard::Left))
 	{
 		m_IsIdle = false;
@@ -56,9 +68,12 @@ bool Bob::HandleInput()
 	}
 	else
 	{
-		m_IsIdle = true;
-		m_LeftPressed = false;
-		m_Sprite.setTexture(m_IdleTexture);
+		if (!m_Attacking)
+		{
+			m_IsIdle = true;
+			m_LeftPressed = false;
+			m_Sprite.setTexture(m_IdleTexture);
+		}
 	}
 
 
@@ -70,10 +85,15 @@ bool Bob::HandleInput()
 	}
 	else
 	{
-		m_IsIdle = true;
-		m_RightPressed = false;
-		m_Sprite.setTexture(m_IdleTexture);
+		if (!m_Attacking)
+		{
+			m_IsIdle = true;
+			m_RightPressed = false;
+			m_Sprite.setTexture(m_IdleTexture);
+		}
 	}
+
+	// Respond to state changes
 
 	if (m_RightPressed)
 	{
@@ -86,7 +106,7 @@ bool Bob::HandleInput()
 		m_Sprite.setScale(-1, 1);
 	}
 	
-	if (m_IsIdle)
+	if (m_IsIdle && !m_Attacking)
 	{
 		std::cout << "Idling" << std::endl;
 
@@ -94,7 +114,28 @@ bool Bob::HandleInput()
 		m_Sprite.setTextureRect(sf::IntRect(70, bottom+20, 70, top));
 	}
 
-	else
+	if (!m_IsIdle && m_Attacking)
+	{
+		std::cout << "Attacking" << std::endl;
+
+		// Animate attacking
+		// Animate walking
+		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (m_IdleFrame == attacking_Frames)
+			{
+				m_IdleFrame = 0;
+			}
+
+			m_Sprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, bottom+10, 70, top));
+
+			m_IdleFrame++;
+
+			m_IdleClock.restart();
+		}
+	}
+
+	if (!m_IsIdle)
 	{
 		// Animate walking
 		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
