@@ -25,7 +25,6 @@ Bob::Bob()
 
 bool Bob::HandleInput()
 {
-
 	m_JustJumped = false;
 
 	if (Keyboard::isKeyPressed(Keyboard::F))
@@ -43,7 +42,6 @@ bool Bob::HandleInput()
 	
 	if (Keyboard::isKeyPressed(Keyboard::Up))
 	{
-		// Start a jump if not falling
 		if (!m_IsJumping && !m_IsFalling)
 		{
 			m_IsJumping = true;
@@ -108,18 +106,13 @@ bool Bob::HandleInput()
 	
 	if (m_IsIdle && !m_Attacking)
 	{
-		std::cout << "Idling" << std::endl;
-
 		// Animate idle
 		m_Sprite.setTextureRect(sf::IntRect(70, bottom+20, 70, top));
 	}
 
 	if (!m_IsIdle && m_Attacking)
 	{
-		std::cout << "Attacking" << std::endl;
-
 		// Animate attacking
-		// Animate walking
 		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
 			if (m_IdleFrame == attacking_Frames)
