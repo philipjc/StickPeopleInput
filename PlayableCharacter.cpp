@@ -1,13 +1,11 @@
 #include "PlayableCharacter.h"
 #include "TextureCache.h"
 
-
 void PlayableCharacter::Spawn(const Vector2f start_position)
 {
 	// Place the player at the starting point
 	m_PlayerPosition.x = start_position.x;
 	m_PlayerPosition.y = start_position.y;
-	
 
 	// Move the sprite in to position
 	m_PlayerSprite.setPosition(m_PlayerPosition);

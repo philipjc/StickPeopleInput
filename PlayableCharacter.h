@@ -10,7 +10,7 @@ protected:
 
 	const int m_Top = 86;
 	const int m_Left = 0;
-	const int m_Bottom = -20;
+	const int m_Bottom = 0;
 	const int m_Right = 75;
 
 	const int m_IdleFrames = 4;

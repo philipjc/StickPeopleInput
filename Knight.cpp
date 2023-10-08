@@ -23,7 +23,8 @@ Knight::Knight()
 
 bool Knight::HandleInput()
 {
-	m_PlayerJustJumped = false;
+	// Event State changes
+	// ===================================
 
 	if (Keyboard::isKeyPressed(Keyboard::F))
 	{
@@ -56,11 +57,19 @@ bool Knight::HandleInput()
 		}
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::Left))
+	if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::Right))
 	{
 		m_IsIdle = false;
-		m_PlayerLeftPressed = true;
-		m_PlayerSprite.setTexture(m_WalkingTexture);
+
+		if (Keyboard::isKeyPressed(Keyboard::Left))
+		{
+			m_PlayerLeftPressed = true;
+		}
+
+		if (Keyboard::isKeyPressed(Keyboard::Right))
+		{
+			m_PlayerRightPressed = true;
+		}
 	}
 	else
 	{
@@ -68,31 +77,18 @@ bool Knight::HandleInput()
 		{
 			m_IsIdle = true;
 			m_PlayerLeftPressed = false;
-			m_PlayerSprite.setTexture(m_IdleTexture);
-		}
-	}
-
-
-	if (Keyboard::isKeyPressed(Keyboard::Right))
-	{
-		m_IsIdle = false;
-		m_PlayerRightPressed = true;
-		m_PlayerSprite.setTexture(m_WalkingTexture);
-	}
-	else
-	{
-		if (!m_PlayerAttacking)
-		{
-			m_IsIdle = true;
 			m_PlayerRightPressed = false;
-			m_PlayerSprite.setTexture(m_IdleTexture);
+			m_PlayerAttacking = false;
 		}
 	}
 
-	// Respond to state changes
+
+	// Respond to Event State changes
+	// ===================================
 
 	if (m_PlayerRightPressed)
 	{
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width, 0);
 		m_PlayerSprite.setScale(1, 1);
 	}
 
@@ -105,7 +101,8 @@ bool Knight::HandleInput()
 	if (m_IsIdle && !m_PlayerAttacking)
 	{
 		// Animate idle
-		m_PlayerSprite.setTextureRect(sf::IntRect(70, m_Bottom+20, 70, m_Top));
+		m_PlayerSprite.setTexture(m_IdleTexture);
+		m_PlayerSprite.setTextureRect(sf::IntRect(70, m_Bottom, 70, m_Top));
 	}
 
 	if (!m_IsIdle && m_PlayerAttacking)
@@ -118,7 +115,7 @@ bool Knight::HandleInput()
 				m_IdleFrame = 0;
 			}
 
-			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, m_Bottom+10, 80, m_Top));
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, m_Bottom-10, 80, m_Top));
 
 			m_IdleFrame++;
 
@@ -126,8 +123,10 @@ bool Knight::HandleInput()
 		}
 	}
 
-	if (!m_IsIdle)
+	if (!m_IsIdle && !m_PlayerAttacking)
 	{
+		m_PlayerSprite.setTexture(m_WalkingTexture);
+
 		// Animate walking
 		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
@@ -136,7 +135,7 @@ bool Knight::HandleInput()
 				m_IdleFrame = 0;
 			}
 
-			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, m_Bottom, 70, m_Top));
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, m_Bottom - 20, 70, m_Top));
 
 			m_IdleFrame++;
 
