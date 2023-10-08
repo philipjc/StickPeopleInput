@@ -91,6 +91,12 @@ public:
 	// The Engine constructor
 	Engine();
 
+	bool InitializeWindow();
+
+	void LoadTextures();
+
+	void CheckShaderSupport();
+
 	// Run will call all the private functions
 	void Run();
 
