@@ -133,7 +133,7 @@ bool Bob::HandleInput()
 		// Animate walking
 		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (m_IdleFrame == idle_frames)
+			if (m_IdleFrame == idle_Frames)
 			{
 				m_IdleFrame = 0;
 			}

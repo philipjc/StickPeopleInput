@@ -9,7 +9,7 @@ protected:
 	bool m_IsIdle = true;
 
 	const int left = 0;
-	const int bottom = 20;
+	const int bottom = -20;
 	const int right = 75;
 	const int top = 86;
 
