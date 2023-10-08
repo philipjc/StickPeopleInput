@@ -4,9 +4,12 @@
 
 bool Enemy::SpawnEnemy(Vector2f enemy_start_position, float gravity)
 {
+	m_EnemyTexture = TextureCache::GetTexture("graphics/skeleton/idle.png");
+	m_EnemyDeathTexture = TextureCache::GetTexture("graphics/skeleton/dead.png");
 	m_EnemyAttackTexture = TextureCache::GetTexture("graphics/skeleton/attack_1.png");
+
 	m_EnemySprite = Sprite();
-	m_EnemySprite.setTexture(m_EnemyAttackTexture);
+	m_EnemySprite.setTexture(m_EnemyTexture);
 
 	// Face left
 	m_EnemySprite.setScale(-1, 1);
@@ -79,26 +82,6 @@ void Enemy::UpdateEnemy(const float elapsed_time)
 		m_EnemySprite.setPosition(m_EnemyPosition);
 	}
 
-	if (m_EnemyIsPatrolling)
-	{
-		m_EnemyPosition.x -= m_EnemySpeed * elapsed_time;
-
-		// Animate patrol
-		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
-		{
-			if (m_EnemyIdleFrame == m_EnemyAttackFrames)
-			{
-				m_EnemyIdleFrame = 0;
-			}
-
-			m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 80, 90));
-
-			m_EnemyIdleFrame++;
-
-			m_EnemyIdleClock.restart();
-		}
-	}
-
 	if (m_EnemyIsFalling)
 	{
 		m_EnemyPosition.y += m_EnemyGravity * elapsed_time;
@@ -145,3 +128,4 @@ void Enemy::DisengageCombat()
 	m_EnemyIsPatrolling = true;
 	m_EnemyIsAttacking = false;
 }
+

@@ -2,7 +2,7 @@
 
 #include "Engine.h"
 
-bool Engine::EnemyCollision(Enemy& enemy) const
+bool Engine::EnemyCollision(PlayableCharacter& player, Enemy& enemy) const
 {
 	bool reachedGoal = false;
 	// Make a rect for all his parts
@@ -90,6 +90,7 @@ bool Engine::EnemyCollision(Enemy& enemy) const
 					std::cout << "Enemy hitting me!" << std::endl;
 
 					enemy.EngageCombat();
+					enemy.TakeDamage(1);
 				}
 				else
 				{

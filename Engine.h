@@ -4,6 +4,7 @@
 #include "Knight.h"
 #include "Enemy.h"
 #include "LevelManager.h"
+#include "Skeleton.h"
 
 using namespace sf;
 
@@ -16,7 +17,7 @@ private:
 	// Thomas and his friend, Bob
 	Knight m_Knight;
 
-	Enemy m_Enemy;
+	Skeleton m_Enemy;
 	// std::vector<Enemy> m_Enemies;
 
 	// A class to manage all the levels
@@ -83,7 +84,7 @@ private:
 
 	// Run will call all the private functions
 	bool DetectCollisions(PlayableCharacter& character) const;
-	bool EnemyCollision(Enemy& enemy) const;
+	bool EnemyCollision(PlayableCharacter& player, Enemy& enemy) const;
 
 public:
 	// The Engine constructor

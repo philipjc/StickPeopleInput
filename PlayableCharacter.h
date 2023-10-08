@@ -78,11 +78,10 @@ public:
 	void UpdateMoveRight(float elapsed_time);
 	void UpdateGravity(float elapsed_time);
 
+	// These are pure virtual function (overridden)
 	void virtual UpdateAttackAnimation() = 0;
 	void virtual UpdateWalkAnimation() = 0;
 	void virtual UpdateIdleAnimation() = 0;
-
-	// This is a pure virtual function
 	bool virtual HandleInput() = 0;
 
 	// Player location

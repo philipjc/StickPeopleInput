@@ -19,6 +19,12 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{4873cda6-5b7c-412f-975d-84045f8c5673}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{2c959c96-7cb8-45ae-b794-739bad0bff11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{4f7d8c3a-fc62-4a27-99e1-a429d01aa4fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -60,6 +66,9 @@
     <ClCompile Include="EnemyCollision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Skeleton.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureCache.h">
@@ -79,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skeleton.h">
+      <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
