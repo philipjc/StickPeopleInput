@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureCache.h"
-#include "Thomas.h"
 #include "Knight.h"
 #include "Enemy.h"
 #include "LevelManager.h"
@@ -15,8 +14,7 @@ private:
 	TextureCache th;
 
 	// Thomas and his friend, Bob
-	Thomas m_Thomas;
-	Knight m_Bob;
+	Knight m_Knight;
 
 	Enemy m_Enemy;
 	// std::vector<Enemy> m_Enemies;
@@ -50,7 +48,7 @@ private:
 	Texture m_BackgroundTexture;
 
 	// Is the game currently playing?
-	bool m_Playing = false;
+	bool m_GameRunning = false;
 
 	// Is character 1 or 2 the current focus?
 	bool m_Character1 = true;

@@ -42,9 +42,6 @@
     <ClCompile Include="PlayableCharacter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Thomas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Knight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -72,9 +69,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayableCharacter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Thomas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Knight.h">

@@ -2,7 +2,7 @@
 
 void Engine::LoadLevel()
 {
-	m_Playing = false;
+	m_GameRunning = false;
 
 	// Delete the previously allocated memory
 	for (int i = 0; i < m_Lm.GetLevelSize().y; ++i)
@@ -19,9 +19,8 @@ void Engine::LoadLevel()
 	// How long is this new time limit
 	m_TimeRemaining = m_Lm.GetTimeLimit();
 
-	// Spawn Thomas and Bob
-	m_Thomas.Spawn(m_Lm.GetStartPosition());
-	m_Bob.Spawn(m_Lm.GetStartPosition());
+	// Spawn Knight
+	m_Knight.Spawn(m_Lm.GetStartPosition());
 
 	m_Enemy.SpawnEnemy(m_Lm.GetEnemyStartPosition(), static_cast<int>(gravity));
 

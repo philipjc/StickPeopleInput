@@ -19,7 +19,7 @@ void Engine::Input()
 			{
 				std::cout << "Return pushed" << std::endl;
 
-				m_Playing = true;
+				m_GameRunning = true;
 			}
 
 			// Switch between split-screen
@@ -30,14 +30,9 @@ void Engine::Input()
 		}
 	}
 
-	// Handle input specific to Thomas
-	if (m_Thomas.HandleInput())
-	{
-		// Play a jump sound
-	}
 
 	// Handle input specific to Bob
-	if (m_Bob.HandleInput())
+	if (m_Knight.HandleInput())
 	{
 		// Play a jump sound
 	}

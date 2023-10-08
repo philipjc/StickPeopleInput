@@ -85,7 +85,7 @@ bool Engine::EnemyCollision(Enemy& enemy) const
 				}
 				*/
 
-				if (enemy.GetEnemySprite().getGlobalBounds().intersects(m_Bob.GetPosition()))
+				if (enemy.GetEnemySprite().getGlobalBounds().intersects(m_Knight.GetPosition()))
 				{
 					std::cout << "Enemy hitting me!" << std::endl;
 

@@ -17,7 +17,6 @@ void PlayableCharacter::Spawn(const Vector2f start_position)
 
 void PlayableCharacter::Update(const float elapsed_time)
 {
-
 	if (m_PlayerRightPressed)
 	{
 		m_PlayerPosition.x += m_KnightSpeed * elapsed_time;
@@ -27,7 +26,6 @@ void PlayableCharacter::Update(const float elapsed_time)
 	{
 		m_PlayerPosition.x -= m_KnightSpeed * elapsed_time;
 	}
-
 
 	// Handle Jumping
 	if (m_PlayerIsJumping)
@@ -46,9 +44,7 @@ void PlayableCharacter::Update(const float elapsed_time)
 			m_PlayerIsJumping = false;
 			m_PlayerIsFalling = true;
 		}
-
 	}
-
 
 	// Apply gravity
 	if (m_PlayerIsFalling)
@@ -58,7 +54,6 @@ void PlayableCharacter::Update(const float elapsed_time)
 
 	// Update the rect for all body parts
 	const FloatRect rect = GetPosition();
-
 
 	// Feet
 	m_RectFeet.left = rect.left + 3;
@@ -86,7 +81,6 @@ void PlayableCharacter::Update(const float elapsed_time)
 
 	// Move the sprite into position
 	m_PlayerSprite.setPosition(m_PlayerPosition);
-
 }
 
 FloatRect PlayableCharacter::GetPosition() const
@@ -127,8 +121,6 @@ Sprite PlayableCharacter::GetSprite()
 	return m_PlayerSprite;
 }
 
-
-
 void PlayableCharacter::StopFalling(const float position)
 {
 	m_PlayerPosition.y = position - GetPosition().height;
@@ -155,5 +147,4 @@ void PlayableCharacter::StopJump()
 	m_PlayerIsJumping = false;
 	m_PlayerIsFalling = true;
 }
-
 
