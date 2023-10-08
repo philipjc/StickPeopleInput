@@ -1,6 +1,7 @@
-// ReSharper disable CppClangTidyBugproneNarrowingConversions
+// ReSharper disable CppClangTidyBugProneNarrowingConversions
 // ReSharper disable CppClangTidyClangDiagnosticDoublePromotion
 // ReSharper disable CppClangTidyClangDiagnosticImplicitFloatConversion
+
 #include "PlayableCharacter.h"
 #include "TextureCache.h"
 
