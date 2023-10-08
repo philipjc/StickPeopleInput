@@ -1,5 +1,4 @@
 #pragma once
-
 #include "PlayableCharacter.h"
 
 class Knight final : public PlayableCharacter

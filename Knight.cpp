@@ -1,8 +1,6 @@
 #include "Knight.h"
-
-#include <iostream>
-
 #include "TextureCache.h"
+#include <iostream>
 
 
 Knight::Knight()

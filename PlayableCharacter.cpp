@@ -1,5 +1,4 @@
 #include "PlayableCharacter.h"
-
 #include "TextureCache.h"
 
 

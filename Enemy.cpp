@@ -1,4 +1,3 @@
-#pragma
 #include "Engine.h"
 #include "Enemy.h"
 #include "Knight.h"
