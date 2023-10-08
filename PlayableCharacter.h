@@ -73,6 +73,9 @@ public:
 	virtual ~PlayableCharacter() = default;
 
 	void Spawn(Vector2f start_position);
+	void UpdateMoveLeft(float elapsed_time);
+	void UpdateMoveDirection(float elapsed_time);
+	void UpdateMoveRight(float elapsed_time);
 	void UpdateGravity(float elapsed_time);
 
 	// This is a pure virtual function

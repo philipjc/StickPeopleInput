@@ -5,6 +5,18 @@
 #include "PlayableCharacter.h"
 #include "TextureCache.h"
 
+
+void PlayableCharacter::Update(const float elapsed_time)
+{
+	UpdateJump(elapsed_time);
+	UpdateBody(elapsed_time);
+	UpdateGravity(elapsed_time);
+	UpdateMoveDirection(elapsed_time);
+
+	// Move the sprite into position
+	m_PlayerSprite.setPosition(m_PlayerPosition);
+}
+
 void PlayableCharacter::Spawn(const Vector2f start_position)
 {
 	// Place the player at the starting point
@@ -14,26 +26,6 @@ void PlayableCharacter::Spawn(const Vector2f start_position)
 	// Move the sprite in to position
 	m_PlayerSprite.setPosition(m_PlayerPosition);
 
-}
-
-void PlayableCharacter::Update(const float elapsed_time)
-{
-	if (m_PlayerRightPressed)
-	{
-		m_PlayerPosition.x += m_KnightSpeed * elapsed_time;
-	}
-
-	if (m_PlayerLeftPressed)
-	{
-		m_PlayerPosition.x -= m_KnightSpeed * elapsed_time;
-	}
-
-	UpdateJump(elapsed_time);
-	UpdateBody(elapsed_time);
-	UpdateGravity(elapsed_time);
-	
-	// Move the sprite into position
-	m_PlayerSprite.setPosition(m_PlayerPosition);
 }
 
 void PlayableCharacter::UpdateJump(const float elapsed_time)
@@ -93,6 +85,36 @@ void PlayableCharacter::UpdateGravity(const float elapsed_time)
 	if (m_PlayerIsFalling)
 	{
 		m_PlayerPosition.y += m_PlayerGravity * elapsed_time;
+	}
+}
+
+void PlayableCharacter::UpdateMoveLeft(const float elapsed_time)
+{
+	m_PlayerPosition.x -= m_KnightSpeed * elapsed_time;
+	m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width + 20, 0);
+	m_PlayerSprite.setScale(-1, 1);
+}
+
+void PlayableCharacter::UpdateMoveDirection(const float elapsed_time)
+{
+	if (m_PlayerRightPressed)
+	{
+		UpdateMoveRight(elapsed_time);
+	}
+
+	if (m_PlayerLeftPressed)
+	{
+		UpdateMoveLeft(elapsed_time);
+	}
+}
+
+void PlayableCharacter::UpdateMoveRight(const float elapsed_time)
+{
+	if (m_PlayerRightPressed)
+	{
+		m_PlayerPosition.x += m_KnightSpeed * elapsed_time;
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width - 20, 0);
+		m_PlayerSprite.setScale(1, 1);
 	}
 }
 

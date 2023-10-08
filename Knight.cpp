@@ -84,17 +84,7 @@ bool Knight::HandleInput()
 	// Respond to Event State changes
 	// ===================================
 
-	if (m_PlayerRightPressed)
-	{
-		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width-20, 0);
-		m_PlayerSprite.setScale(1, 1);
-	}
-
-	if (m_PlayerLeftPressed)
-	{
-		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width+20, 0);
-		m_PlayerSprite.setScale(-1, 1);
-	}
+	
 	
 	if (m_IsIdle && !m_PlayerAttacking)
 	{
