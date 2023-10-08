@@ -66,7 +66,7 @@ private:
 	float m_KnightSpeed = 230;
 
 	// Where is the player
-	Vector2f m_Position;
+	Vector2f m_PlayerPosition;
 
 	// Where are the characters various body parts?
 	FloatRect m_Feet;
