@@ -36,7 +36,7 @@ bool Engine::DetectCollisions(PlayableCharacter& character) const
 	if (!character.GetPosition().intersects(level))
 	{
 		// re-spawn the character
-		character.Spawn(m_Lm.GetStartPosition(), static_cast<int>(gravity));
+		character.Spawn(m_Lm.GetStartPosition());
 	}
 
 	for (int x = startX; x < endX; x++)
@@ -53,7 +53,7 @@ bool Engine::DetectCollisions(PlayableCharacter& character) const
 			{
 				if (character.GetHead().intersects(block))
 				{
-					character.Spawn(m_Lm.GetStartPosition(), static_cast<int>(gravity));
+					character.Spawn(m_Lm.GetStartPosition());
 
 					// Which sound should be played?
 					if (m_ArrayLevel[y][x] == 2)// Fire, ouch!

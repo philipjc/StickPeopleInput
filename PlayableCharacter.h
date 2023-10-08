@@ -8,38 +8,34 @@ class PlayableCharacter  // NOLINT(cppcoreguidelines-special-member-functions)
 protected:
 	bool m_IsIdle = true;
 
+	const int m_Top = 86;
 	const int m_Left = 0;
 	const int m_Bottom = -20;
 	const int m_Right = 75;
-	const int m_Top = 86;
 
 	const int m_IdleFrames = 4;
 	const int m_WalkingFrames = 6;
 	const int m_AttackingFrames = 5;
 
-	sf::Clock m_IdleClock;
+	sf::Clock m_PlayerIdleClock;
 
 	int m_IdleFrame = 0;
-
-	// int m_WalkingFrame;
-
-	// Of course we will need a sprite
+	
+	// Player Sprite
 	Sprite m_PlayerSprite;
 
+	// Player Textures
 	Texture m_IdleTexture;
-
 	Texture m_WalkingTexture;
-
 	Texture m_JumpingTexture;
-
 	Texture m_FallingTexture;
-
 	Texture m_AttackingTexture;
-
 	Texture m_PlayerDeadTexture;
 
-	// How long does a jump last
+	// Has the player just initialized a jump
+	bool m_PlayerJustJumped = false;
 	float m_JumpDuration = 0;
+	float m_PlayerTimeJump = 0;
 
 	// Is character currently jumping or falling
 	bool m_PlayerIsJumping = false;
@@ -49,23 +45,17 @@ protected:
 	bool m_PlayerLeftPressed = false;
 	bool m_PlayerRightPressed = false;
 
-	// How long has this jump lasted so far
-	float m_PlayerTimeJump = 0;
-
-	// Has the player just initialized a jump
-	bool m_PlayerJustJumped = false;
-
+	// Is the character currently attacking
 	bool m_PlayerAttacking = false;
-
-	// Private variables and functions come next
+	
 private:
-	// What is the gravity
-	float m_PlayerGravity = 0;
+	// set gravity
+	float m_PlayerGravity = 240;
 
-	// How fast is the character
+	// Set character speed
 	float m_KnightSpeed = 230;
 
-	// Where is the player
+	// Player location Vector
 	Vector2f m_PlayerPosition;
 
 	// Where are the characters various body parts?
@@ -75,21 +65,22 @@ private:
 	FloatRect m_RectLeft;
 
 	// And a texture
-	Texture m_Texture;
-
-	// All our public functions will come next
+	Texture m_PlayerTexture;
+	
 public:
+
+	// Class is abstract and cannot be instantiated
 	virtual ~PlayableCharacter() = default;
 
-	void Spawn(Vector2f start_position, float gravity);
+	void Spawn(Vector2f start_position);
 
 	// This is a pure virtual function
 	bool virtual HandleInput() = 0;
-	// This class is now abstract and cannot be instantiated
-	// Where is the player
+
+	// Player location
 	FloatRect GetPosition() const;
 
-	// A rectangle representing the position of different parts of the sprite
+	// Positions of different parts of the sprite
 	FloatRect GetFeet() const;
 	FloatRect GetHead() const;
 	FloatRect GetLeft() const;
@@ -107,8 +98,7 @@ public:
 	// Where is the center of the character
 	Vector2f GetCenter() const;
 
-
-	// We will call this function once every frame
+	// Called once every frame
 	void Update(float elapsed_time);
 
 };

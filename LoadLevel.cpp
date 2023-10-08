@@ -20,8 +20,8 @@ void Engine::LoadLevel()
 	m_TimeRemaining = m_Lm.GetTimeLimit();
 
 	// Spawn Thomas and Bob
-	m_Thomas.Spawn(m_Lm.GetStartPosition(), static_cast<int>(gravity));
-	m_Bob.Spawn(m_Lm.GetStartPosition(), static_cast<int>(gravity));
+	m_Thomas.Spawn(m_Lm.GetStartPosition());
+	m_Bob.Spawn(m_Lm.GetStartPosition());
 
 	m_Enemy.SpawnEnemy(m_Lm.GetEnemyStartPosition(), static_cast<int>(gravity));
 

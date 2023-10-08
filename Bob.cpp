@@ -18,7 +18,7 @@ Bob::Bob()
 	m_JumpDuration = .25;
 
 	m_IsIdle = true;
-	m_IdleClock.restart();
+	m_PlayerIdleClock.restart();
 	m_IdleFrame = 0;
 
 }
@@ -113,7 +113,7 @@ bool Bob::HandleInput()
 	if (!m_IsIdle && m_PlayerAttacking)
 	{
 		// Animate attacking
-		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
+		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
 			if (m_IdleFrame == m_AttackingFrames)
 			{
@@ -124,14 +124,14 @@ bool Bob::HandleInput()
 
 			m_IdleFrame++;
 
-			m_IdleClock.restart();
+			m_PlayerIdleClock.restart();
 		}
 	}
 
 	if (!m_IsIdle)
 	{
 		// Animate walking
-		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
+		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
 			if (m_IdleFrame == m_IdleFrames)
 			{
@@ -142,7 +142,7 @@ bool Bob::HandleInput()
 
 			m_IdleFrame++;
 
-			m_IdleClock.restart();
+			m_PlayerIdleClock.restart();
 		}
 	}
 	
