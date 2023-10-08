@@ -12,8 +12,8 @@ Bob::Bob()
 	m_AttackingTexture = TextureCache::GetTexture("graphics/knight/attack_1.png");
 
 	// Associate a texture with the sprite
-	m_Sprite = Sprite();
-	m_Sprite.setTexture(m_IdleTexture);
+	m_PlayerSprite = Sprite();
+	m_PlayerSprite.setTexture(m_IdleTexture);
 
 	m_JumpDuration = .25;
 
@@ -25,52 +25,52 @@ Bob::Bob()
 
 bool Bob::HandleInput()
 {
-	m_JustJumped = false;
+	m_PlayerJustJumped = false;
 
 	if (Keyboard::isKeyPressed(Keyboard::F))
 	{
 		m_IsIdle = false;
-		m_Attacking = true;
-		m_Sprite.setTexture(m_AttackingTexture);
+		m_PlayerAttacking = true;
+		m_PlayerSprite.setTexture(m_AttackingTexture);
 	}
 	else
 	{
 		m_IsIdle = true;
-		m_Attacking = false;
-		m_Sprite.setTexture(m_IdleTexture);
+		m_PlayerAttacking = false;
+		m_PlayerSprite.setTexture(m_IdleTexture);
 	}
 	
 	if (Keyboard::isKeyPressed(Keyboard::Up))
 	{
-		if (!m_IsJumping && !m_IsFalling)
+		if (!m_PlayerIsJumping && !m_PlayerIsFalling)
 		{
-			m_IsJumping = true;
-			m_TimeThisJump = 0;
-			m_JustJumped = true;
+			m_PlayerIsJumping = true;
+			m_PlayerTimeJump = 0;
+			m_PlayerJustJumped = true;
 		}
 	}
 	else
 	{
-		if (!m_Attacking)
+		if (!m_PlayerAttacking)
 		{
-			m_IsJumping = false;
-			m_IsFalling = true;
+			m_PlayerIsJumping = false;
+			m_PlayerIsFalling = true;
 		}
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::Left))
 	{
 		m_IsIdle = false;
-		m_LeftPressed = true;
-		m_Sprite.setTexture(m_WalkingTexture);
+		m_PlayerLeftPressed = true;
+		m_PlayerSprite.setTexture(m_WalkingTexture);
 	}
 	else
 	{
-		if (!m_Attacking)
+		if (!m_PlayerAttacking)
 		{
 			m_IsIdle = true;
-			m_LeftPressed = false;
-			m_Sprite.setTexture(m_IdleTexture);
+			m_PlayerLeftPressed = false;
+			m_PlayerSprite.setTexture(m_IdleTexture);
 		}
 	}
 
@@ -78,39 +78,39 @@ bool Bob::HandleInput()
 	if (Keyboard::isKeyPressed(Keyboard::Right))
 	{
 		m_IsIdle = false;
-		m_RightPressed = true;
-		m_Sprite.setTexture(m_WalkingTexture);
+		m_PlayerRightPressed = true;
+		m_PlayerSprite.setTexture(m_WalkingTexture);
 	}
 	else
 	{
-		if (!m_Attacking)
+		if (!m_PlayerAttacking)
 		{
 			m_IsIdle = true;
-			m_RightPressed = false;
-			m_Sprite.setTexture(m_IdleTexture);
+			m_PlayerRightPressed = false;
+			m_PlayerSprite.setTexture(m_IdleTexture);
 		}
 	}
 
 	// Respond to state changes
 
-	if (m_RightPressed)
+	if (m_PlayerRightPressed)
 	{
-		m_Sprite.setScale(1, 1);
+		m_PlayerSprite.setScale(1, 1);
 	}
 
-	if (m_LeftPressed)
+	if (m_PlayerLeftPressed)
 	{
-		m_Sprite.setOrigin(m_Sprite.getGlobalBounds().width, 0);
-		m_Sprite.setScale(-1, 1);
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width, 0);
+		m_PlayerSprite.setScale(-1, 1);
 	}
 	
-	if (m_IsIdle && !m_Attacking)
+	if (m_IsIdle && !m_PlayerAttacking)
 	{
 		// Animate idle
-		m_Sprite.setTextureRect(sf::IntRect(70, bottom+20, 70, top));
+		m_PlayerSprite.setTextureRect(sf::IntRect(70, bottom+20, 70, top));
 	}
 
-	if (!m_IsIdle && m_Attacking)
+	if (!m_IsIdle && m_PlayerAttacking)
 	{
 		// Animate attacking
 		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
@@ -120,7 +120,7 @@ bool Bob::HandleInput()
 				m_IdleFrame = 0;
 			}
 
-			m_Sprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, bottom+10, 80, top));
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, bottom+10, 80, top));
 
 			m_IdleFrame++;
 
@@ -138,7 +138,7 @@ bool Bob::HandleInput()
 				m_IdleFrame = 0;
 			}
 
-			m_Sprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, bottom, 70, top));
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, bottom, 70, top));
 
 			m_IdleFrame++;
 
@@ -147,5 +147,5 @@ bool Bob::HandleInput()
 	}
 	
 
-	return m_JustJumped;
+	return m_PlayerJustJumped;
 }

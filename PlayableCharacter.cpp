@@ -10,52 +10,52 @@ void PlayableCharacter::Spawn(const Vector2f start_position, const float gravity
 	m_PlayerPosition.y = start_position.y;
 
 	// Initialize the gravity
-	m_Gravity = gravity;
+	m_PlayerGravity = gravity;
 
 	// Move the sprite in to position
-	m_Sprite.setPosition(m_PlayerPosition);
+	m_PlayerSprite.setPosition(m_PlayerPosition);
 
 }
 
 void PlayableCharacter::Update(const float elapsed_time)
 {
 
-	if (m_RightPressed)
+	if (m_PlayerRightPressed)
 	{
 		m_PlayerPosition.x += m_KnightSpeed * elapsed_time;
 	}
 
-	if (m_LeftPressed)
+	if (m_PlayerLeftPressed)
 	{
 		m_PlayerPosition.x -= m_KnightSpeed * elapsed_time;
 	}
 
 
 	// Handle Jumping
-	if (m_IsJumping)
+	if (m_PlayerIsJumping)
 	{
 		// Update how long the jump has been going
-		m_TimeThisJump += elapsed_time;
+		m_PlayerTimeJump += elapsed_time;
 
 		// Is the jump going upwards
-		if (m_TimeThisJump < m_JumpDuration)
+		if (m_PlayerTimeJump < m_JumpDuration)
 		{
 			// Move up at twice gravity
-			m_PlayerPosition.y -= m_Gravity * 2 * elapsed_time;
+			m_PlayerPosition.y -= m_PlayerGravity * 2 * elapsed_time;
 		}
 		else
 		{
-			m_IsJumping = false;
-			m_IsFalling = true;
+			m_PlayerIsJumping = false;
+			m_PlayerIsFalling = true;
 		}
 
 	}
 
 
 	// Apply gravity
-	if (m_IsFalling)
+	if (m_PlayerIsFalling)
 	{
-		m_PlayerPosition.y += m_Gravity * elapsed_time;
+		m_PlayerPosition.y += m_PlayerGravity * elapsed_time;
 	}
 
 	// Update the rect for all body parts
@@ -87,20 +87,20 @@ void PlayableCharacter::Update(const float elapsed_time)
 	m_Left.height = rect.height * .3;
 
 	// Move the sprite into position
-	m_Sprite.setPosition(m_PlayerPosition);
+	m_PlayerSprite.setPosition(m_PlayerPosition);
 
 }
 
 FloatRect PlayableCharacter::GetPosition() const
 {
-	return m_Sprite.getGlobalBounds();
+	return m_PlayerSprite.getGlobalBounds();
 }
 
 Vector2f PlayableCharacter::GetCenter() const
 {
 	return Vector2f(
-		m_PlayerPosition.x + m_Sprite.getGlobalBounds().width / 2,
-		m_PlayerPosition.y + m_Sprite.getGlobalBounds().height / 2
+		m_PlayerPosition.x + m_PlayerSprite.getGlobalBounds().width / 2,
+		m_PlayerPosition.y + m_PlayerSprite.getGlobalBounds().height / 2
 	);
 }
 
@@ -126,7 +126,7 @@ FloatRect PlayableCharacter::GetRight() const
 
 Sprite PlayableCharacter::GetSprite()
 {
-	return m_Sprite;
+	return m_PlayerSprite;
 }
 
 
@@ -134,28 +134,28 @@ Sprite PlayableCharacter::GetSprite()
 void PlayableCharacter::StopFalling(const float position)
 {
 	m_PlayerPosition.y = position - GetPosition().height;
-	m_Sprite.setPosition(m_PlayerPosition);
-	m_IsFalling = false;
+	m_PlayerSprite.setPosition(m_PlayerPosition);
+	m_PlayerIsFalling = false;
 }
 
 void PlayableCharacter::StopRight(const float position)
 {
 
-	m_PlayerPosition.x = position - m_Sprite.getGlobalBounds().width;
-	m_Sprite.setPosition(m_PlayerPosition);
+	m_PlayerPosition.x = position - m_PlayerSprite.getGlobalBounds().width;
+	m_PlayerSprite.setPosition(m_PlayerPosition);
 }
 
 void PlayableCharacter::StopLeft(const float position)
 {
-	m_PlayerPosition.x = position + m_Sprite.getGlobalBounds().width;
-	m_Sprite.setPosition(m_PlayerPosition);
+	m_PlayerPosition.x = position + m_PlayerSprite.getGlobalBounds().width;
+	m_PlayerSprite.setPosition(m_PlayerPosition);
 }
 
 void PlayableCharacter::StopJump()
 {
 	// Stop a jump early 
-	m_IsJumping = false;
-	m_IsFalling = true;
+	m_PlayerIsJumping = false;
+	m_PlayerIsFalling = true;
 }
 
 
