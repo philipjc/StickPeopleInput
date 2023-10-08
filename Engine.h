@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "TextureCache.h"
 #include "Thomas.h"
-#include "Bob.h"
+#include "Knight.h"
 #include "Enemy.h"
 #include "LevelManager.h"
 
@@ -16,7 +16,7 @@ private:
 
 	// Thomas and his friend, Bob
 	Thomas m_Thomas;
-	Bob m_Bob;
+	Knight m_Bob;
 
 	Enemy m_Enemy;
 	// std::vector<Enemy> m_Enemies;

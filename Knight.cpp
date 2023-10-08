@@ -1,11 +1,11 @@
-#include "Bob.h"
+#include "Knight.h"
 
 #include <iostream>
 
 #include "TextureCache.h"
 
 
-Bob::Bob()
+Knight::Knight()
 {
 	m_IdleTexture = TextureCache::GetTexture("graphics/knight/idle.png");
 	m_WalkingTexture = TextureCache::GetTexture("graphics/knight/walk.png");
@@ -23,7 +23,7 @@ Bob::Bob()
 
 }
 
-bool Bob::HandleInput()
+bool Knight::HandleInput()
 {
 	m_PlayerJustJumped = false;
 

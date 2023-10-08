@@ -1,7 +1,7 @@
 #pragma
 #include "Engine.h"
 #include "Enemy.h"
-#include "Bob.h"
+#include "Knight.h"
 
 bool Enemy::SpawnEnemy(Vector2f enemy_start_position, float gravity)
 {

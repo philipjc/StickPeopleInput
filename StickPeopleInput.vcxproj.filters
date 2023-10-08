@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Engine">
+      <UniqueIdentifier>{d7f04d87-0f0d-45f7-9ad5-cdbb47fb295e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{4873cda6-5b7c-412f-975d-84045f8c5673}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -39,7 +45,7 @@
     <ClCompile Include="Thomas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bob.cpp">
+    <ClCompile Include="Knight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
@@ -49,6 +55,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DetectCollisions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyCollision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,10 +77,13 @@
     <ClInclude Include="Thomas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bob.h">
+    <ClInclude Include="Knight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
