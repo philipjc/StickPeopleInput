@@ -30,13 +30,11 @@ bool Knight::HandleInput()
 	{
 		m_IsIdle = false;
 		m_PlayerAttacking = true;
-		m_PlayerSprite.setTexture(m_AttackingTexture);
 	}
 	else
 	{
 		m_IsIdle = true;
 		m_PlayerAttacking = false;
-		m_PlayerSprite.setTexture(m_IdleTexture);
 	}
 	
 	if (Keyboard::isKeyPressed(Keyboard::Up))
@@ -88,13 +86,13 @@ bool Knight::HandleInput()
 
 	if (m_PlayerRightPressed)
 	{
-		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width, 0);
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width-20, 0);
 		m_PlayerSprite.setScale(1, 1);
 	}
 
 	if (m_PlayerLeftPressed)
 	{
-		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width, 0);
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width+20, 0);
 		m_PlayerSprite.setScale(-1, 1);
 	}
 	
@@ -107,6 +105,8 @@ bool Knight::HandleInput()
 
 	if (!m_IsIdle && m_PlayerAttacking)
 	{
+		m_PlayerSprite.setTexture(m_AttackingTexture);
+
 		// Animate attacking
 		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{

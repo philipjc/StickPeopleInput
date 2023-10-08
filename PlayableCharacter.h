@@ -73,6 +73,7 @@ public:
 	virtual ~PlayableCharacter() = default;
 
 	void Spawn(Vector2f start_position);
+	void UpdateGravity(float elapsed_time);
 
 	// This is a pure virtual function
 	bool virtual HandleInput() = 0;
@@ -100,5 +101,6 @@ public:
 
 	// Called once every frame
 	void Update(float elapsed_time);
-
+	void UpdateJump(float elapsed_time);
+	void UpdateBody(float elapsed_time);
 };

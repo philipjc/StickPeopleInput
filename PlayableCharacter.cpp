@@ -1,3 +1,6 @@
+// ReSharper disable CppClangTidyBugproneNarrowingConversions
+// ReSharper disable CppClangTidyClangDiagnosticDoublePromotion
+// ReSharper disable CppClangTidyClangDiagnosticImplicitFloatConversion
 #include "PlayableCharacter.h"
 #include "TextureCache.h"
 
@@ -24,7 +27,16 @@ void PlayableCharacter::Update(const float elapsed_time)
 		m_PlayerPosition.x -= m_KnightSpeed * elapsed_time;
 	}
 
-	// Handle Jumping
+	UpdateJump(elapsed_time);
+	UpdateBody(elapsed_time);
+	UpdateGravity(elapsed_time);
+	
+	// Move the sprite into position
+	m_PlayerSprite.setPosition(m_PlayerPosition);
+}
+
+void PlayableCharacter::UpdateJump(const float elapsed_time)
+{
 	if (m_PlayerIsJumping)
 	{
 		// Update how long the jump has been going
@@ -42,13 +54,10 @@ void PlayableCharacter::Update(const float elapsed_time)
 			m_PlayerIsFalling = true;
 		}
 	}
+}
 
-	// Apply gravity
-	if (m_PlayerIsFalling)
-	{
-		m_PlayerPosition.y += m_PlayerGravity * elapsed_time;
-	}
-
+void PlayableCharacter::UpdateBody(float elapsed_time)
+{
 	// Update the rect for all body parts
 	const FloatRect rect = GetPosition();
 
@@ -75,9 +84,15 @@ void PlayableCharacter::Update(const float elapsed_time)
 	m_RectLeft.top = rect.top + rect.height * .5;
 	m_RectLeft.width = 1;
 	m_RectLeft.height = rect.height * .3;
+}
 
-	// Move the sprite into position
-	m_PlayerSprite.setPosition(m_PlayerPosition);
+void PlayableCharacter::UpdateGravity(const float elapsed_time)
+{
+	// Apply gravity
+	if (m_PlayerIsFalling)
+	{
+		m_PlayerPosition.y += m_PlayerGravity * elapsed_time;
+	}
 }
 
 FloatRect PlayableCharacter::GetPosition() const
@@ -87,10 +102,10 @@ FloatRect PlayableCharacter::GetPosition() const
 
 Vector2f PlayableCharacter::GetCenter() const
 {
-	return Vector2f(
+	return {
 		m_PlayerPosition.x + m_PlayerSprite.getGlobalBounds().width / 2,
 		m_PlayerPosition.y + m_PlayerSprite.getGlobalBounds().height / 2
-	);
+	};
 }
 
 FloatRect PlayableCharacter::GetFeet() const
