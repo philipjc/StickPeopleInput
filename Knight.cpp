@@ -21,6 +21,63 @@ Knight::Knight()
 
 }
 
+void Knight::UpdateAttackAnimation()
+{
+	// run super and pass texture when game evolves
+	if (!m_IsIdle && m_PlayerAttacking)
+	{
+		m_PlayerSprite.setTexture(m_AttackingTexture);
+
+		// Animate attacking
+		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (m_IdleFrame == m_AttackingFrames)
+			{
+				m_IdleFrame = 0;
+			}
+
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, m_Bottom-10, 80, m_Top));
+
+			m_IdleFrame++;
+
+			m_PlayerIdleClock.restart();
+		}
+	}
+}
+
+void Knight::UpdateWalkAnimation()
+{
+	if (!m_IsIdle && !m_PlayerAttacking)
+	{
+		m_PlayerSprite.setTexture(m_WalkingTexture);
+
+		// Animate walking
+		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (m_IdleFrame == m_IdleFrames)
+			{
+				m_IdleFrame = 0;
+			}
+
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, m_Bottom - 20, 70, m_Top));
+
+			m_IdleFrame++;
+
+			m_PlayerIdleClock.restart();
+		}
+	}
+}
+
+void Knight::UpdateIdleAnimation()
+{
+	if (m_IsIdle && !m_PlayerAttacking)
+	{
+		// Animate idle
+		m_PlayerSprite.setTexture(m_IdleTexture);
+		m_PlayerSprite.setTextureRect(sf::IntRect(70, m_Bottom, 70, m_Top));
+	}
+}
+
 bool Knight::HandleInput()
 {
 	// Event State changes
@@ -84,55 +141,11 @@ bool Knight::HandleInput()
 	// Respond to Event State changes
 	// ===================================
 
-	
-	
-	if (m_IsIdle && !m_PlayerAttacking)
-	{
-		// Animate idle
-		m_PlayerSprite.setTexture(m_IdleTexture);
-		m_PlayerSprite.setTextureRect(sf::IntRect(70, m_Bottom, 70, m_Top));
-	}
+	UpdateIdleAnimation();
 
-	if (!m_IsIdle && m_PlayerAttacking)
-	{
-		m_PlayerSprite.setTexture(m_AttackingTexture);
+	UpdateAttackAnimation();
 
-		// Animate attacking
-		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
-		{
-			if (m_IdleFrame == m_AttackingFrames)
-			{
-				m_IdleFrame = 0;
-			}
-
-			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, m_Bottom-10, 80, m_Top));
-
-			m_IdleFrame++;
-
-			m_PlayerIdleClock.restart();
-		}
-	}
-
-	if (!m_IsIdle && !m_PlayerAttacking)
-	{
-		m_PlayerSprite.setTexture(m_WalkingTexture);
-
-		// Animate walking
-		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
-		{
-			if (m_IdleFrame == m_IdleFrames)
-			{
-				m_IdleFrame = 0;
-			}
-
-			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, m_Bottom - 20, 70, m_Top));
-
-			m_IdleFrame++;
-
-			m_PlayerIdleClock.restart();
-		}
-	}
-	
+	UpdateWalkAnimation();
 
 	return m_PlayerJustJumped;
 }
