@@ -8,14 +8,14 @@ class PlayableCharacter  // NOLINT(cppcoreguidelines-special-member-functions)
 protected:
 	bool m_IsIdle = true;
 
-	const int left = 0;
-	const int bottom = -20;
-	const int right = 75;
-	const int top = 86;
+	const int m_Left = 0;
+	const int m_Bottom = -20;
+	const int m_Right = 75;
+	const int m_Top = 86;
 
-	const int idle_Frames = 4;
-	const int walking_Frames = 6;
-	const int attacking_Frames = 5;
+	const int m_IdleFrames = 4;
+	const int m_WalkingFrames = 6;
+	const int m_AttackingFrames = 5;
 
 	sf::Clock m_IdleClock;
 
@@ -69,10 +69,10 @@ private:
 	Vector2f m_PlayerPosition;
 
 	// Where are the characters various body parts?
-	FloatRect m_Feet;
-	FloatRect m_Head;
-	FloatRect m_Right;
-	FloatRect m_Left;
+	FloatRect m_RectFeet;
+	FloatRect m_RectHead;
+	FloatRect m_RectRight;
+	FloatRect m_RectLeft;
 
 	// And a texture
 	Texture m_Texture;

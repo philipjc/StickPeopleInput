@@ -63,28 +63,28 @@ void PlayableCharacter::Update(const float elapsed_time)
 
 
 	// Feet
-	m_Feet.left = rect.left + 3;
-	m_Feet.top = rect.top + rect.height - 1;
-	m_Feet.width = rect.width - 6;
-	m_Feet.height = 1;
+	m_RectFeet.left = rect.left + 3;
+	m_RectFeet.top = rect.top + rect.height - 1;
+	m_RectFeet.width = rect.width - 6;
+	m_RectFeet.height = 1;
 
 	// Head
-	m_Head.left = rect.left;
-	m_Head.top = rect.top + (rect.height * .3);
-	m_Head.width = rect.width;
-	m_Head.height = 1;
+	m_RectHead.left = rect.left;
+	m_RectHead.top = rect.top + (rect.height * .3);
+	m_RectHead.width = rect.width;
+	m_RectHead.height = 1;
 
 	// Right
-	m_Right.left = rect.left + rect.width - 2;
-	m_Right.top = rect.top + rect.height * .35;
-	m_Right.width = 1;
-	m_Right.height = rect.height * .3;
+	m_RectRight.left = rect.left + rect.width - 2;
+	m_RectRight.top = rect.top + rect.height * .35;
+	m_RectRight.width = 1;
+	m_RectRight.height = rect.height * .3;
 
 	// Left
-	m_Left.left = rect.left;
-	m_Left.top = rect.top + rect.height * .5;
-	m_Left.width = 1;
-	m_Left.height = rect.height * .3;
+	m_RectLeft.left = rect.left;
+	m_RectLeft.top = rect.top + rect.height * .5;
+	m_RectLeft.width = 1;
+	m_RectLeft.height = rect.height * .3;
 
 	// Move the sprite into position
 	m_PlayerSprite.setPosition(m_PlayerPosition);
@@ -106,22 +106,22 @@ Vector2f PlayableCharacter::GetCenter() const
 
 FloatRect PlayableCharacter::GetFeet() const
 {
-	return m_Feet;
+	return m_RectFeet;
 }
 
 FloatRect PlayableCharacter::GetHead() const
 {
-	return m_Head;
+	return m_RectHead;
 }
 
 FloatRect PlayableCharacter::GetLeft() const
 {
-	return m_Left;
+	return m_RectLeft;
 }
 
 FloatRect PlayableCharacter::GetRight() const
 {
-	return m_Right;
+	return m_RectRight;
 }
 
 Sprite PlayableCharacter::GetSprite()

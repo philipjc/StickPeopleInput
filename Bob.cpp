@@ -107,7 +107,7 @@ bool Bob::HandleInput()
 	if (m_IsIdle && !m_PlayerAttacking)
 	{
 		// Animate idle
-		m_PlayerSprite.setTextureRect(sf::IntRect(70, bottom+20, 70, top));
+		m_PlayerSprite.setTextureRect(sf::IntRect(70, m_Bottom+20, 70, m_Top));
 	}
 
 	if (!m_IsIdle && m_PlayerAttacking)
@@ -115,12 +115,12 @@ bool Bob::HandleInput()
 		// Animate attacking
 		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (m_IdleFrame == attacking_Frames)
+			if (m_IdleFrame == m_AttackingFrames)
 			{
 				m_IdleFrame = 0;
 			}
 
-			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, bottom+10, 80, top));
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, m_Bottom+10, 80, m_Top));
 
 			m_IdleFrame++;
 
@@ -133,12 +133,12 @@ bool Bob::HandleInput()
 		// Animate walking
 		if (m_IdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (m_IdleFrame == idle_Frames)
+			if (m_IdleFrame == m_IdleFrames)
 			{
 				m_IdleFrame = 0;
 			}
 
-			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, bottom, 70, top));
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, m_Bottom, 70, m_Top));
 
 			m_IdleFrame++;
 
