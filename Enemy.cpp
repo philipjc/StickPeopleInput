@@ -35,9 +35,68 @@ FloatRect Enemy::GetEnemyPosition() const
 void Enemy::UpdateEnemy(const float elapsedTime)
 {
 	UpdatePatrolAnimation(elapsedTime);
+	UpdateAttackAnimation(elapsedTime);
+
+	if (m_EnemyIsFalling)
+	{
+		m_EnemyPosition.y += m_EnemyGravity * elapsedTime;
+	}
+
+	// Find feet
+	// Update the rect for all body parts
+	const FloatRect rect = GetEnemyPosition();
+
+	// Feet
+	if (!m_EnemyIsAttacking)
+	{
+		m_EnemyFeetPosition.left = rect.left + 3;
+		m_EnemyFeetPosition.top = rect.top + rect.height - 1;
+		m_EnemyFeetPosition.width = rect.width - 6;
+		m_EnemyFeetPosition.height = 1;
+		m_EnemySprite.setPosition(m_EnemyPosition);
+
+	}
+
+	
+}
+
+void Enemy::UpdatePatrolAnimation(const float elapsedTime)
+{
+
+	if (m_EnemyIsPatrolling)
+	{
+		m_EnemySprite.setTexture(m_EnemyTexture);
+
+		m_EnemyPosition.x -= m_EnemySpeed * elapsedTime;
+
+		// Animate patrol
+		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+			if (m_EnemyIdleFrame == m_EnemyWalkingFrames)
+			{
+				m_EnemyIdleFrame = 0;
+				m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 128, 90));
+			}
+			else
+			{
+
+				m_EnemySprite.setTextureRect(sf::IntRect(m_EnemyIdleFrame * 128, 30, 128, 90));
+			}
+
+			m_EnemyIdleFrame++;
+
+			m_EnemyIdleClock.restart();
+		}
+	}
+}
+
+void Enemy::UpdateAttackAnimation(const float elapsedTime)
+{
 
 	if (m_EnemyIsAttacking)
 	{
+		m_EnemySprite.setTexture(m_EnemyAttackTexture);
+
 		// Animate attacking
 		// 0 - 80
 		// 120 - 80
@@ -82,57 +141,6 @@ void Enemy::UpdateEnemy(const float elapsedTime)
 		const FloatRect rect = GetEnemyPosition();
 		m_EnemyFeetPosition.left = rect.left + 1;
 		m_EnemySprite.setPosition(m_EnemyPosition);
-	}
-
-	if (m_EnemyIsFalling)
-	{
-		m_EnemyPosition.y += m_EnemyGravity * elapsedTime;
-	}
-
-	// Find feet
-	// Update the rect for all body parts
-	const FloatRect rect = GetEnemyPosition();
-
-	// Feet
-	if (!m_EnemyIsAttacking)
-	{
-		m_EnemyFeetPosition.left = rect.left + 3;
-		m_EnemyFeetPosition.top = rect.top + rect.height - 1;
-		m_EnemyFeetPosition.width = rect.width - 6;
-		m_EnemyFeetPosition.height = 1;
-		m_EnemySprite.setPosition(m_EnemyPosition);
-
-	}
-
-	
-}
-
-void Enemy::UpdatePatrolAnimation(const float elapsedTime)
-{
-	m_EnemySprite.setTexture(m_EnemyTexture);
-
-	if (m_EnemyIsPatrolling)
-	{
-				m_EnemyPosition.x -= m_EnemySpeed * elapsedTime;
-
-		// Animate patrol
-		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
-		{
-						if (m_EnemyIdleFrame == m_EnemyWalkingFrames)
-						{
-											m_EnemyIdleFrame = 0;
-				m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 128, 90));
-			}
-			else
-			{
-								m_EnemySprite.setTextureRect(sf::IntRect(m_EnemyIdleFrame * 128, 30, 128, 90));
-
-			}
-
-			m_EnemyIdleFrame++;
-
-			m_EnemyIdleClock.restart();
-		}
 	}
 }
 

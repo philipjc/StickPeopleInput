@@ -51,6 +51,8 @@ public:
 
 	void UpdatePatrolAnimation(const float elapsedTime);
 
+	void UpdateAttackAnimation(const float elapsedTime);
+
 	Sprite GetEnemySprite();
 
 	FloatRect GetEnemyFeet() const;
