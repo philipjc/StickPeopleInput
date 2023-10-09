@@ -2,7 +2,7 @@
 #include "Enemy.h"
 #include "Knight.h"
 
-bool Enemy::SpawnEnemy(Vector2f enemy_start_position, float gravity)
+bool Enemy::SpawnEnemy(Vector2f enemyStartPosition, float gravity)
 {
 	m_EnemyTexture = TextureCache::GetTexture("graphics/skeleton/idle.png");
 	m_EnemyDeathTexture = TextureCache::GetTexture("graphics/skeleton/dead.png");
@@ -32,8 +32,10 @@ FloatRect Enemy::GetEnemyPosition() const
 	return m_EnemySprite.getGlobalBounds();
 }
 
-void Enemy::UpdateEnemy(const float elapsed_time)
+void Enemy::UpdateEnemy(const float elapsedTime)
 {
+	UpdatePatrolAnimation(elapsedTime);
+
 	if (m_EnemyIsAttacking)
 	{
 		// Animate attacking
@@ -84,7 +86,7 @@ void Enemy::UpdateEnemy(const float elapsed_time)
 
 	if (m_EnemyIsFalling)
 	{
-		m_EnemyPosition.y += m_EnemyGravity * elapsed_time;
+		m_EnemyPosition.y += m_EnemyGravity * elapsedTime;
 	}
 
 	// Find feet
@@ -103,6 +105,35 @@ void Enemy::UpdateEnemy(const float elapsed_time)
 	}
 
 	
+}
+
+void Enemy::UpdatePatrolAnimation(const float elapsedTime)
+{
+	m_EnemySprite.setTexture(m_EnemyTexture);
+
+	if (m_EnemyIsPatrolling)
+	{
+				m_EnemyPosition.x -= m_EnemySpeed * elapsedTime;
+
+		// Animate patrol
+		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
+		{
+						if (m_EnemyIdleFrame == m_EnemyWalkingFrames)
+						{
+											m_EnemyIdleFrame = 0;
+				m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 128, 90));
+			}
+			else
+			{
+								m_EnemySprite.setTextureRect(sf::IntRect(m_EnemyIdleFrame * 128, 30, 128, 90));
+
+			}
+
+			m_EnemyIdleFrame++;
+
+			m_EnemyIdleClock.restart();
+		}
+	}
 }
 
 FloatRect Enemy::GetEnemyFeet() const

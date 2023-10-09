@@ -14,7 +14,6 @@ void Engine::Update(const float dt_as_seconds)
 	if (m_GameRunning)
 	{
 		m_Enemy.UpdateEnemy(dt_as_seconds);
-		m_Enemy.UpdatePatrolAnimation(dt_as_seconds);
 
 		// Update Knight
 		m_Knight.Update(dt_as_seconds);

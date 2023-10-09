@@ -35,32 +35,3 @@ void Skeleton::TakeDamage(const int field)
 	}
 
 }
-
-void Skeleton::UpdatePatrolAnimation(const float elapsed_time)
-{
-	m_EnemySprite.setTexture(m_EnemyWalkingTexture);
-
-	if (m_EnemyIsPatrolling)
-	{
-		m_EnemyPosition.x -= m_EnemySpeed * elapsed_time;
-
-		// Animate patrol
-		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
-		{
-			if (m_EnemyIdleFrame == m_EnemyWalkingFrames)
-			{
-				m_EnemyIdleFrame = 0;
-				m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 128, 90));
-			}
-			else
-			{
-				m_EnemySprite.setTextureRect(sf::IntRect(m_EnemyIdleFrame * 128, 30, 128, 90));
-
-			}
-
-			m_EnemyIdleFrame++;
-
-			m_EnemyIdleClock.restart();
-		}
-	}
-}

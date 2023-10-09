@@ -45,9 +45,11 @@ private:
 public:
 	virtual ~Enemy() = default;
 
-	bool SpawnEnemy(Vector2f enemy_start_position, float gravity);
+	bool SpawnEnemy(Vector2f enemyStartPosition, float gravity);
 
-	void UpdateEnemy(const float elapsed_time);
+	void UpdateEnemy(const float elapsedTime);
+
+	void UpdatePatrolAnimation(const float elapsedTime);
 
 	Sprite GetEnemySprite();
 

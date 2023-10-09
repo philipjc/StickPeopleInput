@@ -7,5 +7,4 @@ public:
 	Skeleton();
 
 	void TakeDamage(int field) override;
-	void UpdatePatrolAnimation(const float elapsed_time);
 };
