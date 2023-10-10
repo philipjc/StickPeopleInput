@@ -8,7 +8,7 @@ class Enemy   // NOLINT(cppcoreguidelines-special-member-functions)
 protected:
 	sf::Clock m_EnemyIdleClock;
 
-	int m_EnemyIdleFrame = 1;
+	int m_EnemyIdleFrame = 0;
 	int m_EnemyAttackFrames = 5;
 	int m_EnemyWalkingFrames = 0;
 
