@@ -2,6 +2,12 @@
 
 #include "Engine.h"
 
+/**
+ * \brief 
+ * \param player 
+ * \param enemy 
+ * \return 
+ */
 bool Engine::EnemyCollision(PlayableCharacter& player, Enemy& enemy) const
 {
 	bool reachedGoal = false;
@@ -90,7 +96,7 @@ bool Engine::EnemyCollision(PlayableCharacter& player, Enemy& enemy) const
 					std::cout << "Enemy hitting me!" << std::endl;
 
 					enemy.EngageCombat();
-					enemy.TakeDamage(1);
+					// enemy.TakeDamage(1);
 				}
 				else
 				{

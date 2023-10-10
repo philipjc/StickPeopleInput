@@ -19,6 +19,8 @@ bool Enemy::SpawnEnemy(Vector2f enemyStartPosition, float gravity)
 	m_EnemyIsFalling = true;
 	m_EnemyIsPatrolling = true;
 
+	Enemy::StartPatrol();
+
 	return true;
 }
 
@@ -62,13 +64,9 @@ void Enemy::UpdateEnemy(const float elapsedTime)
 
 void Enemy::UpdatePatrolAnimation(const float elapsedTime)
 {
-
 	if (m_EnemyIsPatrolling)
 	{
-		m_EnemySprite.setTexture(m_EnemyTexture);
-
 		m_EnemyPosition.x -= m_EnemySpeed * elapsedTime;
-
 		// Animate patrol
 		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
@@ -79,31 +77,23 @@ void Enemy::UpdatePatrolAnimation(const float elapsedTime)
 			}
 			else
 			{
-
 				m_EnemySprite.setTextureRect(sf::IntRect(m_EnemyIdleFrame * 128, 30, 128, 90));
 			}
 
 			m_EnemyIdleFrame++;
-
 			m_EnemyIdleClock.restart();
+			m_EnemySprite.setPosition(m_EnemyPosition);
+
+			const FloatRect rect = GetEnemyPosition();
+			m_EnemyFeetPosition.left = rect.left + 1;
 		}
 	}
 }
 
 void Enemy::UpdateAttackAnimation(const float elapsedTime)
 {
-
 	if (m_EnemyIsAttacking)
 	{
-		m_EnemySprite.setTexture(m_EnemyAttackTexture);
-
-		// Animate attacking
-		// 0 - 80
-		// 120 - 80
-		// 260 - 80
-		// 410 - 80
-		// 540 - 80
-
 		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
 			if (m_EnemyIdleFrame == 4)
@@ -111,7 +101,6 @@ void Enemy::UpdateAttackAnimation(const float elapsedTime)
 				m_EnemyIdleFrame = 0;
 				m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 80, 90));
 			}
-
 
 			if (m_EnemyIdleFrame == 1)
 			{
@@ -134,13 +123,10 @@ void Enemy::UpdateAttackAnimation(const float elapsedTime)
 			}
 
 			m_EnemyIdleFrame++;
-
 			m_EnemyIdleClock.restart();
+			m_EnemySprite.setPosition(m_EnemyPosition);
 		}
 
-		const FloatRect rect = GetEnemyPosition();
-		m_EnemyFeetPosition.left = rect.left + 1;
-		m_EnemySprite.setPosition(m_EnemyPosition);
 	}
 }
 
@@ -158,13 +144,56 @@ void Enemy::StopEnemyFalling(const float top)
 
 void Enemy::EngageCombat()
 {
+	if (m_EnemyIsAttacking)
+	{
+		m_EnemySprite.setTexture(m_EnemyAttackTexture);
+		m_EnemyIsPatrolling = false;
+		m_EnemyIsAttacking = true;
+		return;
+	}
+	m_EnemySprite.setTexture(m_EnemyWalkingTexture);
 	m_EnemyIsPatrolling = false;
 	m_EnemyIsAttacking = true;
+	
 }
 
 void Enemy::DisengageCombat()
 {
-	m_EnemyIsPatrolling = true;
+	if (!m_EnemyIsAttacking)
+	{
+		m_EnemySprite.setTexture(m_EnemyWalkingTexture);
+		m_EnemyIsPatrolling = true;
+		m_EnemyIsAttacking = false;
+		return;
+	}
+	m_EnemySprite.setTexture(m_EnemyAttackTexture);
+	m_EnemyIsPatrolling = false;
+	m_EnemyIsAttacking = true;
+}
+
+void Enemy::StartPatrol()
+{
+	if (m_EnemyIsPatrolling)
+	{
+		m_EnemySprite.setTexture(m_EnemyWalkingTexture);
+		m_EnemyIsPatrolling = true;
+		m_EnemyIsAttacking = false;
+		return;
+
+	}
 	m_EnemyIsAttacking = false;
+	m_EnemyIsPatrolling = true;
+}
+
+void Enemy::StopPatrol()
+{
+	if (!m_EnemyIsPatrolling)
+	{
+		m_EnemySprite.setTexture(m_EnemyAttackTexture);
+
+		return;
+	}
+	m_EnemyIsAttacking = true;
+	m_EnemyIsPatrolling = false;
 }
 

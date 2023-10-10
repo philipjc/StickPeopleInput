@@ -65,5 +65,9 @@ public:
 
 	void DisengageCombat();
 
+	void StartPatrol();
+
+	void StopPatrol();
+
 	virtual void TakeDamage(int field) = 0;
 };

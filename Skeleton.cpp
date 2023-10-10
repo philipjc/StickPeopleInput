@@ -14,6 +14,7 @@ Skeleton::Skeleton()
 	m_Damage = 1;
 	m_IsAlive = true;
 	m_EnemyWalkingFrames = 7;
+
 }
 
 void Skeleton::TakeDamage(const int field)
