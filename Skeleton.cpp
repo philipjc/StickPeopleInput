@@ -2,9 +2,13 @@
 #include "Skeleton.h"
 
 #include <iostream>
+#include <random>
 
-Skeleton::Skeleton()
+Skeleton::Skeleton() : m_Dis(1, 5) // Initialize random damage range
 {
+	m_Gen = std::mt19937(m_RandomDevice());
+
+	m_EnemyTexture = TextureCache::GetTexture("graphics/skeleton/idle.png");
 	m_EnemyWalkingTexture = TextureCache::GetTexture("graphics/skeleton/walk.png");
 	m_EnemyAttackTexture = TextureCache::GetTexture("graphics/skeleton/attack_1.png");
 	m_EnemyDeathTexture = TextureCache::GetTexture("graphics/skeleton/dead.png");
@@ -24,8 +28,11 @@ void Skeleton::TakeDamage(const int field)
 		std::cout << "Skeleton is attacking" << std::endl;
 
 		// random attack damage
+		const int randomDamage = m_Dis(m_Gen);
 
-		m_HitPoints -= 1;
+		// Apply random damage
+		m_HitPoints -= randomDamage;
+		std::cout << "Skeleton took " << randomDamage << " damage." << std::endl;
 
 		if (m_HitPoints <= 0)
 		{

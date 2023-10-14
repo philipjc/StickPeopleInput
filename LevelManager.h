@@ -15,7 +15,7 @@ private:
 	int m_CurrentLevel = 0;
 	const int num_Level = 4;
 
-	Vector2f m_EnemyStartPosition;
+	Vector2f m_EnemyStartPosition = Vector2f(500, 0);
 
 public:
 

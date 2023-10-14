@@ -60,10 +60,15 @@ public:
 	FloatRect GetEnemyPosition() const;
 
 	void StopEnemyFalling(float top);
+	void SetEnemyPosition(float x, float y);
 
 	void EngageCombat();
 
 	void DisengageCombat();
+	void SetPatrolState(bool isPatrolling, bool isAttacking);
+	void SetAttackState(bool isAttacking, bool isPatrolling);
+
+	void UpdateTexture();
 
 	void StartPatrol();
 

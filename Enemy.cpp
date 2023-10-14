@@ -4,10 +4,7 @@
 
 bool Enemy::SpawnEnemy(Vector2f enemyStartPosition, float gravity)
 {
-	m_EnemyTexture = TextureCache::GetTexture("graphics/skeleton/idle.png");
-	m_EnemyDeathTexture = TextureCache::GetTexture("graphics/skeleton/dead.png");
-	m_EnemyAttackTexture = TextureCache::GetTexture("graphics/skeleton/attack_1.png");
-
+	// Use enemyStartPosition to set the starting position of multiple enemies
 	m_EnemySprite = Sprite();
 	m_EnemySprite.setTexture(m_EnemyTexture);
 
@@ -44,13 +41,11 @@ void Enemy::UpdateEnemy(const float elapsedTime)
 		m_EnemyPosition.y += m_EnemyGravity * elapsedTime;
 	}
 
-	// Find feet
-	// Update the rect for all body parts
 	const FloatRect rect = GetEnemyPosition();
 
-	// Feet
 	if (!m_EnemyIsAttacking)
 	{
+		// Update the rect for all body parts
 		m_EnemyFeetPosition.left = rect.left + 3;
 		m_EnemyFeetPosition.top = rect.top + rect.height - 1;
 		m_EnemyFeetPosition.width = rect.width - 6;
@@ -58,8 +53,6 @@ void Enemy::UpdateEnemy(const float elapsedTime)
 		m_EnemySprite.setPosition(m_EnemyPosition);
 
 	}
-
-	
 }
 
 void Enemy::UpdatePatrolAnimation(const float elapsedTime)
@@ -96,35 +89,23 @@ void Enemy::UpdateAttackAnimation(const float elapsedTime)
 	{
 		if (m_EnemyIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (m_EnemyIdleFrame == 4)
-			{
-				m_EnemyIdleFrame = 0;
-				m_EnemySprite.setTextureRect(sf::IntRect(0, 30, 80, 90));
-			}
+			static const sf::IntRect textureCoords[] = {
+                sf::IntRect(0, 30, 80, 90),
+                sf::IntRect(120, 30, 80, 90),
+                sf::IntRect(260, 30, 80, 90),
+                sf::IntRect(410, 30, 80, 90),
+                sf::IntRect(540, 30, 80, 90),
+            };
 
-			if (m_EnemyIdleFrame == 1)
-			{
-				m_EnemySprite.setTextureRect(sf::IntRect(120, 30, 80, 90));
-			}
+            if (m_EnemyIdleFrame >= 4)
+            {
+                m_EnemyIdleFrame = 0;
+            }
 
-			if (m_EnemyIdleFrame == 2)
-			{
-				m_EnemySprite.setTextureRect(sf::IntRect(260, 30, 80, 90));
-			}
-
-			if (m_EnemyIdleFrame == 3)
-			{
-				m_EnemySprite.setTextureRect(sf::IntRect(410, 30, 80, 90));
-			}
-
-			if (m_EnemyIdleFrame == 4)
-			{
-				m_EnemySprite.setTextureRect(sf::IntRect(540, 30, 80, 90));
-			}
-
-			m_EnemyIdleFrame++;
-			m_EnemyIdleClock.restart();
-			m_EnemySprite.setPosition(m_EnemyPosition);
+            m_EnemySprite.setTextureRect(textureCoords[m_EnemyIdleFrame]);
+            m_EnemyIdleFrame++;
+            m_EnemyIdleClock.restart();
+            m_EnemySprite.setPosition(m_EnemyPosition);
 		}
 
 	}
@@ -142,58 +123,59 @@ void Enemy::StopEnemyFalling(const float top)
 	m_EnemyIsFalling = false;
 }
 
-void Enemy::EngageCombat()
+// set enemy position
+void Enemy::SetEnemyPosition(const float x, const float y)
+{
+	m_EnemyPosition.x = x;
+	m_EnemyPosition.y = y;
+	m_EnemySprite.setPosition(m_EnemyPosition);
+}
+
+void Enemy::SetPatrolState(const bool isPatrolling, const bool isAttacking)
+{
+	m_EnemyIsPatrolling = isPatrolling;
+	m_EnemyIsAttacking = isAttacking;
+}
+
+void Enemy::SetAttackState(const bool isAttacking, const bool isPatrolling)
+{
+	m_EnemyIsAttacking = isAttacking;
+	m_EnemyIsPatrolling = isPatrolling;
+}
+
+void Enemy::UpdateTexture()
 {
 	if (m_EnemyIsAttacking)
 	{
 		m_EnemySprite.setTexture(m_EnemyAttackTexture);
-		m_EnemyIsPatrolling = false;
-		m_EnemyIsAttacking = true;
-		return;
 	}
-	m_EnemySprite.setTexture(m_EnemyWalkingTexture);
-	m_EnemyIsPatrolling = false;
-	m_EnemyIsAttacking = true;
-	
+	else
+	{
+		m_EnemySprite.setTexture(m_EnemyWalkingTexture);
+	}
+}
+
+void Enemy::EngageCombat()
+{
+	UpdateTexture();
+	SetAttackState(true, false);
 }
 
 void Enemy::DisengageCombat()
 {
-	if (!m_EnemyIsAttacking)
-	{
-		m_EnemySprite.setTexture(m_EnemyWalkingTexture);
-		m_EnemyIsPatrolling = true;
-		m_EnemyIsAttacking = false;
-		return;
-	}
-	m_EnemySprite.setTexture(m_EnemyAttackTexture);
-	m_EnemyIsPatrolling = false;
-	m_EnemyIsAttacking = true;
+	UpdateTexture();
+	SetAttackState(false, true);
 }
 
 void Enemy::StartPatrol()
 {
-	if (m_EnemyIsPatrolling)
-	{
-		m_EnemySprite.setTexture(m_EnemyWalkingTexture);
-		m_EnemyIsPatrolling = true;
-		m_EnemyIsAttacking = false;
-		return;
-
-	}
-	m_EnemyIsAttacking = false;
-	m_EnemyIsPatrolling = true;
+	SetPatrolState(true, false);
+	UpdateTexture();
 }
 
 void Enemy::StopPatrol()
 {
-	if (!m_EnemyIsPatrolling)
-	{
-		m_EnemySprite.setTexture(m_EnemyAttackTexture);
-
-		return;
-	}
-	m_EnemyIsAttacking = true;
-	m_EnemyIsPatrolling = false;
+	SetPatrolState(false, true);
+	UpdateTexture();
 }
 
