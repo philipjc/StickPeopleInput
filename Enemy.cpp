@@ -31,6 +31,11 @@ FloatRect Enemy::GetEnemyPosition() const
 	return m_EnemySprite.getGlobalBounds();
 }
 
+bool Enemy::GetEnemyAttackState() const
+{
+	return m_EnemyIsAttacking;
+}
+
 void Enemy::UpdateEnemy(const float elapsedTime)
 {
 	UpdatePatrolAnimation(elapsedTime);

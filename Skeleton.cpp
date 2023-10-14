@@ -21,7 +21,7 @@ Skeleton::Skeleton() : m_Dis(1, 5) // Initialize random damage range
 
 }
 
-void Skeleton::TakeDamage(const int field)
+void Skeleton::TakeDamage()
 {
 	if (m_EnemyIsAttacking)
 	{

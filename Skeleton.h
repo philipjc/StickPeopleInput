@@ -13,6 +13,6 @@ private:
 public:
 	Skeleton();
 
-	void TakeDamage(int field) override;
+	void TakeDamage() override;
 
 };

@@ -59,6 +59,8 @@ public:
 
 	FloatRect GetEnemyPosition() const;
 
+	bool GetEnemyAttackState() const;
+
 	void StopEnemyFalling(float top);
 	void SetEnemyPosition(float x, float y);
 
@@ -74,5 +76,5 @@ public:
 
 	void StopPatrol();
 
-	virtual void TakeDamage(int field) = 0;
+	virtual void TakeDamage() = 0;
 };
