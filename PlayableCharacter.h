@@ -29,10 +29,6 @@ protected:
 	const int m_Bottom = 0;
 	const int m_Right = 75;
 
-	const int m_IdleAnimFrames = 4;
-	const int m_WalkingFrames = 6;
-	const int m_AttackingFrames = 5;
-
 	Sprite m_PlayerSprite;
 
 	Texture m_IdleTexture;
@@ -61,13 +57,10 @@ protected:
 	PlayerState m_CurrentState = PlayerState::Standing;
 
 private:
-	// set gravity
 	float m_PlayerGravity = 240;
 
-	// Set character speed
 	float m_KnightSpeed = 230;
 
-	// Player location Vector
 	Vector2f m_PlayerPosition;
 
 	// Where are the characters various body parts?

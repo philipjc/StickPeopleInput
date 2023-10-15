@@ -12,4 +12,10 @@ public:
 	void UpdateWalkAnimation() override;
 	void UpdateIdleAnimation() override;
 	bool HandleInput() override;
+
+private:
+	const int m_IdleAnimFrames = 4;
+	const int m_WalkingFrames = 8;
+	const int m_AttackingFrames = 5;
+
 };

@@ -54,7 +54,7 @@ void Knight::UpdateWalkAnimation()
 		// Animate walking
 		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (m_AnimIdleFrameCount == m_IdleAnimFrames)
+			if (m_AnimIdleFrameCount == m_WalkingFrames)
 			{
 				m_AnimIdleFrameCount = 0;
 			}
