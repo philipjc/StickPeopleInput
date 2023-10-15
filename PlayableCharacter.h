@@ -3,28 +3,38 @@
 
 using namespace sf;
 
+// forward declares
+enum class PlayerState;
+
+// ====================
+enum class PlayerState
+{
+	Standing,
+	Walking,
+	Jumping,
+	Falling
+};
+
 class PlayableCharacter  // NOLINT(cppcoreguidelines-special-member-functions)
 {
 protected:
+
+	sf::Clock m_PlayerIdleClock;
+
 	bool m_IsIdle = true;
+	int m_AnimIdleFrameCount = 0;
 
 	const int m_Top = 86;
 	const int m_Left = 0;
 	const int m_Bottom = 0;
 	const int m_Right = 75;
 
-	const int m_IdleFrames = 4;
+	const int m_IdleAnimFrames = 4;
 	const int m_WalkingFrames = 6;
 	const int m_AttackingFrames = 5;
 
-	sf::Clock m_PlayerIdleClock;
-
-	int m_IdleFrame = 0;
-	
-	// Player Sprite
 	Sprite m_PlayerSprite;
 
-	// Player Textures
 	Texture m_IdleTexture;
 	Texture m_WalkingTexture;
 	Texture m_JumpingTexture;
@@ -47,7 +57,9 @@ protected:
 
 	// Is the character currently attacking
 	bool m_PlayerAttacking = false;
-	
+
+	PlayerState m_CurrentState = PlayerState::Standing;
+
 private:
 	// set gravity
 	float m_PlayerGravity = 240;
@@ -72,11 +84,12 @@ public:
 	// Class is abstract and cannot be instantiated
 	virtual ~PlayableCharacter() = default;
 
-	void Spawn(Vector2f start_position);
-	void UpdateMoveLeft(float elapsed_time);
-	void UpdateMoveDirection(float elapsed_time);
-	void UpdateMoveRight(float elapsed_time);
-	void UpdateGravity(float elapsed_time);
+	void Spawn(Vector2f startPosition);
+	void UpdateMoveLeft(float elapsedTime);
+	void UpdateMoveDirection(float elapsedTime);
+	void UpdateMoveRight(float elapsedTime);
+	void UpdateGravity(float elapsedTime);
+	void UpdateState();
 
 	// These are pure virtual function (overridden)
 	void virtual UpdateAttackAnimation() = 0;
@@ -106,7 +119,11 @@ public:
 	Vector2f GetCenter() const;
 
 	// Called once every frame
-	void Update(float elapsed_time);
-	void UpdateJump(float elapsed_time);
-	void UpdateBody(float elapsed_time);
+	void Update(float elapsedTime);
+	void UpdateFeet(const FloatRect& rect);
+	void UpdateHead(const FloatRect& rect);
+	void UpdateRight(const FloatRect& rect);
+	void UpdateLeft(const FloatRect& rect);
+	void UpdateJump(float elapsedTime);
+	void UpdateBody(float elapsedTime);
 };

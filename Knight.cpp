@@ -17,7 +17,7 @@ Knight::Knight()
 
 	m_IsIdle = true;
 	m_PlayerIdleClock.restart();
-	m_IdleFrame = 0;
+	m_AnimIdleFrameCount = 0;
 
 }
 
@@ -31,14 +31,14 @@ void Knight::UpdateAttackAnimation()
 		// Animate attacking
 		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (m_IdleFrame == m_AttackingFrames)
+			if (m_AnimIdleFrameCount == m_AttackingFrames)
 			{
-				m_IdleFrame = 0;
+				m_AnimIdleFrameCount = 0;
 			}
 
-			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 80, m_Bottom-10, 80, m_Top));
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_AnimIdleFrameCount * 80, m_Bottom-10, 80, m_Top));
 
-			m_IdleFrame++;
+			m_AnimIdleFrameCount++;
 
 			m_PlayerIdleClock.restart();
 		}
@@ -54,14 +54,14 @@ void Knight::UpdateWalkAnimation()
 		// Animate walking
 		if (m_PlayerIdleClock.getElapsedTime().asSeconds() > 0.1f)
 		{
-			if (m_IdleFrame == m_IdleFrames)
+			if (m_AnimIdleFrameCount == m_IdleAnimFrames)
 			{
-				m_IdleFrame = 0;
+				m_AnimIdleFrameCount = 0;
 			}
 
-			m_PlayerSprite.setTextureRect(sf::IntRect(m_IdleFrame * 70, m_Bottom - 20, 70, m_Top));
+			m_PlayerSprite.setTextureRect(sf::IntRect(m_AnimIdleFrameCount * 70, m_Bottom - 20, 70, m_Top));
 
-			m_IdleFrame++;
+			m_AnimIdleFrameCount++;
 
 			m_PlayerIdleClock.restart();
 		}

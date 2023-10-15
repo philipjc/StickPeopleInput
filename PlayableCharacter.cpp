@@ -1,45 +1,128 @@
 // ReSharper disable CppClangTidyBugProneNarrowingConversions
 // ReSharper disable CppClangTidyClangDiagnosticDoublePromotion
 // ReSharper disable CppClangTidyClangDiagnosticImplicitFloatConversion
-
 #include "PlayableCharacter.h"
 #include "TextureCache.h"
 
+constexpr float feetHeight = 1.0f;
+constexpr float nextFootOffset = 2.0f;
+constexpr float feetOffset = 3.0f;
+constexpr float feetWidth = 6.0f;
+constexpr float headOffset = 0.3f;
+constexpr float leftOffset = 0.5f;
+constexpr float rightOffset = 0.35f;
 
-void PlayableCharacter::Update(const float elapsed_time)
+constexpr int numberZero = 0;
+constexpr int numberOne = 1;
+constexpr int numberTwo = 2;
+constexpr int numberTwenty = 20;
+
+void PlayableCharacter::Spawn(const Vector2f startPosition)
 {
-	UpdateJump(elapsed_time);
-	UpdateBody(elapsed_time);
-	UpdateGravity(elapsed_time);
-	UpdateMoveDirection(elapsed_time);
-
-	// Move the sprite into position
-	m_PlayerSprite.setPosition(m_PlayerPosition);
-}
-
-void PlayableCharacter::Spawn(const Vector2f start_position)
-{
-	// Place the player at the starting point
-	m_PlayerPosition.x = start_position.x;
-	m_PlayerPosition.y = start_position.y;
+	m_PlayerPosition.x = startPosition.x;
+	m_PlayerPosition.y = startPosition.y;
 
 	// Move the sprite in to position
 	m_PlayerSprite.setPosition(m_PlayerPosition);
-
 }
 
-void PlayableCharacter::UpdateJump(const float elapsed_time)
+void PlayableCharacter::Update(const float elapsedTime)
+{
+	UpdateJump(elapsedTime);
+	UpdateBody(elapsedTime);
+	UpdateGravity(elapsedTime);
+	UpdateMoveDirection(elapsedTime);
+
+	m_PlayerSprite.setPosition(m_PlayerPosition);
+}
+
+void PlayableCharacter::UpdateFeet(const FloatRect& rect)
+{
+	m_RectFeet.left = rect.left + feetHeight;
+	m_RectFeet.top = rect.top + rect.height - feetHeight;
+	m_RectFeet.width = rect.width - feetWidth;
+	m_RectFeet.height = feetHeight;
+}
+
+void PlayableCharacter::UpdateHead(const FloatRect& rect)
+{
+	m_RectHead.left = rect.left;
+	m_RectHead.top = rect.top + (rect.height * headOffset);
+	m_RectHead.width = rect.width;
+	m_RectHead.height = feetHeight;
+}
+
+void PlayableCharacter::UpdateRight(const FloatRect& rect)
+{
+	m_RectRight.left = rect.left + rect.width - nextFootOffset;
+	m_RectRight.top = rect.top + rect.height * rightOffset;
+	m_RectRight.width = feetHeight;
+	m_RectRight.height = rect.height * headOffset;
+}
+
+void PlayableCharacter::UpdateLeft(const FloatRect& rect)
+{
+	m_RectLeft.left = rect.left;
+	m_RectLeft.top = rect.top + rect.height * leftOffset;
+	m_RectLeft.width = feetHeight;
+	m_RectLeft.height = rect.height * headOffset;
+}
+
+void PlayableCharacter::UpdateBody(float elapsedTime)
+{
+	// Update the rect for all body parts
+	const FloatRect rect = GetPosition();
+
+	UpdateFeet(rect);
+	UpdateHead(rect);
+	UpdateRight(rect);
+	UpdateLeft(rect);
+}
+
+void PlayableCharacter::UpdateGravity(const float elapsedTime)
+{
+	// Apply gravity
+	if (m_PlayerIsFalling)
+	{
+		m_PlayerPosition.y += m_PlayerGravity * elapsedTime;
+	}
+}
+
+// ===================== move direction =====================
+// ==========================================================
+
+void PlayableCharacter::UpdateState()
 {
 	if (m_PlayerIsJumping)
 	{
-		// Update how long the jump has been going
-		m_PlayerTimeJump += elapsed_time;
+		m_CurrentState = PlayerState::Jumping;
+	}
+	else if (m_PlayerIsFalling)
+	{
+		m_CurrentState = PlayerState::Falling;
+	}
+	else if (m_PlayerRightPressed || m_PlayerLeftPressed)
+	{
+		m_CurrentState = PlayerState::Walking;
+	}
+	else
+	{
+		m_CurrentState = PlayerState::Standing;
+	}
+}
 
-		// Is the jump going upwards
+void PlayableCharacter::UpdateJump(const float elapsedTime)
+{
+	if (m_CurrentState == PlayerState::Jumping)
+	{
+		// Update how long the jump has been going
+		m_PlayerTimeJump += elapsedTime;
+
+		// Still moving up?
 		if (m_PlayerTimeJump < m_JumpDuration)
 		{
-			// Move up at twice gravity
-			m_PlayerPosition.y -= m_PlayerGravity * 2 * elapsed_time;
+			// Move up at twice gravity (force of player jump power)
+			m_PlayerPosition.y -= m_PlayerGravity * numberTwo * elapsedTime;
 		}
 		else
 		{
@@ -49,111 +132,34 @@ void PlayableCharacter::UpdateJump(const float elapsed_time)
 	}
 }
 
-void PlayableCharacter::UpdateBody(float elapsed_time)
-{
-	// Update the rect for all body parts
-	const FloatRect rect = GetPosition();
-
-	// Feet
-	m_RectFeet.left = rect.left + 3;
-	m_RectFeet.top = rect.top + rect.height - 1;
-	m_RectFeet.width = rect.width - 6;
-	m_RectFeet.height = 1;
-
-	// Head
-	m_RectHead.left = rect.left;
-	m_RectHead.top = rect.top + (rect.height * .3);
-	m_RectHead.width = rect.width;
-	m_RectHead.height = 1;
-
-	// Right
-	m_RectRight.left = rect.left + rect.width - 2;
-	m_RectRight.top = rect.top + rect.height * .35;
-	m_RectRight.width = 1;
-	m_RectRight.height = rect.height * .3;
-
-	// Left
-	m_RectLeft.left = rect.left;
-	m_RectLeft.top = rect.top + rect.height * .5;
-	m_RectLeft.width = 1;
-	m_RectLeft.height = rect.height * .3;
-}
-
-void PlayableCharacter::UpdateGravity(const float elapsed_time)
-{
-	// Apply gravity
-	if (m_PlayerIsFalling)
-	{
-		m_PlayerPosition.y += m_PlayerGravity * elapsed_time;
-	}
-}
-
-void PlayableCharacter::UpdateMoveLeft(const float elapsed_time)
-{
-	m_PlayerPosition.x -= m_KnightSpeed * elapsed_time;
-	m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width + 20, 0);
-	m_PlayerSprite.setScale(-1, 1);
-}
-
-void PlayableCharacter::UpdateMoveDirection(const float elapsed_time)
+void PlayableCharacter::UpdateMoveDirection(const float elapsedTime)
 {
 	if (m_PlayerRightPressed)
 	{
-		UpdateMoveRight(elapsed_time);
+		UpdateMoveRight(elapsedTime);
 	}
 
 	if (m_PlayerLeftPressed)
 	{
-		UpdateMoveLeft(elapsed_time);
+		UpdateMoveLeft(elapsedTime);
 	}
 }
 
-void PlayableCharacter::UpdateMoveRight(const float elapsed_time)
+void PlayableCharacter::UpdateMoveLeft(const float elapsedTime)
+{
+	m_PlayerPosition.x -= m_KnightSpeed * elapsedTime;
+	m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width + numberTwenty, numberZero);
+	m_PlayerSprite.setScale(-numberOne, numberOne);
+}
+
+void PlayableCharacter::UpdateMoveRight(const float elapsedTime)
 {
 	if (m_PlayerRightPressed)
 	{
-		m_PlayerPosition.x += m_KnightSpeed * elapsed_time;
-		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width - 20, 0);
-		m_PlayerSprite.setScale(1, 1);
+		m_PlayerPosition.x += m_KnightSpeed * elapsedTime;
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width - numberTwenty, numberZero);
+		m_PlayerSprite.setScale(numberOne, numberOne);
 	}
-}
-
-FloatRect PlayableCharacter::GetPosition() const
-{
-	return m_PlayerSprite.getGlobalBounds();
-}
-
-Vector2f PlayableCharacter::GetCenter() const
-{
-	return {
-		m_PlayerPosition.x + m_PlayerSprite.getGlobalBounds().width / 2,
-		m_PlayerPosition.y + m_PlayerSprite.getGlobalBounds().height / 2
-	};
-}
-
-FloatRect PlayableCharacter::GetFeet() const
-{
-	return m_RectFeet;
-}
-
-FloatRect PlayableCharacter::GetHead() const
-{
-	return m_RectHead;
-}
-
-FloatRect PlayableCharacter::GetLeft() const
-{
-	return m_RectLeft;
-}
-
-FloatRect PlayableCharacter::GetRight() const
-{
-	return m_RectRight;
-}
-
-Sprite PlayableCharacter::GetSprite()
-{
-	return m_PlayerSprite;
 }
 
 void PlayableCharacter::StopFalling(const float position)
@@ -165,7 +171,6 @@ void PlayableCharacter::StopFalling(const float position)
 
 void PlayableCharacter::StopRight(const float position)
 {
-
 	m_PlayerPosition.x = position - m_PlayerSprite.getGlobalBounds().width;
 	m_PlayerSprite.setPosition(m_PlayerPosition);
 }
@@ -178,8 +183,47 @@ void PlayableCharacter::StopLeft(const float position)
 
 void PlayableCharacter::StopJump()
 {
-	// Stop a jump early 
 	m_PlayerIsJumping = false;
 	m_PlayerIsFalling = true;
 }
 
+// ===================== getters =====================
+// ===================================================
+
+Sprite PlayableCharacter::GetSprite()
+{
+	return m_PlayerSprite;
+}
+
+FloatRect PlayableCharacter::GetPosition() const
+{
+	return m_PlayerSprite.getGlobalBounds();
+}
+
+Vector2f PlayableCharacter::GetCenter() const
+{
+	return {
+		m_PlayerPosition.x + m_PlayerSprite.getGlobalBounds().width / numberTwo,
+		m_PlayerPosition.y + m_PlayerSprite.getGlobalBounds().height / numberTwo
+	};
+}
+
+FloatRect PlayableCharacter::GetHead() const
+{
+	return m_RectHead;
+}
+
+FloatRect PlayableCharacter::GetFeet() const
+{
+	return m_RectFeet;
+}
+
+FloatRect PlayableCharacter::GetLeft() const
+{
+	return m_RectLeft;
+}
+
+FloatRect PlayableCharacter::GetRight() const
+{
+	return m_RectRight;
+}
