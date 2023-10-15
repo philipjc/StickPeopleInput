@@ -148,7 +148,8 @@ void PlayableCharacter::UpdateMoveDirection(const float elapsedTime)
 void PlayableCharacter::UpdateMoveLeft(const float elapsedTime)
 {
 	m_PlayerPosition.x -= m_KnightSpeed * elapsedTime;
-	m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width + numberTwenty, numberZero);
+	m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width / numberTwo, numberZero);
+	// Flip the sprite
 	m_PlayerSprite.setScale(-numberOne, numberOne);
 }
 
@@ -157,7 +158,8 @@ void PlayableCharacter::UpdateMoveRight(const float elapsedTime)
 	if (m_PlayerRightPressed)
 	{
 		m_PlayerPosition.x += m_KnightSpeed * elapsedTime;
-		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width - numberTwenty, numberZero);
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width / numberTwo, numberZero);
+		// Flip the sprite
 		m_PlayerSprite.setScale(numberOne, numberOne);
 	}
 }
