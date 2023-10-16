@@ -22,7 +22,7 @@ void Engine::LoadLevel()
 	// Spawn Knight
 	m_Knight.Spawn(m_Lm.GetStartPosition());
 
-	m_Enemy.SpawnEnemy(m_Lm.GetEnemyStartPosition(), static_cast<int>(gravity));
+	m_Enemy.SpawnEnemy(m_Lm.GetEnemyStartPosition(), static_cast<int>(m_Gravity));
 
 	// Make sure this code isn't run again
 	m_NewLevelRequired = false;

@@ -12,7 +12,7 @@ class Engine
 {
 private:
 	// The texture holder
-	TextureCache th;
+	TextureCache m_Th;
 
 	// Thomas and his friend, Bob
 	Knight m_Knight;
@@ -23,11 +23,11 @@ private:
 	// A class to manage all the levels
 	LevelManager m_Lm;
 
-	const int tile_Size = 50;
-	const int verts_In_Quad = 4;
+	const int m_TileSize = 50;
+	const int m_VertsInQuad = 4;
 
 	// The force pushing the characters down
-	const int gravity = 300;
+	const int m_Gravity = 300;
 
 	// A regular RenderWindow
 	RenderWindow m_Window;
@@ -76,7 +76,7 @@ private:
 
 	// Private functions for internal use only
 	void Input();
-	void Update(float dt_as_seconds);
+	void Update(float dtAsSeconds);
 	void Draw();
 
 	// Load a new level

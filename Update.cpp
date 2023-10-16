@@ -4,7 +4,7 @@
 
 using namespace sf;
 
-void Engine::Update(const float dt_as_seconds)
+void Engine::Update(const float dtAsSeconds)
 {
 	if (m_NewLevelRequired)
 	{
@@ -13,10 +13,10 @@ void Engine::Update(const float dt_as_seconds)
 
 	if (m_GameRunning)
 	{
-		m_Enemy.UpdateEnemy(dt_as_seconds);
+		m_Enemy.UpdateEnemy(dtAsSeconds);
 
 		// Update Knight
-		m_Knight.Update(dt_as_seconds);
+		m_Knight.Update(dtAsSeconds);
 
 		// Detect collisions and see if characters have reached the goal tile
 		// The second part of the if condition is only executed
@@ -36,7 +36,7 @@ void Engine::Update(const float dt_as_seconds)
 		}
 
 		// Count down the time the player has left
-		m_TimeRemaining -= dt_as_seconds;
+		m_TimeRemaining -= dtAsSeconds;
 
 		// Have Thomas and Bob run out of time?
 		if (m_TimeRemaining <= 0)
