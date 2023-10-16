@@ -91,25 +91,6 @@ void PlayableCharacter::UpdateGravity(const float elapsedTime)
 // ===================== move direction =====================
 // ==========================================================
 
-void PlayableCharacter::UpdateState()
-{
-	if (m_PlayerIsJumping)
-	{
-		m_CurrentState = PlayerState::Jumping;
-	}
-	else if (m_PlayerIsFalling)
-	{
-		m_CurrentState = PlayerState::Falling;
-	}
-	else if (m_PlayerRightPressed || m_PlayerLeftPressed)
-	{
-		m_CurrentState = PlayerState::Walking;
-	}
-	else
-	{
-		m_CurrentState = PlayerState::Standing;
-	}
-}
 
 void PlayableCharacter::UpdateJump(const float elapsedTime)
 {
