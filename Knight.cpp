@@ -93,7 +93,12 @@ bool Knight::HandleInput()
 		m_IsIdle = true;
 		m_PlayerAttacking = false;
 	}
-	
+
+	if (Keyboard::isKeyPressed(Keyboard::G))
+	{
+		m_AbilityManager.triggerAbility(0);
+	}
+
 	if (Keyboard::isKeyPressed(Keyboard::Up))
 	{
 		if (!m_PlayerIsJumping && !m_PlayerIsFalling)

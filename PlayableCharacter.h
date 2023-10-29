@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "AbilityManager.h"
 
 using namespace sf;
 
@@ -55,6 +56,10 @@ protected:
 	bool m_PlayerAttacking = false;
 
 	PlayerState m_CurrentState = PlayerState::Standing;
+
+	// Ability Manager
+	AbilityManager m_AbilityManager;
+
 
 private:
 	float m_PlayerGravity = 240;

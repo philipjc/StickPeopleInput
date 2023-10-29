@@ -2,6 +2,8 @@
 // ReSharper disable CppClangTidyClangDiagnosticDoublePromotion
 // ReSharper disable CppClangTidyClangDiagnosticImplicitFloatConversion
 #include "PlayableCharacter.h"
+
+#include "Slash.h"
 #include "TextureCache.h"
 
 constexpr float feetHeight = 1.0f;
@@ -24,6 +26,9 @@ void PlayableCharacter::Spawn(const Vector2f startPosition)
 
 	// Move the sprite in to position
 	m_PlayerSprite.setPosition(m_PlayerPosition);
+
+	// Smart pointer -> Cpp 11+ Garbage collection
+	m_AbilityManager.addAbility(std::make_unique<Slash>());
 }
 
 void PlayableCharacter::Update(const float elapsedTime)

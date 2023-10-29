@@ -25,6 +25,9 @@
     <Filter Include="Header Files\Enemy">
       <UniqueIdentifier>{4f7d8c3a-fc62-4a27-99e1-a429d01aa4fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\AbilitySystem">
+      <UniqueIdentifier>{b642825b-87ef-4671-83c7-a2981f9d7bea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -69,6 +72,15 @@
     <ClCompile Include="Skeleton.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Ability.cpp">
+      <Filter>Source Files\AbilitySystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AbilityManager.cpp">
+      <Filter>Source Files\AbilitySystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Slash.cpp">
+      <Filter>Source Files\AbilitySystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextureCache.h">
@@ -91,6 +103,15 @@
     </ClInclude>
     <ClInclude Include="Skeleton.h">
       <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ability.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AbilityManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Slash.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
