@@ -3,12 +3,13 @@
 
 Engine::Engine()
 {
+    LoadTextures();
+
     if (!InitializeWindow()) {
         std::cerr << "Failed to initialize window. Exiting." << std::endl;
         return;
     }
     
-    LoadTextures();
     CheckShaderSupport();
 }
 
@@ -69,10 +70,12 @@ bool Engine::InitializeWindow()
 
 void Engine::LoadTextures()
 {
-    m_BackgroundTexture = TextureCache::GetTexture("graphics/background.png");
+    m_BackgroundTexture = TextureCache::GetTexture("graphics/backgrounds/bg_mystic_forest.png");
     m_BackgroundSprite.setTexture(m_BackgroundTexture);
 
     m_TextureTiles = TextureCache::GetTexture("graphics/tiles_sheet.png");
+
+    // LOAD ALL TEXTURE HERE
 }
 
 void Engine::CheckShaderSupport()

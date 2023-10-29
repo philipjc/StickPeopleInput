@@ -28,7 +28,7 @@ public:
 
 	Vector2f GetEnemyStartPosition() const;
 
-	int** NextLevel(VertexArray& r_va_level);
+	int** NextLevel(VertexArray& rVaLevel);
 
 	Vector2i GetLevelSize() const;
 
