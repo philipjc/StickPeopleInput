@@ -22,6 +22,8 @@ protected:
 
 	sf::Clock m_PlayerIdleClock;
 
+	sf::Clock m_PlayerAttributeClock;
+
 	bool m_IsIdle = true;
 	int m_AnimIdleFrameCount = 0;
 
@@ -57,6 +59,8 @@ protected:
 
 	bool m_PlayerSkillActive = false;
 
+	int m_PlayerStamina = 2;
+
 	PlayerState m_CurrentState = PlayerState::Standing;
 
 	// Ability Manager
@@ -89,6 +93,7 @@ public:
 	void UpdateMoveDirection(float elapsedTime);
 	void UpdateMoveRight(float elapsedTime);
 	void UpdateGravity(float elapsedTime);
+	void UpdateAttributes(float elapsedTime);
 	void UpdateState();
 
 	// These are pure virtual function (overridden)

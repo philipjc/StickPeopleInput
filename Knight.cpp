@@ -113,11 +113,17 @@ bool Knight::HandleInput()
 	{
 
 		// Detect a single key press (in this case, the space key)
-		if (!m_gPressed) {
-			m_PlayerSkillActive = true;
+		if (!m_gPressed && m_PlayerStamina >= 2)
+		{
 
-			std::cout << "Space key pressed once!" << std::endl;
-			m_AbilityManager.triggerAbility(0);
+			m_PlayerSkillActive = true;
+			m_PlayerStamina -= 2;
+
+			std::cout << "Slash!!!" << std::endl;
+
+			std::cout << "Stamina decreased to: " << m_PlayerStamina << std::endl;
+
+			m_AbilityManager.TriggerAbility(0);
 			m_gPressed = true;
 
 		}

@@ -7,6 +7,6 @@ class AbilityManager {
 public:
 	std::vector<std::unique_ptr<Ability>> abilities;
 
-	void addAbility(std::unique_ptr<Ability> ability);
-	void triggerAbility(int index) const;
+	void AddAbility(std::unique_ptr<Ability> ability);
+	void TriggerAbility(int index) const;
 };

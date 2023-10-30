@@ -3,6 +3,8 @@
 // ReSharper disable CppClangTidyClangDiagnosticImplicitFloatConversion
 #include "PlayableCharacter.h"
 
+#include <iostream>
+
 #include "Slash.h"
 #include "TextureCache.h"
 
@@ -28,12 +30,13 @@ void PlayableCharacter::Spawn(const Vector2f startPosition)
 	m_PlayerSprite.setPosition(m_PlayerPosition);
 
 	// Smart pointer -> Cpp 11+ Garbage collection
-	m_AbilityManager.addAbility(std::make_unique<Slash>());
+	m_AbilityManager.AddAbility(std::make_unique<Slash>());
 }
 
 void PlayableCharacter::Update(const float elapsedTime)
 {
 	UpdateJump(elapsedTime);
+	UpdateAttributes(elapsedTime);
 	UpdateBody(elapsedTime);
 	UpdateGravity(elapsedTime);
 	UpdateMoveDirection(elapsedTime);
@@ -90,6 +93,17 @@ void PlayableCharacter::UpdateGravity(const float elapsedTime)
 	if (m_PlayerIsFalling)
 	{
 		m_PlayerPosition.y += m_PlayerGravity * elapsedTime;
+	}
+}
+
+void PlayableCharacter::UpdateAttributes(const float elapsedTime)
+{
+	const sf::Time elapsed = m_PlayerAttributeClock.getElapsedTime();
+
+	if (elapsed.asSeconds() >= 5.0f && m_PlayerStamina <= 8) {
+		m_PlayerStamina += 2;
+		std::cout << "Stamina increased to: " << m_PlayerStamina << std::endl;
+		m_PlayerAttributeClock.restart();
 	}
 }
 
