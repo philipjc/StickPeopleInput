@@ -55,6 +55,8 @@ protected:
 	// Is the character currently attacking
 	bool m_PlayerAttacking = false;
 
+	bool m_PlayerSkillActive = false;
+
 	PlayerState m_CurrentState = PlayerState::Standing;
 
 	// Ability Manager

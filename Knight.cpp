@@ -8,6 +8,7 @@ Knight::Knight()
 	m_IdleTexture = TextureCache::GetTexture("graphics/knight/idle.png");
 	m_WalkingTexture = TextureCache::GetTexture("graphics/knight/walk.png");
 	m_AttackingTexture = TextureCache::GetTexture("graphics/knight/attack_1.png");
+	m_AttackingSlashTexture = TextureCache::GetTexture("graphics/knight/attack_slash.png");
 
 	// Associate a texture with the sprite
 	m_PlayerSprite = Sprite();
@@ -68,6 +69,7 @@ void Knight::UpdateWalkAnimation()
 	}
 }
 
+
 void Knight::UpdateIdleAnimation()
 {
 	if (m_IsIdle && !m_PlayerAttacking)
@@ -77,6 +79,19 @@ void Knight::UpdateIdleAnimation()
 		m_PlayerSprite.setTextureRect(sf::IntRect(70, m_Bottom, 70, m_Top));
 	}
 }
+
+void Knight::UpdateSkillAnimation()
+{
+	if (m_PlayerSkillActive)
+	{
+		m_PlayerSprite.setTexture(m_AttackingSlashTexture);
+
+		// Animate attacking
+		m_PlayerSprite.setTextureRect(sf::IntRect(220, m_Bottom, 107, m_Top));
+	}
+	
+}
+
 
 bool Knight::HandleInput()
 {
@@ -96,8 +111,10 @@ bool Knight::HandleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::G))
 	{
+
 		// Detect a single key press (in this case, the space key)
 		if (!m_gPressed) {
+			m_PlayerSkillActive = true;
 
 			std::cout << "Space key pressed once!" << std::endl;
 			m_AbilityManager.triggerAbility(0);
@@ -108,6 +125,7 @@ bool Knight::HandleInput()
 	else
 	{
 		m_gPressed = false;
+		m_PlayerSkillActive = false;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::Up))
@@ -162,6 +180,8 @@ bool Knight::HandleInput()
 	UpdateAttackAnimation();
 
 	UpdateWalkAnimation();
+
+	UpdateSkillAnimation();
 
 	return m_PlayerJustJumped;
 }

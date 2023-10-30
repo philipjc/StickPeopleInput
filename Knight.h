@@ -16,9 +16,14 @@ public:
 	void UpdateIdleAnimation() override;
 	bool HandleInput() override;
 
+	void UpdateSkillAnimation();
+
+
 private:
 	const int m_IdleAnimFrames = 4;
 	const int m_WalkingFrames = 8;
 	const int m_AttackingFrames = 5;
+	const int m_AttackingSlashFrames = 4;
 
+	Texture m_AttackingSlashTexture;
 };
