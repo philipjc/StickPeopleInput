@@ -96,7 +96,18 @@ bool Knight::HandleInput()
 
 	if (Keyboard::isKeyPressed(Keyboard::G))
 	{
-		m_AbilityManager.triggerAbility(0);
+		// Detect a single key press (in this case, the space key)
+		if (!m_gPressed) {
+
+			std::cout << "Space key pressed once!" << std::endl;
+			m_AbilityManager.triggerAbility(0);
+			m_gPressed = true;
+
+		}
+	}
+	else
+	{
+		m_gPressed = false;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::Up))

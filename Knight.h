@@ -7,6 +7,9 @@ public:
 	// A constructor specific to Knight
 	Knight();
 
+	// variables
+	bool m_gPressed = false;
+
 	// The overriden input handler for Knight
 	void UpdateAttackAnimation() override;
 	void UpdateWalkAnimation() override;
