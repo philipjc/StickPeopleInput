@@ -135,6 +135,7 @@ public:
 	
 	void UpdateIdleAnimation();
 	void UpdateAttackAnimation();
+	void UpdateDefendAnimation();
 	void UpdateWalkAnimation();
 	void UpdateSkillAnimation();
 

@@ -64,6 +64,15 @@ void PlayerCharacter::UpdateWalkAnimation()
 	}
 }
 
+void PlayerCharacter::UpdateDefendAnimation()
+{
+	if (m_PlayerDefending)
+	{
+		m_PlayerSprite.setTexture(m_DefendingTexture);
+		m_PlayerSprite.setTextureRect(sf::IntRect(0, m_Bottom, 86, m_Top));
+	}
+}
+
 void PlayerCharacter::UpdateMoveLeft(const float elapsedTime)
 {
 	if (m_PlayerLeftPressed)
@@ -73,7 +82,6 @@ void PlayerCharacter::UpdateMoveLeft(const float elapsedTime)
 		// Flip the sprite
 		m_PlayerSprite.setScale(-numberOne, numberOne);
 	}
-	
 }
 
 void PlayerCharacter::UpdateMoveRight(const float elapsedTime)
@@ -87,12 +95,10 @@ void PlayerCharacter::UpdateMoveRight(const float elapsedTime)
 	}
 }
 
-
 void PlayerCharacter::UpdateIdleAnimation()
 {
 	if (m_IsIdle && !m_PlayerAttacking)
 	{
-		// Animate idle
 		m_PlayerSprite.setTexture(m_IdleTexture);
 		m_PlayerSprite.setTextureRect(sf::IntRect(70, m_Bottom, 70, m_Top));
 	}
@@ -103,11 +109,8 @@ void PlayerCharacter::UpdateSkillAnimation()
 	if (m_PlayerSkillActive)
 	{
 		m_PlayerSprite.setTexture(m_AttackingSlashTexture);
-
-		// Animate attacking
 		m_PlayerSprite.setTextureRect(sf::IntRect(220, m_Bottom, 107, m_Top));
 	}
-
 }
 
 void PlayerCharacter::Spawn(const Vector2f startPosition)
@@ -133,6 +136,7 @@ void PlayerCharacter::Update(const float elapsedTime)
 
 	UpdateIdleAnimation();
 	UpdateAttackAnimation();
+	UpdateDefendAnimation();
 	UpdateWalkAnimation();
 	UpdateSkillAnimation();
 
@@ -182,8 +186,6 @@ void PlayerCharacter::UpdateBody(float elapsedTime)
 	UpdateLeft(rect);
 }
 
-
-
 void PlayerCharacter::UpdateGravity(const float elapsedTime)
 {
 	// Apply gravity
@@ -225,7 +227,6 @@ void PlayerCharacter::UpdateJump(const float elapsedTime)
 	}
 }
 
-
 void PlayerCharacter::StopFalling(const float position)
 {
 	m_PlayerPosition.y = position - GetPosition().height;
@@ -265,6 +266,15 @@ bool PlayerCharacter::HandleInput()
 	{
 		m_IsIdle = true;
 		m_PlayerAttacking = false;
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::D))
+	{
+		m_PlayerDefending = true;
+	}
+	else
+	{
+		m_PlayerDefending = false;
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::G))
