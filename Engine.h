@@ -1,12 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureCache.h"
+#include "PlayableCharacter.h"
 #include "Knight.h"
 #include "Enemy.h"
 #include "LevelManager.h"
 #include "Skeleton.h"
 
-using namespace sf;
+using namespace sf;  // NOLINT(clang-diagnostic-header-hygiene)
 
 class Engine
 {
@@ -23,11 +24,11 @@ private:
 	// A class to manage all the levels
 	LevelManager m_Lm;
 
-	const int m_TileSize = 50;
-	const int m_VertsInQuad = 4;
+	int m_TileSize = 50;
+	int m_VertsInQuad = 4;
 
 	// The force pushing the characters down
-	const int m_Gravity = 300;
+	int m_Gravity = 300;
 
 	// A regular RenderWindow
 	RenderWindow m_Window;
