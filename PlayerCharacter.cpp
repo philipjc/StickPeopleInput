@@ -64,6 +64,29 @@ void PlayerCharacter::UpdateWalkAnimation()
 	}
 }
 
+void PlayerCharacter::UpdateMoveLeft(const float elapsedTime)
+{
+	if (m_PlayerLeftPressed)
+	{
+		m_PlayerPosition.x -= (m_playerSpeed * elapsedTime);
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width / numberTwo, numberZero);
+		// Flip the sprite
+		m_PlayerSprite.setScale(-numberOne, numberOne);
+	}
+	
+}
+
+void PlayerCharacter::UpdateMoveRight(const float elapsedTime)
+{
+	if (m_PlayerRightPressed)
+	{
+		m_PlayerPosition.x += m_playerSpeed * elapsedTime;
+		m_PlayerSprite.setOrigin(m_PlayerSprite.getGlobalBounds().width / numberTwo, numberZero);
+		// Flip the sprite
+		m_PlayerSprite.setScale(numberOne, numberOne);
+	}
+}
+
 
 void PlayerCharacter::UpdateIdleAnimation()
 {
@@ -105,6 +128,12 @@ void PlayerCharacter::Update(const float elapsedTime)
 	UpdateAttributes(elapsedTime);
 	UpdateBody(elapsedTime);
 	UpdateGravity(elapsedTime);
+	UpdateIdleAnimation();
+	UpdateAttackAnimation();
+	UpdateWalkAnimation();
+	UpdateSkillAnimation();
+	UpdateMoveLeft(elapsedTime);
+	UpdateMoveRight(elapsedTime);
 
 	m_PlayerSprite.setPosition(m_PlayerPosition);
 }
@@ -304,18 +333,6 @@ bool PlayerCharacter::HandleInput()
 			m_PlayerAttacking = false;
 		}
 	}
-
-
-	// Respond to Event State changes
-	// ===================================
-
-	UpdateIdleAnimation();
-
-	UpdateAttackAnimation();
-
-	UpdateWalkAnimation();
-
-	UpdateSkillAnimation();
 
 	return m_PlayerJustJumped;
 }

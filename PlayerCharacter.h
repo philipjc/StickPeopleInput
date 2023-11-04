@@ -118,13 +118,16 @@ public:
 
 	// Called once every frame
 	void Update(float elapsedTime);
+	void UpdateJump(float elapsedTime);
+	void UpdateBody(float elapsedTime);
+	void UpdateMoveLeft(float elapsedTime);
+	void UpdateMoveRight(float elapsedTime);
+
 	void UpdateFeet(const FloatRect& rect);
 	void UpdateHead(const FloatRect& rect);
 	void UpdateRight(const FloatRect& rect);
 	void UpdateLeft(const FloatRect& rect);
-	void UpdateJump(float elapsedTime);
-	void UpdateBody(float elapsedTime);
-
+	
 	void UpdateIdleAnimation();
 	void UpdateAttackAnimation();
 	void UpdateWalkAnimation();
@@ -134,6 +137,6 @@ public:
 
 	// variables
 	bool m_gPressed = false;
-
+	float m_playerSpeed = 250.f;
 
 };
