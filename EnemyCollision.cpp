@@ -8,7 +8,7 @@
  * \param enemy 
  * \return 
  */
-bool Engine::EnemyCollision(PlayableCharacter& player, Enemy& enemy) const
+bool Engine::EnemyCollision(PlayerCharacter& player, Enemy& enemy) const
 {
 	bool reachedGoal = false;
 	// Make a rect for all his parts

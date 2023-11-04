@@ -42,6 +42,7 @@ protected:
 	Texture m_FallingTexture;
 	Texture m_AttackingTexture;
 	Texture m_PlayerDeadTexture;
+	Texture m_AttackingSlashTexture;
 
 	// Has the player just initialized a jump
 	bool m_PlayerJustJumped = false;
@@ -57,9 +58,13 @@ protected:
 	bool m_PlayerRightPressed = false;
 
 	// Is the character currently attacking
+	int m_AttackingFrames = 5;
+
 	bool m_PlayerAttacking = false;
 
 	bool m_PlayerSkillActive = false;
+
+	int m_WalkingFrames = 8;
 
 	int m_PlayerStamina = 2;
 
@@ -119,4 +124,16 @@ public:
 	void UpdateLeft(const FloatRect& rect);
 	void UpdateJump(float elapsedTime);
 	void UpdateBody(float elapsedTime);
+
+	void UpdateIdleAnimation();
+	void UpdateAttackAnimation();
+	void UpdateWalkAnimation();
+	void UpdateSkillAnimation();
+
+	bool HandleInput();
+
+	// variables
+	bool m_gPressed = false;
+
+
 };

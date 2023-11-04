@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-bool Engine::DetectCollisions(PlayableCharacter& character) const
+bool Engine::DetectCollisions(PlayerCharacter& character) const
 {
 	bool reachedGoal = false;
 	// Make a rect for all his parts

@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "TextureCache.h"
-#include "PlayableCharacter.h"
+#include "PlayerCharacter.h"
 #include "Knight.h"
 #include "Enemy.h"
 #include "LevelManager.h"
@@ -84,8 +84,8 @@ private:
 	void LoadLevel();
 
 	// Run will call all the private functions
-	bool DetectCollisions(PlayableCharacter& character) const;
-	bool EnemyCollision(PlayableCharacter& player, Enemy& enemy) const;
+	bool DetectCollisions(PlayerCharacter& character) const;
+	bool EnemyCollision(PlayerCharacter& player, Enemy& enemy) const;
 
 public:
 	// The Engine constructor

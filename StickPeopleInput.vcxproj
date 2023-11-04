@@ -149,7 +149,6 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LoadLevel.cpp" />
-    <ClCompile Include="PlayableCharacter.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="Skeleton.cpp" />
@@ -164,7 +163,6 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="PlayableCharacter.h" />
     <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Slash.h" />
