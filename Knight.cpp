@@ -2,6 +2,7 @@
 #include "TextureCache.h"
 #include <iostream>
 
+
 Knight::Knight()
 {
 	m_IdleTexture = TextureCache::GetTexture("graphics/knight/idle.png");
@@ -13,6 +14,8 @@ Knight::Knight()
 	m_TakeDamageTexture = TextureCache::GetTexture("graphics/knight/hurt.png");
 	m_DefendingTexture = TextureCache::GetTexture("graphics/knight/protect.png");
 
+	// Associate a texture with the sprite
+	m_PlayerSprite = Sprite();
 	m_PlayerSprite.setTexture(m_IdleTexture);
 
 	m_JumpDuration = .25;

@@ -24,6 +24,8 @@ protected:
 	sf::Clock m_PlayerIdleClock;
 	sf::Clock m_PlayerAttributeClock;
 
+	PlayerState m_PlayerState = PlayerState::Falling;
+
 	bool m_IsIdle = true;
 	int m_AnimIdleFrameCount = 0;
 
@@ -32,7 +34,7 @@ protected:
 	int m_Bottom = 0;
 	int m_Right = 75;
 
-	Sprite m_PlayerSprite = Sprite();
+	Sprite m_PlayerSprite;
 
 	Texture m_IdleTexture;
 	Texture m_WalkingTexture;
@@ -62,6 +64,8 @@ protected:
 	int m_AttackingFrames = 5;
 
 	bool m_PlayerAttacking = false;
+
+	bool m_PlayerDefending = false;
 
 	bool m_PlayerSkillActive = false;
 

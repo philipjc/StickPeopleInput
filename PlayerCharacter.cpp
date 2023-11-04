@@ -128,12 +128,13 @@ void PlayerCharacter::Update(const float elapsedTime)
 	UpdateAttributes(elapsedTime);
 	UpdateBody(elapsedTime);
 	UpdateGravity(elapsedTime);
+	UpdateMoveLeft(elapsedTime);
+	UpdateMoveRight(elapsedTime);
+
 	UpdateIdleAnimation();
 	UpdateAttackAnimation();
 	UpdateWalkAnimation();
 	UpdateSkillAnimation();
-	UpdateMoveLeft(elapsedTime);
-	UpdateMoveRight(elapsedTime);
 
 	m_PlayerSprite.setPosition(m_PlayerPosition);
 }
