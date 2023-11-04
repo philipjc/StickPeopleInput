@@ -16,28 +16,22 @@ Engine::Engine()
 
 bool Engine::InitializeWindow()
 {
-    sf::Vector2f resolution;
-    try {
-        const sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
-        if (desktopMode.isValid()) {
-            resolution.x = static_cast<float>(desktopMode.width);
-            resolution.y = static_cast<float>(desktopMode.height);
-        }
-        else {
-            return false;
-        }
-    }
-    catch (const std::exception& e) {
-        std::cerr << "An exception occurred: " << e.what() << std::endl;
+    const VideoMode desktopMode = VideoMode::getDesktopMode();
+    if (!desktopMode.isValid()) {
+        std::cerr << "Desktop mode is not valid." << std::endl;
         return false;
     }
+
+    Vector2f resolution;
+    resolution.x = static_cast<float>(desktopMode.width);
+    resolution.y = static_cast<float>(desktopMode.height);
+
+    // Initialize the full screen view
+    m_MainView.setSize(resolution);
 
     m_Window.create(VideoMode(static_cast<float>(resolution.x), static_cast<float>(resolution.y)),
         "Infernal Gates",
         Style::Fullscreen);
-
-    // Initialize the full screen view
-    m_MainView.setSize(resolution);
 
     /* Two lines below used to create zoomed our screenshots for the book
     m_BGMainView.zoom(2.5);
