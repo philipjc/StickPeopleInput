@@ -22,9 +22,7 @@ class PlayerCharacter  // NOLINT(cppcoreguidelines-special-member-functions)
 protected:
 
 	sf::Clock m_PlayerIdleClock;
-
 	sf::Clock m_PlayerAttributeClock;
-
 
 	bool m_IsIdle = true;
 	int m_AnimIdleFrameCount = 0;
@@ -34,15 +32,18 @@ protected:
 	int m_Bottom = 0;
 	int m_Right = 75;
 
-	Sprite m_PlayerSprite;
+	Sprite m_PlayerSprite = Sprite();
 
 	Texture m_IdleTexture;
 	Texture m_WalkingTexture;
+	Texture m_RunningTexture;
 	Texture m_JumpingTexture;
 	Texture m_FallingTexture;
 	Texture m_AttackingTexture;
+	Texture m_DefendingTexture;
 	Texture m_PlayerDeadTexture;
 	Texture m_AttackingSlashTexture;
+	Texture m_TakeDamageTexture;
 
 	// Has the player just initialized a jump
 	bool m_PlayerJustJumped = false;
