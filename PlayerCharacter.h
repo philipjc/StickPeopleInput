@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include "AbilityManager.h"
 
@@ -16,13 +17,14 @@ enum class PlayerState
 	Falling
 };
 
-class PlayableCharacter  // NOLINT(cppcoreguidelines-special-member-functions)
+class PlayerCharacter  // NOLINT(cppcoreguidelines-special-member-functions)
 {
 protected:
 
 	sf::Clock m_PlayerIdleClock;
 
 	sf::Clock m_PlayerAttributeClock;
+
 
 	bool m_IsIdle = true;
 	int m_AnimIdleFrameCount = 0;
@@ -66,11 +68,8 @@ protected:
 	// Ability Manager
 	AbilityManager m_AbilityManager;
 
-
 private:
 	float m_PlayerGravity = 240;
-
-	float m_KnightSpeed = 230;
 
 	Vector2f m_PlayerPosition;
 
@@ -82,25 +81,14 @@ private:
 
 	// And a texture
 	Texture m_PlayerTexture;
-	
+
 public:
 
-	// Class is abstract and cannot be instantiated
-	virtual ~PlayableCharacter() = default;
+	virtual ~PlayerCharacter() = default;
 
 	void Spawn(Vector2f startPosition);
-	void UpdateMoveLeft(float elapsedTime);
-	void UpdateMoveDirection(float elapsedTime);
-	void UpdateMoveRight(float elapsedTime);
 	void UpdateGravity(float elapsedTime);
 	void UpdateAttributes(float elapsedTime);
-	void UpdateState();
-
-	// These are pure virtual function (overridden)
-	void virtual UpdateAttackAnimation() = 0;
-	void virtual UpdateWalkAnimation() = 0;
-	void virtual UpdateIdleAnimation() = 0;
-	bool virtual HandleInput() = 0;
 
 	// Player location
 	FloatRect GetPosition() const;
@@ -110,7 +98,7 @@ public:
 	FloatRect GetHead() const;
 	FloatRect GetLeft() const;
 	FloatRect GetRight() const;
-	
+
 	// Send a copy of the sprite to main
 	Sprite GetSprite();
 

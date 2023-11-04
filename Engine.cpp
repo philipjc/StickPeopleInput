@@ -32,7 +32,7 @@ bool Engine::InitializeWindow()
     }
 
     m_Window.create(VideoMode(static_cast<float>(resolution.x), static_cast<float>(resolution.y)),
-        "Thomas was late",
+        "Infernal Gates",
         Style::Fullscreen);
 
     // Initialize the full screen view
