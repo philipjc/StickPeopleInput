@@ -95,7 +95,7 @@ public:
 
 	void LoadTextures();
 
-	void CheckShaderSupport();
+	bool CheckShaderSupport();
 
 	// Run will call all the private functions
 	void Run();

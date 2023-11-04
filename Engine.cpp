@@ -3,14 +3,15 @@
 
 Engine::Engine()
 {
-    LoadTextures();
 
-    if (!InitializeWindow()) {
+    if (!CheckShaderSupport()) {
         std::cerr << "Failed to initialize window. Exiting." << std::endl;
         return;
     }
-    
-    CheckShaderSupport();
+
+	InitializeWindow();
+    LoadTextures();
+
 }
 
 bool Engine::InitializeWindow()
@@ -78,11 +79,13 @@ void Engine::LoadTextures()
     // LOAD ALL TEXTURE HERE
 }
 
-void Engine::CheckShaderSupport()
+bool Engine::CheckShaderSupport()
 {
     if (!sf::Shader::isAvailable()) {
         m_Window.close();
+        return false;
     }
+    return true;
 }
 
 void Engine::Run()
